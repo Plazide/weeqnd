@@ -1,0 +1,17 @@
+.button{
+	display: inline-block;
+	font-size: 1.2rem;
+	border-radius: 4px;
+	cursor: pointer;
+	padding: 1.4rem 2.2rem;
+}
+
+/* Filled */
+.button.filled{
+	background: var(--alt);
+	color: var(--primary);
+	box-shadow: 0 4px 10px var(--shadow);
+}
+.button.filled:hover{
+	box-shadow: 0 8px 14px var(--shadow);
+}

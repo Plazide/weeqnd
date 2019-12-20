@@ -1,0 +1,6 @@
+{
+	"extends": [
+		"plazide",
+		"plugin:react/recommended"
+	]
+}
