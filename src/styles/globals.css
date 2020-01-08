@@ -5,6 +5,7 @@
 	--text: #D8D8D8;
 	--alt: #22A59C;
 	--shadow: #0b1d2e4a;
+	--darkShadow: #0b1d2e7a;
 
 	--contentWidth: 90%;
 }
@@ -24,4 +25,17 @@ html, body{
 
 	font-family: "Lato", Verdana, sans-serif;
 	background: var(--primary);
+	color: var(--text);
+}
+h1, h2, h3, h4, h5, h6{
+	font-family: "Poppins", Verdana, sans-serif;
+	color: var(--text);
+	text-shadow: 0 5px 10px var(--darkShadow);
+}
+p{
+	font-size: 1.1rem;
+}
+section .content{
+	width: var(--contentWidth);
+	margin: auto;
 }

@@ -1,15 +1,79 @@
-import React from "react";
-import { Link } from "gatsby";
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { graphql } from "gatsby";
 
 import Layout from "../components/layout";
-import Image from "../components/image";
 import SEO from "../components/seo";
+import BackgroundImage from "gatsby-background-image";
 
-const IndexPage = () => (
-	<Layout>
-		<SEO title="Home" />
+// Util
+import Spotify from "../js/spotify";
 
-	</Layout>
-);
+// Components
+import LinkButton from "../components/LinkButton";
+
+// Css
+import "../styles/start.css";
+
+const spotify = new Spotify({
+	clientId: "1efbe433315c45d48112a3dbcf2dd4fc",
+	responseType: "code",
+	scopes: [],
+	redirectURI: ""
+});
+
+const IndexPage = ({ data }) => {
+	return(
+		<Layout>
+			<SEO
+				title="Förenklad festmusik"
+				description="Låt gästerna köa musik från sina egna telefoner under hemmafesten."
+			/>
+			<BackgroundImage
+				Tag="section"
+				className="hero"
+				fluid={data.mobile.childImageSharp.fluid}
+				fadeIn={false}
+				loading="eager"
+			>
+				<div className="content">
+					<h1>Dina hemmafester blev precis lite roligare</h1>
+					<p>Med SpotiFest kan alla vara med och bestämma musik. Låt dina gäster vara med och bestämma musik genom sina egna telefoner.</p>
+					<div className="buttons">
+						<LinkButton
+							variant="filled"
+							to={spotify.getLoginUrl("http://localhost:8000/create", ["playlist-read-private", "streaming", "user-modify-playback-state"])}
+							external={true}>
+							Skapa en fest
+						</LinkButton>
+
+						<LinkButton
+							variant="outlined"
+							to={spotify.getLoginUrl("http://localhost:8000/join", [])}
+							external={true}>
+							Gå med i fest
+						</LinkButton>
+					</div>
+				</div>
+			</BackgroundImage>
+		</Layout>
+	);
+};
+
+export const pageQuery = graphql`
+	query {
+		mobile: file(relativePath: { eq: "backgrounds/start_mobile.jpg" }) {
+			childImageSharp {
+				fluid (quality: 90, maxWidth: 600){
+					...GatsbyImageSharpFluid
+				}
+			}
+		}
+	}
+`;
 
 export default IndexPage;
+
+IndexPage.propTypes = {
+	data: PropTypes.object
+};

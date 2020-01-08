@@ -1,14 +1,15 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "spotifest",
   "private": true,
   "description": "A simple starter to get up and developing quickly with Gatsby",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "CHJ Webblösningar",
   "dependencies": {
     "eslint": "^6.7.2",
     "eslint-config-plazide": "^0.1.4",
     "eslint-plugin-react": "^7.17.0",
     "gatsby": "^2.18.12",
+    "gatsby-background-image": "^0.9.12",
     "gatsby-image": "^2.2.34",
     "gatsby-plugin-manifest": "^2.2.31",
     "gatsby-plugin-offline": "^3.0.27",
@@ -23,15 +24,13 @@
     "react-dom": "^16.12.0",
     "react-helmet": "^5.2.1"
   },
-  "devDependencies": {
-    "prettier": "^1.19.1"
-  },
+  "devDependencies": {},
   "keywords": [
     "gatsby"
   ],
   "license": "MIT",
   "scripts": {
-    "deploy": "gatsby-plugin-s3 deploy",
+    "deploy": "npm run build && gatsby-plugin-s3 deploy && cd service && serverless deploy",
     "build": "gatsby build",
     "dev": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",

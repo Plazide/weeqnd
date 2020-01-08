@@ -4,6 +4,9 @@
 	border-radius: 4px;
 	cursor: pointer;
 	padding: 1.4rem 2.2rem;
+
+	text-transform: uppercase;
+	text-decoration: none;
 }
 
 /* Filled */
@@ -14,4 +17,11 @@
 }
 .button.filled:hover{
 	box-shadow: 0 8px 14px var(--shadow);
+}
+
+/* Outlined */
+.button.outlined{
+	background: transparent;
+	color: var(--alt);
+	border: 1px solid var(--alt);
 }

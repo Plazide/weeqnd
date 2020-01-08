@@ -5,13 +5,16 @@ import { Link } from "gatsby";
 // css
 import "./styles/buttons.css";
 
-const LinkButton = ({ to, variant, children }) => (
-	<Link to={to} className={`button ${variant}`}>{children}</Link>
+const LinkButton = ({ to, variant, children, external }) => (
+	external
+		? <a href={to} className={`button ${variant}`}>{children}</a>
+		: <Link to={to} className={`button ${variant}`}>{children}</Link>
 );
 
 LinkButton.propTypes = {
 	to: PropTypes.string,
 	variant: PropTypes.string,
+	external: PropTypes.bool,
 	children: PropTypes.node
 };
 
