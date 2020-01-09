@@ -4,3 +4,8 @@ jspm_packages
 
 # Serverless directories
 .serverless
+
+# Mock files
+context.json
+event.json
+event_sources.json

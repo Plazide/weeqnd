@@ -30,4 +30,11 @@ functions:
       - http:
          path: functions/hello
          method: get
+  create:
+    description: Create a party 
+    handler: handler.create
+    events: 
+      - http:
+          path: party/create
+          method: post
       

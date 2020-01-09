@@ -42,7 +42,7 @@ const IndexPage = ({ data }) => {
 					<div className="buttons">
 						<LinkButton
 							variant="filled"
-							to={spotify.getLoginUrl("http://localhost:8000/create", ["playlist-read-private", "streaming", "user-modify-playback-state"])}
+							to={spotify.getLoginUrl("http://localhost:8000/api/auth", ["playlist-read-private", "streaming", "user-modify-playback-state"])}
 							external={true}>
 							Skapa en fest
 						</LinkButton>

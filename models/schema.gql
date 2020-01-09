@@ -1,0 +1,10 @@
+type Party {
+	owner: String!
+	code: ID!
+	playlist: [String]
+	users: [String]
+}
+
+type Query {
+	party(code: ID!): Party
+}
