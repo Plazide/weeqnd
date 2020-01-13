@@ -3,9 +3,9 @@ require("dotenv").config();
 async function create (event, context){
 	return{
 		statusCode: 200,
-		body: {
+		body: JSON.stringify({
 			message: "Created!"
-		}
+		})
 	};
 }
 

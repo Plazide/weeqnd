@@ -11,10 +11,7 @@
 #
 # Happy Coding!
 
-service: spotifest
-
-app: spotifest
-org: chjweb
+service: spotifest-service
 
 provider:
   name: aws
@@ -37,4 +34,11 @@ functions:
       - http:
           path: party/create
           method: post
+  auth:
+    description: Authenticate with Spotify
+    handler: handler.auth
+    events: 
+      - http:
+          path: spotify/auth
+          method: get
       
