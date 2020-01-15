@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 import Layout from "../components/layout";
@@ -7,7 +7,7 @@ import Button from "../components/Button";
 import Radio from "../components/Radio";
 
 // Util
-import { getQueryParams, calcDuration } from "../js/util";
+import { getQueryParams } from "../js/util";
 import spotify from "../js/spotify";
 
 // Css
