@@ -1,0 +1,53 @@
+.info{
+	display: inline-flex;
+	position: relative;
+	
+	margin-left: 1rem;
+	align-items: center;
+}
+.info .icon{
+	display: block;
+	text-align: center;
+	width: 32px;
+	height: 32px;
+	font-size: 1.2rem;
+	font-family: "Lato", Verdana, sans-serif;
+	color: var(--text);
+	background: var(--secondary);
+	border-radius: 50%;
+	font-weight: 600;
+
+	cursor: default;
+}
+.info .text{
+	display: none;
+	align-items: center;
+	max-width: 200px;
+	min-width: 150px;
+	position: absolute;
+	
+	margin-left: 55px;
+
+	padding: .6rem 1rem;
+	font-size: .9rem;
+	font-weight: 200;
+	border-radius: 4px;
+	background: var(--secondary);
+	box-shadow: 0 3px 6px var(--shadow);
+}
+.info .text::before{
+	position: absolute;
+	content: "";
+	width: 22px;
+	height: 22px;
+
+	background: var(--secondary);
+	margin-left: -25px;
+	transform: rotate(45deg);
+}
+
+.info .icon:hover ~ .text,
+.info .icon:active ~ .text,
+.info .icon:focus ~ .text{
+	display: flex;
+}
