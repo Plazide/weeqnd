@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
+// Layout
 import Layout from "../components/layout";
 import SEO from "../components/seo";
+
+// Components
 import Button from "../components/Button";
 import Radio from "../components/Radio";
+import Info from "../components/Info";
 
 // Util
 import { getQueryParams } from "../js/util";
@@ -65,7 +69,8 @@ const Create = () => {
 				<div className="content">
 					<h1>Skapa en fest</h1>
 					<div className="select-playlist">
-						<h2>Nödlista</h2>
+						<h2>Nödlista <Info>Listan som kommer att spelas om kön är tom.</Info></h2>
+
 						<div className="songs">
 							{playlists.map( (playlist) => {
 								return(
