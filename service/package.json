@@ -9,8 +9,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "apollo-boost": "^0.4.7",
     "dotenv": "^8.2.0",
+    "graphql": "^14.5.8",
+    "graphql-tag": "^2.10.1",
+    "node-fetch": "^2.6.0",
     "request": "^2.88.0",
-    "request-promise-native": "^1.0.8"
+    "request-promise-native": "^1.0.8",
+    "spotify-web-api-node": "^4.0.0",
+    "superagent": "^5.2.1"
   }
 }
