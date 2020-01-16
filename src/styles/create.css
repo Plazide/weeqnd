@@ -40,7 +40,19 @@ section.hero .content .select-playlist .songs{
 	font-size: .9rem;
 	margin-top: .2rem;
 }
+section.hero .content .select-playlist .error{
+	display: none;
+	border: 1px solid var(--error);
+	margin-top: 15px;
+	padding: .5rem 1rem;
+	text-align: center;
 
-section.hero .content .button{
+	border-radius: 5px;
+}
+section.hero .content .select-playlist .error.show{
+	display: block;
+}
+section.hero .content .select-playlist .button{
 	margin-top: 4rem;
+	width: 100%;
 }
