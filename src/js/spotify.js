@@ -13,8 +13,6 @@ export class Spotify{
 	setAccessToken (token){
 		this.accessToken = token;
 
-		console.log(token);
-
 		window.localStorage.setItem("access_token", token);
 	}
 
@@ -25,7 +23,7 @@ export class Spotify{
 	}
 
 	async isAuthenticated (){
-		if(!this.accessToken) return false;
+		if(!this.accessToken || this.accessToken === "undefined") return false;
 
 		const user = await this.getCurrentUser(true);
 		if(!user.ok) return false;
