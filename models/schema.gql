@@ -1,10 +1,14 @@
 type Party {
 	owner: String!
-	code: ID!
+	code: Int!
 	playlist: [String]
+	fallbackPlaylist: String!
 	users: [String]
+	accessToken: String!
+	refreshToken: String!
 }
 
 type Query {
-	party(code: ID!): Party
+	findPartyByOwner(owner: String): Party
+	findPartyByCode(code: Int): Party
 }
