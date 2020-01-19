@@ -17,6 +17,23 @@ async function checkUser (username){
 	else return false;
 }
 
+async function getParty (code){
+	const partyQuery = gql`
+	query {
+		findPartyByCode(code: ${code}){
+			owner
+			playlist
+			users
+			accessToken
+			users
+		}
+	}
+	`;
+
+	const result = await client.query({ query: partyQuery });
+	return result.data.findPartyByCode;
+}
+
 async function createParty ({ username, playlist, accessToken, refreshToken, code }){
 	const createParty = gql`
 	mutation {
@@ -41,5 +58,6 @@ async function createParty ({ username, playlist, accessToken, refreshToken, cod
 
 module.exports = {
 	checkUser,
-	createParty
+	createParty,
+	getParty
 };
