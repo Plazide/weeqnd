@@ -30,7 +30,7 @@ async function create (event, context){
 			};
 
 		// Check if the current user already has a party.
-		const usernameExists = checkUser(username);
+		const usernameExists = await checkUser(username);
 		if(usernameExists)
 			return{
 				statusCode: 409,
