@@ -88,7 +88,11 @@ const Create = () => {
 		const response = await fetch(endpoint, options);
 
 		if(response.ok){
-			// Redirect to Party Page
+			const result = await response.json();
+			const code = result.data.code;
+
+			window.localStorage.setItem("partyCode", code);
+			navigate("/party");
 		}
 	};
 
