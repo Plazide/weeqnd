@@ -1,0 +1,16 @@
+.tabs{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+}
+.tabs .tab{
+	box-sizing: border-box;
+	color: var(--text);
+	width: 50%;
+	font-size: 1rem;
+	padding: .7rem;
+	background: var(--secondary);
+}
+.tabs .tab.selected{
+	background: transparent;
+}
