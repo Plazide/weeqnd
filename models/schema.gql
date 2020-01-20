@@ -9,6 +9,8 @@ type Party {
 }
 
 type Query {
-	findPartyByOwner(owner: String): Party
-	findPartyByCode(code: Int): Party
+	findPartyByOwner(owner: String!): Party
+	findPartyByCode(code: Int!): Party
+	findPartyByOwnerAndCode(owner: String!, code: Int!): Party
+	party: Party
 }
