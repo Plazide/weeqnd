@@ -3,51 +3,36 @@ import { navigate } from "gatsby";
 import PropTypes from "prop-types";
 
 // Layout
-import Layout from "../components/layout";
-import SEO from "../components/seo";
+import Layout from "../../components/layout";
+import SEO from "../../components/seo";
 
 // Components
-import Button from "../components/Button";
-import Radio from "../components/Radio";
-import Info from "../components/Info";
+import Button from "../../components/Button";
+import Radio from "../../components/Radio";
+import Info from "../../components/Info";
 
 // Util
-import { getQueryParams } from "../js/util";
-import spotify from "../js/spotify";
+import { auth } from "../../js/util";
+import spotify from "../../js/spotify";
 
 // Css
-import "../styles/create.css";
+import "../../styles/create.css";
 
 const Create = () => {
 	const[loaded, setLoaded] = useState(false);
 	const[playlists, setPlaylists] = useState([]);
 	const[error, setError] = useState(null);
 
+	async function authenticate (){
+		const authed = await auth();
+
+		if(authed) setLoaded(true);
+	}
+
+	if(!loaded)
+		authenticate();
+
 	useEffect( () => {
-		async function auth (){
-			const authed = await spotify.isAuthenticated();
-			if(authed) return setLoaded(true);
-
-			const code = getQueryParams().code;
-			const response = await fetch("/api/auth", {
-				method: "POST",
-				body: JSON.stringify({ code }),
-				headers: {
-					"Content-Type": "application/json"
-				}
-			});
-
-			if(response.ok){
-				const result = await response.json();
-				if(result.error)
-					navigate("/");
-
-				spotify.setAccessToken(result.access_token);
-				spotify.setRefreshToken(result.refresh_token);
-				setLoaded(true);
-			}
-		}
-
 		async function getPlaylists (){
 			const result = await spotify.getUsersPlaylists();
 			const items = result.items;
@@ -55,9 +40,6 @@ const Create = () => {
 			if(items)
 				setPlaylists(items);
 		}
-
-		if(!loaded)
-			auth();
 
 		if(loaded && playlists.length === 0)
 			getPlaylists();
@@ -105,7 +87,7 @@ const Create = () => {
 			<section className="hero">
 				<div className="content">
 					<h1>Skapa en fest</h1>
-					<div className="select-playlist">
+					<div className="select-playlist component">
 						<h2>Nödlista <Info>Listan som kommer att spelas om kön är tom.</Info></h2>
 
 						<form action="/api/create" onSubmit={onSubmit}>

@@ -35,14 +35,14 @@ const IndexPage = ({ data }) => {
 					<div className="buttons">
 						<LinkButton
 							variant="filled"
-							to={spotify.getLoginUrl("http://localhost:8000/create", ["playlist-read-private", "streaming", "user-modify-playback-state"])}
+							to={spotify.getLoginUrl("http://localhost:8000/party/create", ["playlist-read-private", "streaming", "user-modify-playback-state"])}
 							external={true}>
 							Skapa en fest
 						</LinkButton>
 
 						<LinkButton
 							variant="outlined"
-							to={spotify.getLoginUrl("http://localhost:8000/join", [])}
+							to={spotify.getLoginUrl("http://localhost:8000/party/join", [])}
 							external={true}>
 							Gå med i fest
 						</LinkButton>

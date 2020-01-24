@@ -7,13 +7,15 @@ const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 async function auth (event, context){
 	try{
 		const code = event.body.code;
+		const uri = event.body.uri;
+		console.log(uri);
 
 		const credentials = `${clientId}:${clientSecret}`;
 		const basicAuth = Buffer.from(credentials).toString("base64");
 		const options = {
 			method: "POST",
 			uri: "https://accounts.spotify.com/api/token",
-			body: `grant_type=authorization_code&code=${code}&redirect_uri=${encodeURIComponent("http://localhost:8000/create")}`,
+			body: `grant_type=authorization_code&code=${code}&redirect_uri=${encodeURIComponent(uri)}`,
 			headers: {
 				Authorization: `Basic ${basicAuth}`,
 				"Content-Type": "application/x-www-form-urlencoded"

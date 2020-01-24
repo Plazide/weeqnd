@@ -4,13 +4,20 @@
 	flex-wrap: nowrap;
 }
 .tabs .tab{
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 	box-sizing: border-box;
 	color: var(--text);
 	width: 50%;
 	font-size: 1rem;
 	padding: .7rem;
 	background: var(--secondary);
+	cursor: pointer;
 }
 .tabs .tab.selected{
 	background: transparent;
+}
+.tabs .tab .icon{
+	margin-right: 10px;
 }

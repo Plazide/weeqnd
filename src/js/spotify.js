@@ -26,9 +26,10 @@ export class Spotify{
 		if(!this.accessToken || this.accessToken === "undefined") return false;
 
 		const user = await this.getCurrentUser(true);
-		if(!user.ok) return false;
+		console.log(user);
+		if(user.ok) return true;
 
-		return true;
+		return false;
 	}
 
 	async _post (endpoint, data){

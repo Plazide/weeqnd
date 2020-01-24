@@ -1,5 +1,6 @@
 const SpotifyWebApi = require("spotify-web-api-node");
-const{ checkUser, createParty } = require("../util/functions");
+const{ getUsersParty, createParty, updateParty } = require("../util/functions");
+const error = require("../util/error");
 
 require("dotenv").config();
 
@@ -30,14 +31,26 @@ async function create (event, context){
 			};
 
 		// Check if the current user already has a party.
-		const usernameExists = await checkUser(username);
-		if(usernameExists)
+		const usersParty = await getUsersParty(username);
+		if(usersParty){
+			console.log(usersParty);
+			const id = usersParty._id;
+
+			const updatedParty = await updateParty(id, {
+				fallbackPlaylist: playlist,
+				accessToken,
+				refreshToken
+			});
+			if(!updatedParty) return error(500, "Could not update party");
+
 			return{
-				statusCode: 409,
+				statusCode: 200,
 				body: JSON.stringify({
-					message: "Party already exists"
+					message: "User has already created a party.",
+					data: { code: usersParty.code }
 				})
 			};
+		}
 
 		// Attempt to create the party.
 		try{
@@ -52,29 +65,19 @@ async function create (event, context){
 			return{
 				statusCode: 200,
 				body: JSON.stringify({
-					message: "Created!",
+					message: "Party has been created.",
 					data: { code: party.data.createParty.code }
 				})
 			};
 		}catch(err){
 			console.error(err);
 
-			return{
-				statusCode: 500,
-				body: JSON.stringify({
-					message: "Failed to create party"
-				})
-			};
+			return error(500, "Failed to create party");
 		}
 	}catch(err){
 		console.error(err);
 
-		return{
-			statusCode: 500,
-			body: JSON.stringify({
-				message: "Internal Server Error"
-			})
-		};
+		return error(500, "Internal Server Error");
 	}
 }
 

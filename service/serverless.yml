@@ -18,6 +18,7 @@ provider:
   runtime: nodejs12.x
   stage: dev
   region: eu-north-1
+  environment: ${env:}
 
 functions:
   hello:

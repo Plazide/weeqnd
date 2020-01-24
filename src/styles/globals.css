@@ -28,9 +28,14 @@ html, body{
 	background: var(--primary);
 	color: var(--text);
 }
-h1, h2, h3, h4, h5, h6{
+h2, h3, h4, h5, h6{
 	font-family: "Poppins", Verdana, sans-serif;
 	color: var(--text);
+	text-shadow: 0 5px 10px var(--darkShadow);
+}
+h1{
+	font-family: "Poppins", Verdana, sans-serif;
+	color: var(--alt);
 	text-shadow: 0 5px 10px var(--darkShadow);
 }
 p{
@@ -39,4 +44,22 @@ p{
 section .content{
 	width: var(--contentWidth);
 	margin: auto;
+}
+
+.component{
+	text-align: left;
+	margin-top: 45px;
+}
+
+.error{
+	display: none;
+	border: 1px solid var(--error);
+	margin-top: 15px;
+	padding: .5rem 1rem;
+	text-align: center;
+
+	border-radius: 5px;
+}
+.error.show{
+	display: block;
 }
