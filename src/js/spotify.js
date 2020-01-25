@@ -63,6 +63,24 @@ export class Spotify{
 		return`${this.authEndpoint}?response_type=code&client_id=${this.clientId}${scopes ? `&scope=${scopes}` : ""}&redirect_uri=${redirectURI}`;
 	}
 
+	async refresh (){
+		const response = await fetch("/api/refresh", {
+			method: "POST",
+			body: JSON.stringify({
+				refreshToken: this.refreshToken
+			}),
+			headers: {
+				"Content-Type": "application/json"
+			}
+		});
+
+		const result = await response.json();
+
+		this.setAccessToken(result.access_token);
+		if(result.refresh_token)
+			this.setRefreshToken(result.refresh_token);
+	}
+
 	/**
 	 * Get the current user's profile.
 	 * @param {bool} full - Whether or not to return the full response object.
