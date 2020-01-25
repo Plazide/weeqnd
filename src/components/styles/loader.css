@@ -1,0 +1,19 @@
+.loader.load{
+	width: 2rem;
+	height: 2rem;
+	border: 5px solid var(--alt);
+	border-top-color: var(--secondary);
+
+	border-radius: 50%;
+
+	animation: load 700ms infinite ease; 
+}
+
+@keyframes load{
+	from{
+		transform: rotate(0deg);
+	}
+	to{
+		transform: rotate(360deg);
+	}
+}
