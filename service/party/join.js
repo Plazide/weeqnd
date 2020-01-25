@@ -13,10 +13,14 @@ async function join (event, context){
 
 	try{
 		// Get spotify username
-		const me = await spotifyApi.getMe();
+		const me = await spotifyApi.getMe().catch(err => {
+			return error(err.statusCode, err.message);
+		});
+
+		if(me.statusCode === 401)
+			return error(401, "Could not find the Spotify user!");
+
 		const username = me.body.id;
-		if(!username)
-			return error(401, "Spotify username could not be fetched. The provided access token is probably invalid.");
 
 		// Get party by code
 		const party = await getParty(code);
