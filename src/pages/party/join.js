@@ -12,6 +12,7 @@ import SEO from "../../components/seo";
 // Components
 import Info from "../../components/Info";
 import Button from "../../components/Button";
+import Loader from "../../components/Loader";
 
 // Css
 import "../../styles/join.css";
@@ -19,6 +20,8 @@ import "../../styles/join.css";
 const JoinPage = () => {
 	const[party, setParty] = useState("");
 	const[error, setError] = useState("");
+	const[loading, setLoading] = useState(false);
+	const[authTried, setAuthTried] = useState(false);
 	const input = useRef(null);
 	const query = getQueryParams();
 
@@ -28,8 +31,10 @@ const JoinPage = () => {
 		if(query && party === null)
 			setParty(query.party);
 
-		if(!spotify.accessToken || spotify.accessToken === "undefined")
+		if((!spotify.accessToken || spotify.accessToken === "undefined") && !authTried){
+			setAuthTried(true);
 			auth();
+		}
 	});
 
 	const onChange = (e) => {
@@ -49,6 +54,7 @@ const JoinPage = () => {
 
 		if(!code) return setError("Skriv i en kod");
 
+		setLoading(true);
 		const response = await fetch(action, {
 			method,
 			body: JSON.stringify({
@@ -67,8 +73,17 @@ const JoinPage = () => {
 			navigate("/party");
 		}
 
+		console.log(response.status);
+
+		if(response.status === 401){
+			await spotify.refresh();
+			setError("Det gick inte att hämta din profil från Spotify. Försök igen!");
+		}
+
 		if(response.status === 404) setError("Det verkar inte finns någon fest med den koden");
 		if(response.status === 500) setError("Något gick fel!");
+
+		setLoading(false);
 	};
 
 	return(
@@ -91,7 +106,9 @@ const JoinPage = () => {
 								className="join-input"
 							/>
 							<div className={`error ${error ? "show" : ""}`} role="alert">{error}</div>
-							<Button variant="filled">Gå med</Button>
+							<Loader load={loading} className="button-container">
+								<Button variant="filled">Gå med</Button>
+							</Loader>
 						</form>
 					</section>
 
