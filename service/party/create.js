@@ -40,7 +40,7 @@ async function create (event, context){
 				fallbackPlaylist: playlist,
 				accessToken,
 				refreshToken
-			});
+			}, ["_id"]);
 			if(!updatedParty) return error(500, "Could not update party");
 
 			return{
