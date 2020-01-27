@@ -21,13 +21,7 @@ provider:
   environment: ${env:}
 
 functions:
-  hello:
-    description: Say hello
-    handler: handler.hello
-    events:
-      - http:
-         path: functions/hello
-         method: get
+  # party functions
   create:
     description: Create a party 
     handler: handler.create
@@ -35,6 +29,22 @@ functions:
       - http:
           path: party/create
           method: post
+  join:
+    description: Join a party
+    handler: handler.join
+    events: 
+      - http:
+          path: party/join
+          method: post
+  get: 
+    description: Get a party
+    handler: handler.get
+    events: 
+      - http: 
+          path: party/get
+          method: get
+  
+  # Spotify functions
   auth:
     description: Authenticate with Spotify
     handler: handler.auth
@@ -42,4 +52,11 @@ functions:
       - http:
           path: spotify/auth
           method: get
+  refresh: 
+    description: Refresh spotify access token
+    handler: handler.refresh
+    events: 
+      - http:
+          path: spotify/refresh
+          method: post
       
