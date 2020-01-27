@@ -1,7 +1,6 @@
 const express = require("express");
 const mockEvent = require("../service/event.json");
 const mockContext = require("../service/context.json");
-const handler = require("../service/handler");
 const emulate = require("./emulate");
 const bodyParser = require("body-parser");
 
@@ -16,8 +15,8 @@ app.use("/api", async (req, res) => {
 	const context = mockContext;
 
 	try{
-		const path = req.path.replace(/\/api/, "").replace(/\//, "").split("?")[0];
-		const func = handler[path];
+		const path = req.path.replace(/\/api/, "").split("?")[0];
+		const func = require("../service" + path);
 
 		if(typeof func !== "function")
 			return res.status(404).json({ message: "Not found" });
