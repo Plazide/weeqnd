@@ -45,7 +45,7 @@ export async function auth (){
 	const code = query.code;
 	const loc = window.location;
 	const uri = `${loc.protocol}//${loc.host}${loc.pathname}`;
-	const response = await fetch("/api/auth", {
+	const response = await fetch("/api/spotify/auth", {
 		method: "POST",
 		body: JSON.stringify({ code, uri }),
 		headers: {

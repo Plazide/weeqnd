@@ -64,7 +64,7 @@ export class Spotify{
 	}
 
 	async refresh (){
-		const response = await fetch("/api/refresh", {
+		const response = await fetch("/api/spotify/refresh", {
 			method: "POST",
 			body: JSON.stringify({
 				refreshToken: this.refreshToken

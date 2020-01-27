@@ -98,7 +98,7 @@ const JoinPage = () => {
 
 					<section className="enter-code component">
 						<h2>Festkod<Info>Fråga ägaren av rummet om koden</Info></h2>
-						<form action="/api/join" method="POST" className="join-form" onSubmit={onSubmit}>
+						<form action="/api/party/join" method="POST" className="join-form" onSubmit={onSubmit}>
 							<input
 								ref={input}
 								value={formatCode(party)}

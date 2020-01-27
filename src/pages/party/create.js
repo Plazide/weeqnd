@@ -99,7 +99,7 @@ const Create = () => {
 					<div className="select-playlist component">
 						<h2>Nödlista <Info>Listan som kommer att spelas om kön är tom.</Info></h2>
 
-						<form action="/api/create" onSubmit={onSubmit}>
+						<form action="/api/party/create" onSubmit={onSubmit}>
 							<div className="songs">
 								{playlists ? playlists.map( (playlist) => {
 									return(
