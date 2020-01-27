@@ -10,6 +10,7 @@ import SEO from "../../components/seo";
 import Button from "../../components/Button";
 import Radio from "../../components/Radio";
 import Info from "../../components/Info";
+import Loader from "../../components/Loader";
 
 // Util
 import { auth } from "../../js/util";
@@ -22,6 +23,7 @@ const Create = () => {
 	const[loaded, setLoaded] = useState(false);
 	const[playlists, setPlaylists] = useState([]);
 	const[error, setError] = useState(null);
+	const[loading, setLoading] = useState(false);
 
 	async function authenticate (){
 		const authed = await auth();
@@ -67,7 +69,9 @@ const Create = () => {
 			}
 		};
 
+		setLoading(true);
 		const response = await fetch(endpoint, options);
+		setLoading(false);
 
 		if(response.ok){
 			const result = await response.json();
@@ -75,6 +79,11 @@ const Create = () => {
 
 			window.localStorage.setItem("partyCode", code);
 			navigate("/party");
+		}
+
+		if(response.status === 401){
+			await spotify.refresh();
+			setError("Det gick inte att hämta din profil från Spotify");
 		}
 	};
 
@@ -104,7 +113,9 @@ const Create = () => {
 								}) : "loading...."}
 							</div>
 							<div className={`error ${error ? "show" : ""}`} role="alert">{error}</div>
-							<Button variant="filled">Skapa</Button>
+							<Loader load={loading} className="button-container">
+								<Button variant="filled">Skapa</Button>
+							</Loader>
 						</form>
 
 					</div>

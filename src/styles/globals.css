@@ -63,3 +63,8 @@ section .content{
 .error.show{
 	display: block;
 }
+
+.content .button-container{
+	display: block;
+	margin: 45px auto 0;
+}
