@@ -6,7 +6,7 @@
 	--alt: #22A59C;
 	--shadow: #0b1d2e4a;
 	--darkShadow: #0b1d2e7a;
-	--error: #AC4040;
+	--error: #E65D5D;
 
 	--contentWidth: 90%;
 }
@@ -54,6 +54,7 @@ section .content{
 .error{
 	display: none;
 	border: 1px solid var(--error);
+	color: var(--error);
 	margin-top: 15px;
 	padding: .5rem 1rem;
 	text-align: center;
