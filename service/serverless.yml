@@ -18,7 +18,10 @@ provider:
   runtime: nodejs12.x
   stage: dev
   region: eu-north-1
-  environment: ${env:}
+  environment:
+    SPOTIFY_CLIENT_ID: ${env:SPOTIFY_CLIENT_ID}
+    SPOTIFY_CLIENT_SECRET: ${env:SPOTIFY_CLIENT_SECRET}
+    FAUNADB_SECRET: ${env:FAUNADB_SECRET}
 
 functions:
   # party functions
