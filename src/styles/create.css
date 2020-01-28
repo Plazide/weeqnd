@@ -2,6 +2,9 @@ section.hero .content h1{
 	color: var(--alt);
 }
 
+.content .loading-playlists{
+	margin: 25px auto 0;
+}
 section.hero .content .select-playlist{
 	text-align: left;
 }

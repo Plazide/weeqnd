@@ -21,6 +21,7 @@ import "../../styles/create.css";
 
 const Create = () => {
 	const[loaded, setLoaded] = useState(false);
+	const[loadingPlaylists, setLoadingPlaylists] = useState(true);
 	const[playlists, setPlaylists] = useState([]);
 	const[error, setError] = useState(null);
 	const[loading, setLoading] = useState(false);
@@ -36,8 +37,10 @@ const Create = () => {
 
 	useEffect( () => {
 		async function getPlaylists (){
+			setLoadingPlaylists(true);
 			const result = await spotify.getUsersPlaylists();
 			const items = result.items;
+			setLoadingPlaylists(false);
 
 			if(items)
 				setPlaylists(items);
@@ -78,7 +81,7 @@ const Create = () => {
 			const code = result.data.code;
 
 			window.localStorage.setItem("partyCode", code);
-			navigate("/party");
+			navigate("/party#" + code);
 		}
 
 		if(response.status === 401){
@@ -98,21 +101,23 @@ const Create = () => {
 					<h1>Skapa en fest</h1>
 					<div className="select-playlist component">
 						<h2>Nödlista <Info>Listan som kommer att spelas om kön är tom.</Info></h2>
-
 						<form action="/api/party/create" onSubmit={onSubmit}>
-							<div className="songs">
-								{playlists ? playlists.map( (playlist) => {
-									return(
-										<Playlist
-											name={playlist.name}
-											total={playlist.tracks.total}
-											href={playlist.href}
-											key={playlist.name}
-										/>
-									);
-								}) : "loading...."}
-							</div>
-							<div className={`error ${error ? "show" : ""}`} role="alert">{error}</div>
+							<Loader load={loadingPlaylists} className="loading-playlists">
+								<div className="songs">
+									{playlists ? playlists.map( (playlist) => {
+										return(
+											<Playlist
+												name={playlist.name}
+												total={playlist.tracks.total}
+												href={playlist.href}
+												key={playlist.name}
+											/>
+										);
+									}) : "loading...."}
+								</div>
+								<div className={`error ${error ? "show" : ""}`} role="alert">{error}</div>
+							</Loader>
+
 							<Loader load={loading} className="button-container">
 								<Button variant="filled">Skapa</Button>
 							</Loader>
