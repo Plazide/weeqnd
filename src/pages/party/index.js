@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { navigate } from "gatsby";
-
-// Components
 
 // Util
-import { getQueryParams } from "../../js/util";
 import spotify from "../../js/spotify";
 
 // Layout
@@ -21,10 +17,12 @@ import SettingsIcon from "../../images/icons/settings.svg";
 import "../../styles/party.css";
 
 const PartyPage = () => {
+	const loc = window ? window.location : null;
+
 	const[isOwner, setIsOwner] = useState(false);
 	const[loaded, setLoaded] = useState(false);
 	const[tab, setTab] = useState("playlist");
-	const code = window ? window.location.hash.substring(1) : "";
+	const code = loc.hash.substring(1);
 
 	useEffect( () => {
 		const getParty = async () => {
@@ -36,7 +34,7 @@ const PartyPage = () => {
 
 			if(response.status === 401){
 				await spotify.refresh();
-				window.location.reload();
+				loc.reload();
 			}
 
 			const result = await response.json();
