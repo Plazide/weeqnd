@@ -2,7 +2,7 @@ import spotify from "../js/spotify";
 import { navigate } from "gatsby";
 
 export function getQueryParams (){
-	const search = window.location.search;
+	const search = typeof window !== "undefined" ? window.location.search : null;
 	if(!search)	return false;
 
 	const query = search.split("?")[1];
@@ -40,6 +40,7 @@ export function unformatCode (str){
 export async function auth (){
 	const authed = await spotify.isAuthenticated();
 	if(authed) return true;
+	if(typeof window === "undefined") return false;
 
 	const query = getQueryParams();
 	const code = query.code;

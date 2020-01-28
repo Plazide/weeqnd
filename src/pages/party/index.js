@@ -17,12 +17,10 @@ import SettingsIcon from "../../images/icons/settings.svg";
 import "../../styles/party.css";
 
 const PartyPage = () => {
-	const loc = window ? window.location : null;
-
 	const[isOwner, setIsOwner] = useState(false);
 	const[loaded, setLoaded] = useState(false);
 	const[tab, setTab] = useState("playlist");
-	const code = loc.hash.substring(1);
+	const code = typeof window !== "undefined" ? window.location.hash.substring(1) : null;
 
 	useEffect( () => {
 		const getParty = async () => {
@@ -34,7 +32,9 @@ const PartyPage = () => {
 
 			if(response.status === 401){
 				await spotify.refresh();
-				loc.reload();
+
+				if(typeof window !== "undefined")
+					window.location.reload();
 			}
 
 			const result = await response.json();

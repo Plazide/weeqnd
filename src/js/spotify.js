@@ -1,25 +1,28 @@
 export class Spotify{
 	constructor ({ clientId, responseType, scopes, redirectURI }){
+		console.log(clientId);
 		this.clientId = clientId;
 		this.responseType = responseType;
 		this.scopes = scopes;
 		this.redirectURI = redirectURI;
 
 		this.authEndpoint = "https://accounts.spotify.com/authorize";
-		this.accessToken = window.localStorage.getItem("access_token");
-		this.refreshToken = window.localStorage.getItem("refresh_token");
+		this.accessToken = typeof window !== "undefined" ? window.localStorage.getItem("access_token") : null;
+		this.refreshToken = typeof window !== "undefined" ? window.localStorage.getItem("refresh_token") : null;
 	}
 
 	setAccessToken (token){
 		this.accessToken = token;
 
-		window.localStorage.setItem("access_token", token);
+		if(typeof window !== "undefined")
+			window.localStorage.setItem("access_token", token);
 	}
 
 	setRefreshToken (token){
 		this.refreshToken = token;
 
-		window.localStorage.setItem("refresh_token", token);
+		if(typeof window !== "undefined")
+			window.localStorage.setItem("refresh_token", token);
 	}
 
 	async isAuthenticated (){
@@ -120,7 +123,7 @@ export class Spotify{
 }
 
 const spotify = new Spotify({
-	clientId: "1efbe433315c45d48112a3dbcf2dd4fc"
+	clientId: process.env.SPOTIFY_CLIENT_ID
 });
 
 export default spotify;
