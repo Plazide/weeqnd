@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { navigate } from "gatsby";
 
+// Components
+
 // Util
 import { getQueryParams } from "../../js/util";
 import spotify from "../../js/spotify";
@@ -8,6 +10,8 @@ import spotify from "../../js/spotify";
 // Layout
 import Layout from "../../components/layout";
 import SEO from "../../components/seo";
+import Playlist from "../../components/Playlist";
+import Settings from "../../components/Settings";
 
 // Icons
 import PlaylistIcon from "../../images/icons/playlist-tab.svg";
@@ -18,23 +22,31 @@ import "../../styles/party.css";
 
 const PartyPage = () => {
 	const[isOwner, setIsOwner] = useState(false);
-	const query = getQueryParams();
+	const[loaded, setLoaded] = useState(false);
+	const[tab, setTab] = useState("playlist");
+	const code = window ? window.location.hash.substring(1) : "";
 
-	/* async function join (){
-		const accessToken = spotify.accessToken;
-		const code = window.localStorage.getItem("partyCode");
-		const response = await fetch(`/api/join?code=${code}`, {
-			method: "GET",
-			headers: {
-				"x-access-token": accessToken
+	useEffect( () => {
+		const getParty = async () => {
+			const response = await fetch("/api/party/get?code=" + code, {
+				headers: {
+					"x-access-token": spotify.accessToken
+				}
+			});
+
+			if(response.status === 401){
+				await spotify.refresh();
+				window.location.reload();
 			}
-		});
 
-		const result = await response.json();
-		setIsOwner(result.data.isOwner);
-	}
+			const result = await response.json();
+			setIsOwner(result.isOwner);
+			setLoaded(true);
+		};
 
-	join(); */
+		if(!loaded)
+			getParty();
+	});
 
 	return(
 		<Layout>
@@ -45,14 +57,25 @@ const PartyPage = () => {
 			<>
 				{isOwner ? (
 					<div className="tabs">
-						<button className="tab selected"><PlaylistIcon className="icon" />Spellista</button>
-						<button className="tab"><SettingsIcon className="icon" />Inställningar</button>
+						<button
+							onClick={ () => setTab("playlist")}
+							className={`tab ${tab === "playlist" ? "selected" : ""}`}>
+							<PlaylistIcon className="icon" />
+							Spellista
+						</button>
+						<button
+							onClick={ () => setTab("settings")}
+							className={`tab ${tab === "settings" ? "selected" : ""}`}>
+							<SettingsIcon className="icon" />
+							Inställningar
+						</button>
 					</div>
-				) : ""
-				}
-
+				) : ""}
 				<div className="content">
-
+					<div className="views">
+						<Playlist display={tab} />
+						<Settings display={tab} />
+					</div>
 				</div>
 			</>
 		</Layout>
