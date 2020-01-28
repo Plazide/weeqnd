@@ -128,9 +128,15 @@ async function getParty (code){
 		findPartyByCode(code: ${code}){
 			owner
 			playlist
+			fallbackPlaylist
 			accessToken
 			code
 			_id
+			users {
+				data {
+					name
+				}
+			}
 		}
 	}
 	`;
