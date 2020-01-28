@@ -33,16 +33,21 @@
     "eslint-config-plazide": "^0.1.4",
     "eslint-plugin-react": "^7.18.0",
     "express": "^4.17.1",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "npm-run-all": "^4.1.5"
   },
   "keywords": [
     "gatsby"
   ],
   "license": "MIT",
   "scripts": {
-    "deploy": "npm run build && gatsby-plugin-s3 deploy && cd service && serverless deploy",
+    "deploy": "npm-run-all deploy:*",
+    "deploy:site": "git push",
+	"deploy:lambda": "cd service && serverless deploy",
+	"dev": "run-p dev:*",
+	"dev:server": "gatsby develop",
+	"dev:lambda": "nodemon lambda/index.js",
     "build": "gatsby build",
-    "dev": "concurrently \"gatsby develop\" \"nodemon lambda/index.js\"",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run dev",
     "serve": "gatsby serve",
