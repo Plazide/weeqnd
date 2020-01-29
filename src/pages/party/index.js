@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { navigate } from "gatsby";
 
 // Util
 import spotify from "../../js/spotify";
@@ -24,6 +25,8 @@ const PartyPage = () => {
 
 	useEffect( () => {
 		const getParty = async () => {
+			if(!code) navigate("/");
+
 			const response = await fetch("/api/party/get?code=" + code, {
 				headers: {
 					"x-access-token": spotify.accessToken
