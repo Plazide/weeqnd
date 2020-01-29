@@ -8,35 +8,46 @@ async function get (event, context){
 
 	if(!accessToken) return error(400, "No x-access-token header provided");
 
-	const spotifyApi = new SpotifyWebApi({ accessToken });
-	const me = await spotifyApi.getMe().catch(err => {
-		return error(err.statusCode, err.message);
-	});
+	try{
+		const spotifyApi = new SpotifyWebApi({ accessToken });
+		const me = await spotifyApi.getMe().catch(err => {
+			return error(err.statusCode, err.message);
+		});
 
-	if(me.statusCode === 401)
-		return error(401, "Could not spotify user.");
+		if(me.statusCode === 401)
+			return error(401, "Could not spotify user.");
 
-	const username = me.body.id;
+		const username = me.body.id;
 
-	const party = await getParty(code);
-	const isOwner = party.owner === username;
+		const party = await getParty(code);
+		const isOwner = party.owner === username;
 
-	const secretInfo = {};
+		const secretInfo = {};
 
-	if(isOwner){
-		secretInfo.users = party.users.data;
-		secretInfo.fallbackPlaylist = party.fallbackPlaylist;
+		if(isOwner){
+			secretInfo.users = party.users.data;
+			secretInfo.fallbackPlaylist = party.fallbackPlaylist;
+		}
+
+		return{
+			statusCode: 200,
+			body: JSON.stringify({
+				isOwner,
+				owner: party.owner,
+				playlist: party.playlist,
+				...secretInfo
+			})
+		};
+	}catch(err){
+		console.error(err);
+
+		return{
+			statusCode: 500,
+			body: JSON.stringify({
+				message: "Internal Server Error"
+			})
+		};
 	}
-
-	return{
-		statusCode: 200,
-		body: JSON.stringify({
-			isOwner,
-			owner: party.owner,
-			playlist: party.playlist,
-			...secretInfo
-		})
-	};
 }
 
 module.exports = get;
