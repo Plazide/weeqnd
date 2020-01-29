@@ -1,6 +1,5 @@
 export class Spotify{
 	constructor ({ clientId, responseType, scopes, redirectURI }){
-		console.log(clientId);
 		this.clientId = clientId;
 		this.responseType = responseType;
 		this.scopes = scopes;
