@@ -70,7 +70,7 @@ const JoinPage = () => {
 			const result = await response.json();
 			const providedCode = result.data.code;
 			window.localStorage.setItem("partyCode", providedCode);
-			navigate("/party");
+			navigate("/party#" + code);
 		}
 
 		console.log(response.status);
