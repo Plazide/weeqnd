@@ -4,7 +4,7 @@ const mockContext = require("../service/context.json");
 const emulate = require("./emulate");
 const bodyParser = require("body-parser");
 
-require("dotenv").config({ path: ".env.development" });
+require("dotenv").config();
 
 const PORT = 8001;
 const app = express();
