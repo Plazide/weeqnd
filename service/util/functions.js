@@ -47,8 +47,6 @@ async function db ({ type, returns, name, data, args }){
 			${returnString}
 		}
 	}`;
-
-	console.log(query);
 	const result = await client[action]({ [type]: query });
 	return result.data[name];
 }
@@ -123,6 +121,8 @@ async function updateParty (_id, updates, returns){
 }
 
 async function getParty (code){
+	if(!code) return null;
+
 	const partyQuery = gql`
 	query {
 		findPartyByCode(code: ${code}){
