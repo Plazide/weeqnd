@@ -8,6 +8,9 @@ export class Spotify{
 		this.authEndpoint = "https://accounts.spotify.com/authorize";
 		this.accessToken = typeof window !== "undefined" ? window.localStorage.getItem("access_token") : null;
 		this.refreshToken = typeof window !== "undefined" ? window.localStorage.getItem("refresh_token") : null;
+
+		this.cached = typeof window !== "undefined"
+			? JSON.parse(window.localStorage.getItem("cached_requests")) : [];
 	}
 
 	setAccessToken (token){
@@ -103,6 +106,29 @@ export class Spotify{
 	 */
 	async getUsersPlaylists (full){
 		const endpoint = "https://api.spotify.com/v1/me/playlists";
+		const response = await this._get(endpoint);
+
+		if(full)
+			return response;
+
+		return response.json();
+	}
+
+	/**
+	 * Get the current user's top tracks.
+	 * @param {object} [options] - Options for the request
+	 * @param {bool} [options.full] - Whether or not to return the full response or not.
+	 * @param {number} [options.limit] - The amount of results to return. Min: 1, Max: 50, Default: 20
+	 * @param {number} [options.offset] - The index of the first item to return. Default: 0
+	 * @param {string} [options.timeRange] - The time range of top tracks. Possbile values: long_term, medium_term, and short_term. Default: medium_term
+	 */
+	async getTopTracks ({ full = false, limit, offset, timeRange }){
+		let endpoint = "https://api.spotify.com/v1/me/top/tracks?";
+
+		endpoint += (typeof limit === "number" ? `limit=${limit}&` : "");
+		endpoint += (typeof offset === "number" ? `offset=${offset}&` : "");
+		endpoint += (typeof timeRange === "string" ? `time_range=${timeRange}` : "");
+
 		const response = await this._get(endpoint);
 
 		if(full)
