@@ -29,8 +29,8 @@ const socket = new Socket({
 socket.start();
 
 const PartyPage = () => {
-	const[isOwner, setIsOwner] = useState(false);
 	const[loaded, setLoaded] = useState(false);
+	const[party, setParty] = useState({});
 	const[tab, setTab] = useState("playlist");
 	const[topTracks, setTopTracks] = useState([]);
 	const[code] = useState(typeof window !== "undefined" ? window.location.hash.substring(1) : null);
@@ -59,7 +59,7 @@ const PartyPage = () => {
 				const partyResult = partyResponse.json();
 				const[party, topTracksResult] = await Promise.all([partyResult, topTracksRequest]);
 
-				setIsOwner(party.isOwner);
+				setParty(party);
 				setTopTracks(topTracksResult.items);
 				setLoaded(true);
 			}catch(err) {
@@ -98,7 +98,7 @@ const PartyPage = () => {
 				description="En fest"
 			/>
 			<Loader load={!loaded}>
-				{isOwner ? (
+				{party.isOwner ? (
 					<div className="tabs">
 						<button
 							onClick={ () => setTab("playlist")}
@@ -116,7 +116,7 @@ const PartyPage = () => {
 				) : ""}
 				<div className="content">
 					<div className="views">
-						<Playlist topTracks={topTracks} display={tab} onClick={onAddTrack} />
+						<Playlist topTracks={topTracks} playlist={party.playlist} display={tab} onClick={onAddTrack} />
 						<Settings display={tab} />
 					</div>
 				</div>

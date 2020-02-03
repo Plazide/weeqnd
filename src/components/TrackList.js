@@ -6,18 +6,19 @@ import "./styles/list.css";
 
 // Icons
 import PlaylistAdd from "../images/icons/playlist-add.svg";
+import PlaylistAdded from "../images/icons/playlist-added.svg";
 
-export default function TrackList ({ tracks, onClick }){
+export default function TrackList ({ tracks, playlist, onClick }){
 	return(
 		<ul className="list">
-			{tracks.map( track => <Track track={track} key={track.id} onClick={onClick} />)}
+			{tracks.map( track => <Track track={track} playlist={playlist} key={track.id} onClick={onClick} />)}
 		</ul>
 	);
 }
 
-const Track = ({ track, onClick }) => {
-	// eslint-disable-next-line camelcase
-	const{ name, artists, album } = track;
+const Track = ({ track, playlist, onClick }) => {
+	const{ name, artists, album, id } = track;
+	const inPlaylist = playlist.includes(id);
 	const image = album.images.reduce((prev, curr) => {
 		if(curr.width < prev.width) return curr;
 	});
@@ -27,7 +28,7 @@ const Track = ({ track, onClick }) => {
 	});
 
 	return(
-		<li onClick={ () => { onClick(track.id); }}>
+		<li>
 			<div className="column cover">
 				<img src={image.url} alt={`${album.name} cover`} />
 			</div>
@@ -39,7 +40,7 @@ const Track = ({ track, onClick }) => {
 
 			</div>
 			<div className="column add">
-				<PlaylistAdd />
+				{!inPlaylist ? <PlaylistAdd onClick={ () => { onClick(track.id); }} /> : <PlaylistAdded />}
 			</div>
 		</li>
 	);
@@ -48,10 +49,12 @@ const Track = ({ track, onClick }) => {
 TrackList.propTypes = {
 	tracks: PropTypes.array.isRequired,
 	title: PropTypes.string,
+	playlist: PropTypes.array,
 	onClick: PropTypes.func
 };
 
 Track.propTypes = {
 	track: PropTypes.object.isRequired,
+	playlist: PropTypes.array,
 	onClick: PropTypes.func
 };

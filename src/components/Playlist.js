@@ -5,13 +5,13 @@ import PropTypes from "prop-types";
 import Search from "./Search";
 import TopTracks from "./TopTracks";
 
-const Playlist = ({ display, topTracks, onClick }) => {
+const Playlist = ({ display, playlist, topTracks, onClick }) => {
 	if(display !== "playlist") return"";
 
 	return(
 		<section className="playlist view">
 			<div className="content">
-				<TopTracks tracks={topTracks} onClick={onClick} />
+				<TopTracks tracks={topTracks} playlist={playlist} onClick={onClick} />
 
 			</div>
 
@@ -22,6 +22,7 @@ const Playlist = ({ display, topTracks, onClick }) => {
 Playlist.propTypes = {
 	display: PropTypes.string,
 	topTracks: PropTypes.array,
+	playlist: PropTypes.array,
 	onClick: PropTypes.func
 };
 
