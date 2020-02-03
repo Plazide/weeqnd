@@ -2,6 +2,8 @@
 :root{
 	--primary: #0B1D2E;
 	--secondary: #193C5E;
+	--third: #0F2A44;
+	--background: #15314B;
 	--text: #D8D8D8;
 	--alt: #22A59C;
 	--shadow: #0b1d2e4a;
@@ -49,6 +51,9 @@ section .content{
 .component{
 	text-align: left;
 	margin-top: 45px;
+}
+.component h2{
+	margin-bottom: 5px;
 }
 
 .error{

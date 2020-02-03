@@ -12,7 +12,7 @@
 	width: 50%;
 	font-size: 1rem;
 	padding: .7rem;
-	background: var(--secondary);
+	background: var(--third);
 	cursor: pointer;
 }
 .tabs .tab.selected{

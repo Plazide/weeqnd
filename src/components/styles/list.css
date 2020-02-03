@@ -1,0 +1,51 @@
+ul.list{
+	padding: 0;
+	margin: 0;
+	list-style: none;
+
+	background: var(--background);
+	border-radius: 4px;
+	box-shadow: 0 3px 6px var(--shadow);
+}
+
+.list li{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: .8rem 1rem;
+
+
+	cursor: pointer;
+}
+.list li .column{
+	display: flex;
+	flex-direction: column;
+}
+.list li .column.cover{
+	margin-right: 15px;
+}
+.list li .column.cover img{
+	/* width: 42px; */
+	height: 42px;
+}
+.list li .column .name{
+	font-size: 1rem;
+	font-weight: bold;
+
+	max-width: 200px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+
+	margin-bottom: 4px;
+}
+.list li .column .meta{
+	max-width: 200px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-weight: lighter;
+	font-size: .8rem;
+}
+.list li .column.add{
+	margin-left: auto;
+}

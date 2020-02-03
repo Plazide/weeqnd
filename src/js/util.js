@@ -27,6 +27,17 @@ export function formatCode (str){
 	return letters.join("");
 };
 
+export function formatDuration (ms){
+	const durationParts = new Intl.DateTimeFormat("sv", {
+		minute: "numeric",
+		second: "numeric"
+	}).formatToParts(ms);
+
+	const duration = `${durationParts[0].value}m ${durationParts[2].value}s`;
+
+	return duration;
+}
+
 export function unformatCode (str){
 	const value = str.trim();
 	const letters = value.split("");

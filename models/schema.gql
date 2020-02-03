@@ -13,6 +13,11 @@ type User {
 	party: Party
 }
 
+type Mutation {
+	updatePlaylist( id: ID!, data: String!): Party @resolver(name: "add_to_playlist", paginated: false)
+	removeFromPlaylist( id: ID!, data: String!): Party @resolver(name: "remove_from_playlist", paginated: false)
+}
+
 type Query {
 	findPartyByOwner(owner: String!): Party
 	findPartyByCode(code: Int!): Party

@@ -8,9 +8,6 @@ export class Spotify{
 		this.authEndpoint = "https://accounts.spotify.com/authorize";
 		this.accessToken = typeof window !== "undefined" ? window.localStorage.getItem("access_token") : null;
 		this.refreshToken = typeof window !== "undefined" ? window.localStorage.getItem("refresh_token") : null;
-
-		this.cached = typeof window !== "undefined"
-			? JSON.parse(window.localStorage.getItem("cached_requests")) : [];
 	}
 
 	setAccessToken (token){

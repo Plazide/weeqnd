@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "CHJ Webblösningar",
   "dependencies": {
+    "@types/react": "^16.9.19",
     "gatsby": "^2.19.5",
     "gatsby-background-image": "^0.9.12",
     "gatsby-image": "^2.2.34",
@@ -43,10 +44,10 @@
   "scripts": {
     "deploy": "npm-run-all deploy:*",
     "deploy:site": "git push",
-	"deploy:lambda": "cd service && serverless deploy",
-	"dev": "run-p dev:*",
-	"dev:server": "gatsby develop",
-	"dev:lambda": "nodemon lambda/index.js",
+    "deploy:lambda": "cd service && serverless deploy",
+    "dev": "run-p dev:*",
+    "dev:server": "gatsby develop",
+    "dev:lambda": "nodemon lambda/index.js",
     "build": "gatsby build",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run dev",

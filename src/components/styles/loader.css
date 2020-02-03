@@ -3,6 +3,7 @@
 	height: 2rem;
 	border: 5px solid var(--alt);
 	border-top-color: var(--secondary);
+	margin: 20% auto 0;
 
 	border-radius: 50%;
 
