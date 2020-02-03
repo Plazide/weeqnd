@@ -1,5 +1,4 @@
 import io from "socket.io-client";
-import spotify from "./spotify";
 
 class Socket {
 	constructor ({ party, accessToken }){
