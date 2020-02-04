@@ -32,10 +32,6 @@ const Search = ({ playlist, onClick }) => {
 		setResults(result.tracks.items);
 	};
 
-	useEffect( () => {
-		console.log("Test");
-	});
-
 	return(
 		<div className="search">
 			<SearchInput onSearch={onSearch} />
