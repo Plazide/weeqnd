@@ -1,6 +1,7 @@
 .search-input{
-	position: relative;
-	margin: 10px 0;
+	position: sticky;
+	top: 0;
+	margin: 30px 0;
 }
 .search-input .label{
 	position: absolute;
