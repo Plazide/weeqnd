@@ -1,17 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 // Components
 import Search from "./Search";
 import TopTracks from "./TopTracks";
+import FAB from "./FAB";
+
+// icons
+import SearchIcon from "../images/icons/search-icon.svg";
 
 const Playlist = ({ display, playlist, topTracks, onClick }) => {
 	if(display !== "playlist") return"";
+	const[showSearch, setShowSearch] = useState(false);
+
+	const onShowSearch = () => {
+		setShowSearch(true);
+	};
 
 	return(
 		<section className="playlist view">
 			<div className="content">
-				<TopTracks tracks={topTracks} playlist={playlist} onClick={onClick} />
+				{ showSearch ? <Search onClick={onClick} playlist={playlist} /> : (
+					<>
+						<TopTracks tracks={topTracks} playlist={playlist} onClick={onClick} />
+						<FAB icon={<SearchIcon />} onClick={onShowSearch} />
+					</>
+				)}
 
 			</div>
 

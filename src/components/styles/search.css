@@ -1,36 +1,30 @@
-.search{
-	width: 100%;
+.search-input{
+	position: relative;
+	margin: 10px 0;
 }
-
-.search label{
-	width: 100%;
-}
-.search .icon{
-	--iconWidth: 26.235px;
-	width: var(--iconWidth);
+.search-input .label{
 	position: absolute;
-	cursor: pointer;
-	margin: -2.5rem 0 0 calc(50% - calc(var(--iconWidth) / 2));
+	top: 30%;
+	left: 15px;
 
-	transition: margin-left 150ms ease-in-out;
+	cursor: text;
 }
-.search input{
-	display: block;
-	position: static;
-	width: 100%;
-	background: var(--third);
+.search-input .icon{
+	position: absolute;
 
+	top: 25%;
+	right: 15px;
+}
+.search-input input{
 	border: none;
 	outline: none;
-
 	font-size: 1rem;
+	background: var(--background);
+
+	width: 100%;
 	padding: 1rem;
+	border-radius: 4px;
+
 	color: var(--text);
-}
-.search input:focus ~ .icon{
-	margin-left: 1rem;
-	margin-right: auto;
-}
-.search input:focus{
-	padding-left: 3rem;
+	box-shadow: 0 4px 8px var(--shadow);
 }

@@ -142,6 +142,27 @@ export class Spotify{
 
 		return response.json();
 	}
+
+	/**
+	 *
+	 * @param {object} options - Options for the search
+	 * @param {string} options.value - The search string.
+	 * @param {string} [options.type] - The type of the search (eg. playlist, track, artist, album).
+	 * @param {number} [options.limit] - The maximum amount of results to return.
+	 * @param {number} [options.offset] - The index of the first result to return.
+	 * @param {bool} full - Whether or not to return the full response object.
+	 */
+	async search ({ value = "", type = "track", limit = 20, offset = 0 }, full = false){
+		if(!value) throw new Error("no value provided for the search");
+		const endpoint = `https://api.spotify.com/v1/search?type=${type}&q=${value}&limit=${limit}&offset=${offset}`;
+
+		const response = await this._get(endpoint);
+
+		if(full)
+			return response;
+
+		return response.json();
+	}
 }
 
 const spotify = new Spotify({

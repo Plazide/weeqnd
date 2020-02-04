@@ -1,0 +1,20 @@
+.fab{
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	border: none;
+	outline: none;
+
+	cursor: pointer;
+
+	box-shadow:0 4px 8px var(--shadow); 
+	background: var(--secondary);
+	height: 70px;
+	width: 70px;
+	border-radius: 50%;
+}
