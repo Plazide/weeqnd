@@ -16,8 +16,11 @@ import "./styles/search.css";
 
 const Search = ({ playlist, onClick }) => {
 	const[results, setResults] = useState([]);
+	const[prevValue, setPrevValue] = useState(null);
 
 	const onSearch = async (value) => {
+		if(value === prevValue) return;
+
 		if(!value){
 			setResults([]);
 			return;
@@ -29,6 +32,7 @@ const Search = ({ playlist, onClick }) => {
 			limit: 10
 		}, false);
 
+		setPrevValue(value);
 		setResults(result.tracks.items);
 	};
 
