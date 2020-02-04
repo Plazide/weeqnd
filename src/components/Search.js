@@ -62,6 +62,11 @@ const SearchInput = ({ onSearch }) => {
 		setValue(value);
 	};
 
+	const onSubmit = (e) => {
+		e.preventDefault();
+		onSearch(value);
+	};
+
 	useEffect( () => {
 		if(debouncedValue)
 			onSearch(debouncedValue);
@@ -69,11 +74,13 @@ const SearchInput = ({ onSearch }) => {
 
 	return(
 		<div className="search-input">
-			<label>
-				<span className="label">{focus ? "" : "Sök på en låt..."}</span>
-				<input type="text" onChange={onChange} value={value} onFocus={onFocus} onBlur={onBlur} />
-				<SearchIcon className="icon" />
-			</label>
+			<form onSubmit={onSubmit}>
+				<label>
+					<span className="label">{focus ? "" : "Sök på en låt..."}</span>
+					<input type="text" onChange={onChange} value={value} onFocus={onFocus} onBlur={onBlur} />
+					<button><SearchIcon className="icon" /></button>
+				</label>
+			</form>
 		</div>
 	);
 };
