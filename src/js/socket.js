@@ -30,6 +30,11 @@ class Socket {
 			const type = data.type;
 			this.onSuccess(type);
 		});
+
+		this.socket.on("track_added", data => {
+			const{ trackId } = data;
+			this.onTrackAdded(trackId);
+		});
 	}
 
 	addTrack (data){

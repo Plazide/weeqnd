@@ -75,8 +75,13 @@ const PartyPage = () => {
 		setError(type);
 	};
 
-	socket.onSuccess = type => {
+	socket.onSuccess = async type => {
 		setSuccess(type);
+	};
+
+	socket.onTrackAdded = trackId => {
+		party.playlist.push(trackId);
+		setParty(party);
 	};
 
 	const onAddTrack = (trackId) => {
