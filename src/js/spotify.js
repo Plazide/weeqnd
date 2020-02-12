@@ -55,7 +55,12 @@ export class Spotify{
 		options.headers = {};
 		options.headers["Authorization"] = `Bearer ${this.accessToken}`;
 
-		return fetch(endpoint, options);
+		const response = await fetch(endpoint, options);
+
+		if(response.status === 401){
+			await this.refresh();
+			return this._request(endpoint, options);
+		}else{ return response; }
 	}
 
 	getLoginUrl (uri, scope){
@@ -157,6 +162,8 @@ export class Spotify{
 		const endpoint = `https://api.spotify.com/v1/search?type=${type}&q=${value}&limit=${limit}&offset=${offset}`;
 
 		const response = await this._get(endpoint);
+
+		console.log("Search:", response.status);
 
 		if(full)
 			return response;
