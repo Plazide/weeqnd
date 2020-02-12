@@ -38,8 +38,10 @@ const Search = ({ playlist, onClick }) => {
 
 	return(
 		<div className="search">
-			<SearchInput onSearch={onSearch} />
-			<SearchResults playlist={playlist} results={results} onClick={onClick} />
+			<div className="content">
+				<SearchInput onSearch={onSearch} />
+				<SearchResults playlist={playlist} results={results} onClick={onClick} />
+			</div>
 		</div>
 	);
 };
