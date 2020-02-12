@@ -17,10 +17,14 @@ const Playlist = ({ display, playlist, topTracks, onClick }) => {
 		setShowSearch(true);
 	};
 
+	const onHideSearch = () => {
+		setShowSearch(false);
+	};
+
 	return(
 		<section className="playlist view">
 			<div className="content">
-				{ showSearch ? <Search onClick={onClick} playlist={playlist} /> : (
+				{ showSearch ? <Search onClick={onClick} playlist={playlist} onHideSearch={onHideSearch} /> : (
 					<>
 						<TopTracks tracks={topTracks} playlist={playlist} onClick={onClick} />
 						<FAB icon={<SearchIcon />} onClick={onShowSearch} />

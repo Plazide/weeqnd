@@ -10,11 +10,12 @@ import spotify from "../js/spotify";
 
 // Icons
 import SearchIcon from "../images/icons/search-icon.svg";
+import BackArrowIcon from "../images/icons/back-arrow.svg";
 
 // Css
 import "./styles/search.css";
 
-const Search = ({ playlist, onClick }) => {
+const Search = ({ playlist, onClick, onHideSearch }) => {
 	const[results, setResults] = useState([]);
 	const[prevValue, setPrevValue] = useState(null);
 
@@ -39,6 +40,7 @@ const Search = ({ playlist, onClick }) => {
 	return(
 		<div className="search">
 			<div className="content">
+				<BackArrowIcon onClick={onHideSearch} className="back" />
 				<SearchInput onSearch={onSearch} />
 				<SearchResults playlist={playlist} results={results} onClick={onClick} />
 			</div>
@@ -103,7 +105,8 @@ export default Search;
 
 Search.propTypes = {
 	playlist: PropTypes.array.isRequired,
-	onClick: PropTypes.func.isRequired
+	onClick: PropTypes.func.isRequired,
+	onHideSearch: PropTypes.func
 };
 
 SearchInput.propTypes = {
