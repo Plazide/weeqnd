@@ -36,6 +36,7 @@ const PartyPage = () => {
 	const[code] = useState(typeof window !== "undefined" ? window.location.hash.substring(1) : null);
 	const[error, setError] = useState("");
 	const[success, setSuccess] = useState("");
+	const[addingTrack, setAddingTrack] = useState("");
 
 	useEffect( () => {
 		const initParty = async () => {
@@ -81,10 +82,12 @@ const PartyPage = () => {
 
 	socket.onTrackAdded = trackId => {
 		party.playlist.push(trackId);
+		setAddingTrack("");
 		setParty(party);
 	};
 
 	const onAddTrack = (trackId) => {
+		setAddingTrack(trackId);
 		socket.addTrack({ trackId });
 	};
 
@@ -121,7 +124,13 @@ const PartyPage = () => {
 				) : ""}
 				<div className="content">
 					<div className="views">
-						<Playlist topTracks={topTracks} playlist={party.playlist} display={tab} onClick={onAddTrack} />
+						<Playlist
+							topTracks={topTracks}
+							playlist={party.playlist}
+							display={tab}
+							adding={addingTrack}
+							onAddTrack={onAddTrack}
+						/>
 						<Settings display={tab} />
 					</div>
 				</div>
