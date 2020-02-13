@@ -1,6 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+// Components
+import Loader from "./Loader";
+
 // Css
 import "./styles/list.css";
 
@@ -8,15 +11,23 @@ import "./styles/list.css";
 import PlaylistAdd from "../images/icons/playlist-add.svg";
 import PlaylistAdded from "../images/icons/playlist-added.svg";
 
-export default function TrackList ({ tracks, playlist, onClick }){
+export default function TrackList ({ tracks, playlist, adding, onClick }){
 	return(
 		<ul className="list">
-			{tracks.map( track => <Track track={track} playlist={playlist} key={track.id} onClick={onClick} />)}
+			{tracks.map( track =>
+				<Track
+					track={track}
+					playlist={playlist}
+					key={track.id}
+					onClick={onClick}
+					adding={adding}
+				/>)}
 		</ul>
 	);
 }
 
-const Track = ({ track, playlist, onClick }) => {
+const Track = ({ track, playlist, onClick, adding }) => {
+	console.log(adding);
 	const{ name, artists, album, id } = track;
 	const inPlaylist = playlist.includes(id);
 	const image = album.images.reduce((prev, curr) => {
@@ -40,7 +51,9 @@ const Track = ({ track, playlist, onClick }) => {
 
 			</div>
 			<div className="column add">
-				{!inPlaylist ? <PlaylistAdd onClick={ () => { onClick(track.id); }} /> : <PlaylistAdded />}
+				<Loader load={adding === track.id} className="track-add-load">
+					{!inPlaylist ? <PlaylistAdd onClick={ () => { onClick(track.id); }} /> : <PlaylistAdded />}
+				</Loader>
 			</div>
 		</li>
 	);
@@ -50,11 +63,13 @@ TrackList.propTypes = {
 	tracks: PropTypes.array.isRequired,
 	title: PropTypes.string,
 	playlist: PropTypes.array,
+	adding: PropTypes.string,
 	onClick: PropTypes.func
 };
 
 Track.propTypes = {
 	track: PropTypes.object.isRequired,
 	playlist: PropTypes.array,
+	adding: PropTypes.string,
 	onClick: PropTypes.func
 };

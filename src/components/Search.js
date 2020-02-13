@@ -15,7 +15,7 @@ import BackArrowIcon from "../images/icons/back-arrow.svg";
 // Css
 import "./styles/search.css";
 
-const Search = ({ playlist, onClick, onHideSearch }) => {
+const Search = ({ playlist, onClick, onHideSearch, adding }) => {
 	const[results, setResults] = useState([]);
 	const[prevValue, setPrevValue] = useState(null);
 
@@ -42,7 +42,7 @@ const Search = ({ playlist, onClick, onHideSearch }) => {
 			<div className="content">
 				<BackArrowIcon onClick={onHideSearch} className="back" />
 				<SearchInput onSearch={onSearch} />
-				<SearchResults playlist={playlist} results={results} onClick={onClick} />
+				<SearchResults playlist={playlist} results={results} onClick={onClick} adding={adding} />
 			</div>
 		</div>
 	);
@@ -93,10 +93,10 @@ const SearchInput = ({ onSearch }) => {
 	);
 };
 
-const SearchResults = ({ results, playlist, onClick }) => {
+const SearchResults = ({ results, playlist, onClick, adding }) => {
 	return(
 		<section className="search-results">
-			<TrackList tracks={results} playlist={playlist} onClick={onClick} />
+			<TrackList tracks={results} playlist={playlist} onClick={onClick} adding={adding} />
 		</section>
 	);
 };
@@ -106,6 +106,7 @@ export default Search;
 Search.propTypes = {
 	playlist: PropTypes.array.isRequired,
 	onClick: PropTypes.func.isRequired,
+	adding: PropTypes.string,
 	onHideSearch: PropTypes.func
 };
 
@@ -116,5 +117,6 @@ SearchInput.propTypes = {
 SearchResults.propTypes = {
 	results: PropTypes.array.isRequired,
 	playlist: PropTypes.array.isRequired,
+	adding: PropTypes.string,
 	onClick: PropTypes.func.isRequired
 };

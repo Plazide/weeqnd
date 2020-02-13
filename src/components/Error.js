@@ -13,10 +13,13 @@ export default function Error ({ type, onErrorExpire }){
 	useEffect( () => {
 		if(type){
 			setHidden(false);
-			setTimeout( () => {
-				onErrorExpire();
-				setHidden(true);
-			}, 6000 );
+			const expire = async () => {
+				setTimeout( () => {
+					onErrorExpire();
+					setHidden(true);
+				}, 6000 );
+			};
+			expire();
 		}
 	});
 

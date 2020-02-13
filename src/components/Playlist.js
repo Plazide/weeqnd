@@ -9,7 +9,7 @@ import FAB from "./FAB";
 // icons
 import SearchIcon from "../images/icons/search-icon.svg";
 
-const Playlist = ({ display, playlist, topTracks, onClick }) => {
+const Playlist = ({ display, playlist, topTracks, onAddTrack, adding }) => {
 	if(display !== "playlist") return"";
 	const[showSearch, setShowSearch] = useState(false);
 
@@ -24,12 +24,23 @@ const Playlist = ({ display, playlist, topTracks, onClick }) => {
 	return(
 		<section className="playlist view">
 			<div className="content">
-				{ showSearch ? <Search onClick={onClick} playlist={playlist} onHideSearch={onHideSearch} /> : (
-					<>
-						<TopTracks tracks={topTracks} playlist={playlist} onClick={onClick} />
-						<FAB icon={<SearchIcon />} onClick={onShowSearch} />
-					</>
-				)}
+				{ showSearch
+					? <Search
+						onClick={onAddTrack}
+						playlist={playlist}
+						onHideSearch={onHideSearch}
+						adding={adding}
+					/> : (
+						<>
+							<TopTracks
+								tracks={topTracks}
+								playlist={playlist}
+								onClick={onAddTrack}
+								adding={adding}
+							/>
+							<FAB icon={<SearchIcon />} onClick={onShowSearch} />
+						</>
+					)}
 
 			</div>
 
@@ -41,7 +52,8 @@ Playlist.propTypes = {
 	display: PropTypes.string,
 	topTracks: PropTypes.array,
 	playlist: PropTypes.array,
-	onClick: PropTypes.func
+	adding: PropTypes.string,
+	onAddTrack: PropTypes.func
 };
 
 export default Playlist;

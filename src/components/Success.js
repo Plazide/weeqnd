@@ -10,10 +10,13 @@ export default function Success ({ type, onSuccessExpire }){
 	useEffect( () => {
 		if(type){
 			setHidden(false);
-			setTimeout( () => {
-				onSuccessExpire();
-				setHidden(true);
-			}, 4000 );
+			const expire = async () => {
+				setTimeout( () => {
+					onSuccessExpire();
+					setHidden(true);
+				}, 4000 );
+			};
+			expire();
 		}
 	});
 
