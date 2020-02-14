@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 module.exports = {
 	siteMetadata: {
 		title: "Spotifest",
@@ -50,6 +52,6 @@ module.exports = {
 	],
 	proxy: {
 		prefix: "/api",
-		url: "http://localhost:8001"
+		url: process.env.API_SERVER
 	}
 };
