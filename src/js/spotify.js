@@ -148,6 +148,23 @@ export class Spotify{
 		return response.json();
 	}
 
+	async getTracks (ids, full){
+		console.log(ids);
+		if(!ids || !Array.isArray(ids))
+			throw new TypeError(`ids parameter should be an array of track ids. ${typeof ids} was provided.`);
+
+		let endpoint = "https://api.spotify.com/v1/tracks";
+		const query = ids.reduce( (acc, cur) => `${acc || ""},${cur}`);
+		endpoint += "?ids=" + query;
+
+		const response = await this._get(endpoint);
+
+		if(full)
+			return response;
+
+		return response.json();
+	}
+
 	/**
 	 *
 	 * @param {object} options - Options for the search
