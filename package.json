@@ -6,7 +6,7 @@
   "author": "CHJ Webblösningar",
   "dependencies": {
     "@types/react": "^16.9.19",
-    "gatsby": "^2.19.5",
+    "gatsby": "^2.19.17",
     "gatsby-background-image": "^0.9.12",
     "gatsby-image": "^2.2.34",
     "gatsby-plugin-manifest": "^2.2.31",
@@ -14,7 +14,7 @@
     "gatsby-plugin-react-helmet": "^3.1.16",
     "gatsby-plugin-react-svg": "^2.1.2",
     "gatsby-plugin-s3": "^0.3.2",
-    "gatsby-plugin-sharp": "^2.4.0",
+    "gatsby-plugin-sharp": "^2.4.5",
     "gatsby-source-filesystem": "^2.1.40",
     "gatsby-transformer-sharp": "^2.3.7",
     "prop-types": "^15.7.2",
@@ -23,6 +23,7 @@
     "react-helmet": "^5.2.1",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.8",
+    "sharp": "^0.24.0",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0"
   },
@@ -34,6 +35,7 @@
     "eslint-config-plazide": "^0.1.4",
     "eslint-plugin-react": "^7.18.0",
     "express": "^4.17.1",
+    "my-local-ip": "^1.0.0",
     "nodemon": "^2.0.2",
     "npm-run-all": "^4.1.5"
   },
@@ -42,11 +44,12 @@
   ],
   "license": "MIT",
   "scripts": {
+    "local-ip": "my-local-ip",
     "deploy": "npm-run-all deploy:*",
     "deploy:site": "git push",
     "deploy:lambda": "cd service && serverless deploy",
     "dev": "run-p dev:*",
-    "dev:server": "gatsby develop",
+    "dev:server": "./bin/devserver.sh",
     "dev:lambda": "nodemon lambda/index.js",
     "build": "gatsby build",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
