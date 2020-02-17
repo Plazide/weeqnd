@@ -82,10 +82,14 @@ export class Spotify{
 		});
 
 		const result = await response.json();
+		if(result.statusCode === 500)
+			return false;
 
 		this.setAccessToken(result.access_token);
 		if(result.refresh_token)
 			this.setRefreshToken(result.refresh_token);
+
+		return true;
 	}
 
 	/**
@@ -179,8 +183,6 @@ export class Spotify{
 		const endpoint = `https://api.spotify.com/v1/search?type=${type}&q=${value}&limit=${limit}&offset=${offset}`;
 
 		const response = await this._get(endpoint);
-
-		console.log("Search:", response.status);
 
 		if(full)
 			return response;
