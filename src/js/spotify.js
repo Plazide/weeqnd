@@ -153,9 +153,11 @@ export class Spotify{
 	}
 
 	async getTracks (ids, full){
-		console.log(ids);
-		if(!ids || !Array.isArray(ids))
+		if(!Array.isArray(ids))
 			throw new TypeError(`ids parameter should be an array of track ids. ${typeof ids} was provided.`);
+
+		if(ids.length === 0)
+			throw new Error("ids parameter is an empty array, at least one id must be specified");
 
 		let endpoint = "https://api.spotify.com/v1/tracks";
 		const query = ids.reduce( (acc, cur) => `${acc || ""},${cur}`);
