@@ -23,7 +23,8 @@ class Socket {
 
 		this.socket.on("err", data => {
 			const type = data.type;
-			this.onError(type);
+			if(this.onError)
+				this.onError(type);
 		});
 
 		this.socket.on("success", data => {
