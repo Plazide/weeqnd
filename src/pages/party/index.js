@@ -50,10 +50,10 @@ const PartyPage = () => {
 				});
 
 				if(partyResponse.status === 401){
-					await spotify.refresh();
+					const status = await spotify.refresh();
 
-					if(typeof window !== "undefined")
-						window.location.reload();
+					if(!status)
+						navigate("/");
 				}
 
 				const topTracksRequest = spotify.getTopTracks({ limit: 5, timeRange: "short_term" });
