@@ -60,6 +60,15 @@ const PartyPage = () => {
 				const partyResult = partyResponse.json();
 				const[party, topTracksResult] = await Promise.all([partyResult, topTracksRequest]);
 
+				// Parse items into objects.
+				party.playlist = party.playlist.map( track => {
+					const parts = track.split(":");
+					const id = parts[0];
+					const username = parts[1];
+
+					return{ id, username };
+				});
+
 				setParty(party);
 				setTopTracks(topTracksResult.items);
 				setLoaded(true);
