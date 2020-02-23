@@ -1,5 +1,5 @@
 export class Spotify{
-	constructor ({ clientId, responseType, scopes, redirectURI }){
+	constructor({ clientId, responseType, scopes, redirectURI }){
 		this.clientId = clientId;
 		this.responseType = responseType;
 		this.scopes = scopes;
@@ -10,21 +10,21 @@ export class Spotify{
 		this.refreshToken = typeof window !== "undefined" ? window.localStorage.getItem("refresh_token") : null;
 	}
 
-	setAccessToken (token){
+	setAccessToken(token){
 		this.accessToken = token;
 
 		if(typeof window !== "undefined")
 			window.localStorage.setItem("access_token", token);
 	}
 
-	setRefreshToken (token){
+	setRefreshToken(token){
 		this.refreshToken = token;
 
 		if(typeof window !== "undefined")
 			window.localStorage.setItem("refresh_token", token);
 	}
 
-	async isAuthenticated (){
+	async isAuthenticated(){
 		if(!this.accessToken || this.accessToken === "undefined") return false;
 
 		const user = await this.getCurrentUser(true);
@@ -34,7 +34,7 @@ export class Spotify{
 		return false;
 	}
 
-	async _post (endpoint, data){
+	async _post(endpoint, data){
 		const options = {
 			method: "POST",
 			body: JSON.stringify(data)
@@ -43,7 +43,7 @@ export class Spotify{
 		return this._request(endpoint, options);
 	}
 
-	async _get (endpoint){
+	async _get(endpoint){
 		const options = {
 			method: "GET"
 		};
@@ -51,7 +51,7 @@ export class Spotify{
 		return this._request(endpoint, options);
 	}
 
-	async _request (endpoint, options){
+	async _request(endpoint, options){
 		options.headers = {};
 		options.headers["Authorization"] = `Bearer ${this.accessToken}`;
 
@@ -63,14 +63,14 @@ export class Spotify{
 		}else{ return response; }
 	}
 
-	getLoginUrl (uri, scope){
+	getLoginUrl(uri, scope){
 		const scopes = scope ? encodeURIComponent(scope.join(" ")) : encodeURIComponent(this.scopes.join(" "));
 		const redirectURI = uri ? encodeURIComponent(uri) : encodeURIComponent(this.redirectURI);
 
 		return`${this.authEndpoint}?response_type=code&client_id=${this.clientId}${scopes ? `&scope=${scopes}` : ""}&redirect_uri=${redirectURI}`;
 	}
 
-	async refresh (){
+	async refresh(){
 		const response = await fetch("/api/spotify/refresh", {
 			method: "POST",
 			body: JSON.stringify({
@@ -96,7 +96,7 @@ export class Spotify{
 	 * Get the current user's profile.
 	 * @param {bool} full - Whether or not to return the full response object.
 	 */
-	async getCurrentUser (full){
+	async getCurrentUser(full){
 		const endpoint = "https://api.spotify.com/v1/me";
 		const response = await this._get(endpoint);
 
@@ -110,7 +110,7 @@ export class Spotify{
 	 * Get the current user's playlists
 	 * @param {bool} full - Whether or not to return the full response object.
 	 */
-	async getUsersPlaylists (full){
+	async getUsersPlaylists(full){
 		const endpoint = "https://api.spotify.com/v1/me/playlists";
 		const response = await this._get(endpoint);
 
@@ -128,7 +128,7 @@ export class Spotify{
 	 * @param {number} [options.offset] - The index of the first item to return. Default: 0
 	 * @param {string} [options.timeRange] - The time range of top tracks. Possbile values: long_term, medium_term, and short_term. Default: medium_term
 	 */
-	async getTopTracks ({ full = false, limit, offset, timeRange }){
+	async getTopTracks({ full = false, limit, offset, timeRange }){
 		let endpoint = "https://api.spotify.com/v1/me/top/tracks?";
 
 		endpoint += (typeof limit === "number" ? `limit=${limit}&` : "");
@@ -143,7 +143,7 @@ export class Spotify{
 		return response.json();
 	}
 
-	async getPlaylistTracks (href, full){
+	async getPlaylistTracks(href, full){
 		const response = await this._get(href);
 
 		if(full)
@@ -152,7 +152,7 @@ export class Spotify{
 		return response.json();
 	}
 
-	async getTracks (ids, full){
+	async getTracks(ids, full){
 		if(!Array.isArray(ids))
 			throw new TypeError(`ids parameter should be an array of track ids. ${typeof ids} was provided.`);
 
@@ -180,7 +180,7 @@ export class Spotify{
 	 * @param {number} [options.offset] - The index of the first result to return.
 	 * @param {bool} full - Whether or not to return the full response object.
 	 */
-	async search ({ value = "", type = "track", limit = 20, offset = 0 }, full = false){
+	async search({ value = "", type = "track", limit = 20, offset = 0 }, full = false){
 		if(!value) throw new Error("no value provided for the search");
 		const endpoint = `https://api.spotify.com/v1/search?type=${type}&q=${value}&limit=${limit}&offset=${offset}`;
 
@@ -194,7 +194,7 @@ export class Spotify{
 }
 
 const spotify = new Spotify({
-	clientId: process.env.SPOTIFY_CLIENT_ID
+	clientId: process.env.GATSBY_SPOTIFY_CLIENT_ID
 });
 
 export default spotify;
