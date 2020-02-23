@@ -1,4 +1,6 @@
-require("dotenv").config();
+require("dotenv").config({
+	path: `.env.${process.env.NODE_ENV}`
+});
 
 const apiServer = process.env.API_SERVER || "https://api.spotifest.se";
 
