@@ -1,5 +1,7 @@
 require("dotenv").config();
 
+const apiServer = process.env.API_SERVER || "https://api.spotifest.se";
+
 module.exports = {
 	siteMetadata: {
 		title: "Spotifest",
@@ -52,6 +54,6 @@ module.exports = {
 	],
 	proxy: {
 		prefix: "/api",
-		url: process.env.API_SERVER
+		url: apiServer
 	}
 };
