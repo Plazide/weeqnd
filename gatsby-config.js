@@ -4,6 +4,8 @@ require("dotenv").config({
 
 const apiServer = process.env.API_SERVER || "https://api.spotifest.se";
 
+console.log(process.env);
+
 module.exports = {
 	siteMetadata: {
 		title: "Spotifest",
