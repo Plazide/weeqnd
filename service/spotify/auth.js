@@ -3,7 +3,7 @@ const request = require("request-promise-native");
 const clientId = process.env.SPOTIFY_CLIENT_ID;
 const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 
-async function auth (event, context){
+async function auth(event, context){
 	try{
 		const code = event.body.code;
 		const uri = event.body.uri;
