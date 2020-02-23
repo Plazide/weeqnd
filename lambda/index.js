@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 
 require("dotenv").config();
 
-const PORT = 8001;
+const PORT = 8080;
 const app = express();
 
 app.use(bodyParser.json({ extended: true }));
@@ -42,5 +42,5 @@ app.use("/api", async (req, res) => {
 app.listen(PORT, (err) => {
 	if(err) throw err;
 
-	console.log("Lambda server: http://localhost:" + PORT);
+	console.log("Lambda server: " + process.env.API_SERVER);
 });
