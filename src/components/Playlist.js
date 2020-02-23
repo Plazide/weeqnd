@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import Search from "./Search";
 import TopTracks from "./TopTracks";
 import FAB from "./FAB";
+import ActivePlaylist from "./ActivePlaylist";
 
 // icons
 import SearchIcon from "../images/icons/search-icon.svg";
@@ -38,6 +39,7 @@ const Playlist = ({ display, playlist, topTracks, onAddTrack, adding }) => {
 								onClick={onAddTrack}
 								adding={adding}
 							/>
+							<ActivePlaylist playlist={playlist} adding={adding} />
 							<FAB icon={<SearchIcon />} onClick={onShowSearch} />
 						</>
 					)}
