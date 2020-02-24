@@ -11,7 +11,7 @@ import "./styles/list.css";
 import PlaylistAdd from "../images/icons/playlist-add.svg";
 import PlaylistAdded from "../images/icons/playlist-added.svg";
 
-export default function TrackList ({ tracks, playlist, adding, onClick }){
+export default function TrackList({ tracks, playlist, adding, onClick }){
 	return(
 		<ul className="list">
 			{tracks.map( track =>
