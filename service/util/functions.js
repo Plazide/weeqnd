@@ -1,7 +1,7 @@
 const gql = require("graphql-tag");
 const client = require("../util/ApolloClient");
 
-function obj2gql (obj){
+function obj2gql(obj){
 	let result = "";
 
 	Object.keys(obj).forEach( key => {
@@ -22,7 +22,7 @@ function obj2gql (obj){
  * @param {object} [options.data] - The data to update or create in a mutation.
  * @param {object} [options.args] - The arguments to pass to the mutation or query. "data" argument is passed automatically.
  */
-async function db ({ type, returns, name, data, args }){
+async function db({ type, returns, name, data, args }){
 	if(type !== "mutation" && type !== "query")
 		throw new RangeError("type must be either 'query' or 'mutation'");
 
@@ -51,7 +51,7 @@ async function db ({ type, returns, name, data, args }){
 	return result.data[name];
 }
 
-async function getUsersParty (username){
+async function getUsersParty(username){
 	const findPartyByOwner = gql`
 	query {
 		findPartyByOwner(owner: "${username}"){
@@ -68,7 +68,7 @@ async function getUsersParty (username){
 	return party;
 }
 
-async function createUser (username){
+async function createUser(username){
 	const createUserQuery = gql`
 	mutation {
 		createUser(data: {
@@ -84,7 +84,7 @@ async function createUser (username){
 	return result.data.createUser;
 }
 
-async function getUser (username){
+async function getUser(username){
 	const findUserQuery = gql`
 	query {
 		findUserByName( name: "${username}"){
@@ -97,7 +97,7 @@ async function getUser (username){
 	return result.data.findUserByName;
 }
 
-async function updateParty (_id, updates, returns){
+async function updateParty(_id, updates, returns){
 	let updateString = "",
 		returnString = "";
 	Object.keys(updates).forEach( key => {
@@ -120,7 +120,7 @@ async function updateParty (_id, updates, returns){
 	return result.data.partialUpdateParty;
 }
 
-async function getParty (code){
+async function getParty(code){
 	if(!code) return null;
 
 	const partyQuery = gql`
@@ -145,7 +145,7 @@ async function getParty (code){
 	return result.data.findPartyByCode;
 }
 
-async function createParty ({ username, playlist, accessToken, refreshToken, code }){
+async function createParty({ username, playlist, accessToken, refreshToken, code }){
 	const createParty = gql`
 	mutation {
 		createParty(
