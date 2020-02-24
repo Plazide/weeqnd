@@ -6,22 +6,22 @@ export class Spotify{
 		this.redirectURI = redirectURI;
 
 		this.authEndpoint = "https://accounts.spotify.com/authorize";
-		this.accessToken = typeof window !== "undefined" ? window.localStorage.getItem("access_token") : null;
-		this.refreshToken = typeof window !== "undefined" ? window.localStorage.getItem("refresh_token") : null;
+		this.accessToken = typeof window !== "undefined" ? window.sessionStorage.getItem("access_token") : null;
+		this.refreshToken = typeof window !== "undefined" ? window.sessionStorage.getItem("refresh_token") : null;
 	}
 
 	setAccessToken(token){
 		this.accessToken = token;
 
 		if(typeof window !== "undefined")
-			window.localStorage.setItem("access_token", token);
+			window.sessionStorage.setItem("access_token", token);
 	}
 
 	setRefreshToken(token){
 		this.refreshToken = token;
 
 		if(typeof window !== "undefined")
-			window.localStorage.setItem("refresh_token", token);
+			window.sessionStorage.setItem("refresh_token", token);
 	}
 
 	async isAuthenticated(){
