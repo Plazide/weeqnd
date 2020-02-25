@@ -1,7 +1,7 @@
 import io from "socket.io-client";
 
 class Socket {
-	constructor ({ party, accessToken }){
+	constructor({ party, accessToken }){
 		this.party = party;
 		this.accessToken = accessToken;
 		this.socket = null;
@@ -9,7 +9,7 @@ class Socket {
 		this.onSuccess = null;
 	}
 
-	start (){
+	start(){
 		this.socket = io("ws://localhost:5000/" + this.party, {
 			transports: ["websocket"],
 			query: {
@@ -38,7 +38,7 @@ class Socket {
 		});
 	}
 
-	addTrack (data){
+	addTrack(data){
 		this.socket.emit("add-track", data, (res) => {
 			console.log(res);
 		});
