@@ -1,7 +1,7 @@
 import spotify from "../js/spotify";
 import { navigate } from "gatsby";
 
-export function getQueryParams (){
+export function getQueryParams(){
 	const search = typeof window !== "undefined" ? window.location.search : null;
 	if(!search)	return false;
 
@@ -17,7 +17,7 @@ export function getQueryParams (){
 	return result;
 }
 
-export function formatCode (str){
+export function formatCode(str){
 	if(!str) return"";
 	if(str.length < 3) return str;
 
@@ -27,7 +27,7 @@ export function formatCode (str){
 	return letters.join("");
 };
 
-export function formatDuration (ms){
+export function formatDuration(ms){
 	const durationParts = new Intl.DateTimeFormat("sv", {
 		minute: "numeric",
 		second: "numeric"
@@ -38,7 +38,7 @@ export function formatDuration (ms){
 	return duration;
 }
 
-export function unformatCode (str){
+export function unformatCode(str){
 	const value = str.trim();
 	const letters = value.split("");
 	const space = letters.indexOf(" ");
@@ -48,7 +48,15 @@ export function unformatCode (str){
 	return letters.join("");
 }
 
-export async function auth (){
+export function splitTrack(track){
+	const parts = track.split(":");
+	const id = parts[0];
+	const username = parts[1];
+
+	return{ id, username };
+}
+
+export async function auth(){
 	const authed = await spotify.isAuthenticated();
 	if(authed) return true;
 	if(typeof window === "undefined") return false;
