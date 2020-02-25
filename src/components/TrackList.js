@@ -51,8 +51,8 @@ const Track = ({ track, playlist, onClick, adding }) => {
 
 			</div>
 			<div className="column add">
-				<Loader load={adding === track.id} className="track-add-load">
-					{!inPlaylist ? <PlaylistAdd onClick={ () => { onClick(track.id); }} /> : <PlaylistAdded />}
+				<Loader load={adding === id} className="track-add-load">
+					{!inPlaylist ? <PlaylistAdd onClick={ () => { onClick(id); }} /> : <PlaylistAdded />}
 				</Loader>
 			</div>
 		</li>
