@@ -29,7 +29,7 @@ export default function TrackList({ tracks, playlist, adding, onClick }){
 const Track = ({ track, playlist, onClick, adding }) => {
 	console.log(adding);
 	const{ name, artists, album, id } = track;
-	const inPlaylist = playlist.includes(id);
+	const inPlaylist = playlist.some( item => item.id === id);
 	const image = album.images.reduce((prev, curr) => {
 		if(curr.width < prev.width) return curr;
 	});
