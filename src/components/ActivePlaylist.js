@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import PropTypes from "prop-types";
 
 // Components
@@ -8,8 +8,14 @@ import Info from "./Info";
 // Util
 import spotify from "../js/spotify";
 
-export default function ActivePlaylist({ playlist = [] }){
+// Contexts
+import { PartyContext } from "../contexts.js";
+
+export default function ActivePlaylist(){
+	const party = useContext(PartyContext);
 	const[tracks, setTracks] = useState([]);
+
+	const playlist = party.playlist;
 
 	useEffect( () => {
 		return async () => {

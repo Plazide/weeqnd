@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 
 // components
@@ -8,6 +8,9 @@ import TrackList from "./TrackList";
 import useDebounce from "../js/debounce";
 import spotify from "../js/spotify";
 
+// Contexts
+import { PartyContext } from "../contexts";
+
 // Icons
 import SearchIcon from "../images/icons/search-icon.svg";
 import BackArrowIcon from "../images/icons/back-arrow.svg";
@@ -15,9 +18,11 @@ import BackArrowIcon from "../images/icons/back-arrow.svg";
 // Css
 import "./styles/search.css";
 
-const Search = ({ playlist, onClick, onHideSearch, adding }) => {
+const Search = ({ onClick, onHideSearch, adding }) => {
+	const party = useContext(PartyContext);
 	const[results, setResults] = useState([]);
 	const[prevValue, setPrevValue] = useState(null);
+	const playlist = party.playlist;
 
 	const onSearch = async (value) => {
 		if(value === prevValue) return;
@@ -104,7 +109,6 @@ const SearchResults = ({ results, playlist, onClick, adding }) => {
 export default Search;
 
 Search.propTypes = {
-	playlist: PropTypes.array.isRequired,
 	onClick: PropTypes.func.isRequired,
 	adding: PropTypes.string,
 	onHideSearch: PropTypes.func

@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 
 // Components
 import Loader from "./Loader";
+
+// Contexts
+import { MethodContext, LoadingContext } from "../contexts";
 
 // Css
 import "./styles/list.css";
@@ -14,7 +17,7 @@ import MoreIcon from "../images/icons/more.svg";
 import DeleteIcon from "../images/icons/delete.svg";
 import SettingsIcon from "../images/icons/settings.svg";
 
-export default function TrackList({ tracks, playlist, adding, onClick, activePlaylist = false }){
+export default function TrackList({ tracks, playlist, activePlaylist = false }){
 	return(
 		<ul className="list">
 			{tracks.map( track =>
@@ -22,15 +25,15 @@ export default function TrackList({ tracks, playlist, adding, onClick, activePla
 					track={track}
 					playlist={playlist}
 					key={track.id}
-					onClick={onClick}
-					adding={adding}
 					activePlaylist={activePlaylist}
 				/>)}
 		</ul>
 	);
 }
 
-const Track = ({ track, playlist, onClick, adding, activePlaylist }) => {
+const Track = ({ track, playlist, activePlaylist }) => {
+	const{ onAddTrack } = useContext(MethodContext);
+	const{ adding } = useContext(LoadingContext);
 	const{ name, artists, album, id } = track;
 	const currentTrack = playlist.find( item => item.id === id);
 	const inPlaylist = currentTrack !== undefined;
@@ -57,7 +60,7 @@ const Track = ({ track, playlist, onClick, adding, activePlaylist }) => {
 			<div className="column add">
 				{activePlaylist ? <TrackOptions track={currentTrack} />
 					: <Loader load={adding === id} className="track-add-load">
-						{!inPlaylist ? <PlaylistAdd onClick={ () => { onClick(id); }} /> : <PlaylistAdded />}
+						{!inPlaylist ? <PlaylistAdd onClick={ () => { onAddTrack(id); }} /> : <PlaylistAdded />}
 					</Loader>
 				}
 

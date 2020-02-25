@@ -14,6 +14,9 @@ import Settings from "../../components/Settings";
 import Error from "../../components/Error";
 import Success from "../../components/Success";
 
+// Contexts
+import { PartyContext, UserContext, MethodContext, LoadingContext } from "../../contexts.js";
+
 // Icons
 import PlaylistIcon from "../../images/icons/playlist-tab.svg";
 import SettingsIcon from "../../images/icons/settings.svg";
@@ -76,6 +79,7 @@ const PartyPage = () => {
 			initParty();
 	});
 
+	// Socket Events
 	socket.onError = type => {
 		setError(type);
 	};
@@ -90,6 +94,7 @@ const PartyPage = () => {
 		setParty({ ...party, playlist: newPlaylist });
 	};
 
+	// Methods exposed to child components
 	const onAddTrack = (trackId) => {
 		setAddingTrack(trackId);
 		socket.addTrack({ trackId });
@@ -103,46 +108,57 @@ const PartyPage = () => {
 		setSuccess("");
 	};
 
-	return(
-		<Layout>
-			<SEO
-				title="Fest"
-				description="En fest"
-			/>
-			<Loader load={!loaded}>
-				{party.isOwner ? (
-					<div className="tabs">
-						<button
-							onClick={ () => setTab("playlist")}
-							className={`tab ${tab === "playlist" ? "selected" : ""}`}>
-							<PlaylistIcon className="icon" />
-							Spellista
-						</button>
-						<button
-							onClick={ () => setTab("settings")}
-							className={`tab ${tab === "settings" ? "selected" : ""}`}>
-							<SettingsIcon className="icon" />
-							Inställningar
-						</button>
-					</div>
-				) : ""}
-				<div className="content">
-					<div className="views">
-						<Playlist
-							topTracks={topTracks}
-							playlist={party.playlist}
-							display={tab}
-							adding={addingTrack}
-							onAddTrack={onAddTrack}
-						/>
-						<Settings display={tab} />
-					</div>
-				</div>
-			</Loader>
+	const methods = {
+		onAddTrack,
+		expireError,
+		expireSuccess
+	};
 
-			<Error type={error} onErrorExpire={expireError} />
-			<Success type={success} onSuccessExpire={expireSuccess} />
-		</Layout>
+	return(
+		<PartyContext.Provider value={party}>
+			<MethodContext.Provider value={methods}>
+				<LoadingContext.Provider value={{ adding: addingTrack }}>
+					<Layout>
+						<SEO
+							title="Fest"
+							description="En fest"
+						/>
+						<Loader load={!loaded}>
+							{party.isOwner ? (
+								<div className="tabs">
+									<button
+										onClick={ () => setTab("playlist")}
+										className={`tab ${tab === "playlist" ? "selected" : ""}`}>
+										<PlaylistIcon className="icon" />
+							Spellista
+									</button>
+									<button
+										onClick={ () => setTab("settings")}
+										className={`tab ${tab === "settings" ? "selected" : ""}`}>
+										<SettingsIcon className="icon" />
+							Inställningar
+									</button>
+								</div>
+							) : ""}
+							<div className="content">
+								<div className="views">
+									<Playlist
+										topTracks={topTracks}
+										display={tab}
+										adding={addingTrack}
+										onAddTrack={onAddTrack}
+									/>
+									<Settings display={tab} />
+								</div>
+							</div>
+						</Loader>
+
+						<Error type={error} onErrorExpire={expireError} />
+						<Success type={success} onSuccessExpire={expireSuccess} />
+					</Layout>
+				</LoadingContext.Provider>
+			</MethodContext.Provider>
+		</PartyContext.Provider>
 	);
 };
 

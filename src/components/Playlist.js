@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 
 // Components
@@ -7,11 +7,16 @@ import TopTracks from "./TopTracks";
 import FAB from "./FAB";
 import ActivePlaylist from "./ActivePlaylist";
 
+// Contexts
+import { PartyContext } from "../contexts";
+
 // icons
 import SearchIcon from "../images/icons/search-icon.svg";
 
-const Playlist = ({ display, playlist, topTracks, onAddTrack, adding }) => {
+const Playlist = ({ display, topTracks, onAddTrack, adding }) => {
 	if(display !== "playlist") return"";
+	const party = useContext(PartyContext);
+	const playlist = party.playlist;
 	const[showSearch, setShowSearch] = useState(false);
 
 	const onShowSearch = () => {
@@ -28,7 +33,6 @@ const Playlist = ({ display, playlist, topTracks, onAddTrack, adding }) => {
 				{ showSearch
 					? <Search
 						onClick={onAddTrack}
-						playlist={playlist}
 						onHideSearch={onHideSearch}
 						adding={adding}
 					/> : (
@@ -39,7 +43,7 @@ const Playlist = ({ display, playlist, topTracks, onAddTrack, adding }) => {
 								onClick={onAddTrack}
 								adding={adding}
 							/>
-							<ActivePlaylist playlist={playlist} adding={adding} />
+							<ActivePlaylist adding={adding} />
 							<FAB icon={<SearchIcon />} onClick={onShowSearch} />
 						</>
 					)}
