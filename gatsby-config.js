@@ -4,8 +4,6 @@ require("dotenv").config({
 
 const apiServer = process.env.GATSBY_API_SERVER;
 
-console.log(process.env);
-
 module.exports = {
 	siteMetadata: {
 		title: "Spotifest",
