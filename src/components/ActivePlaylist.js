@@ -15,7 +15,7 @@ export default function ActivePlaylist({ playlist = [] }){
 		return async () => {
 			if(playlist.length === 0) return;
 
-			const trackList = playlist.map( item => item.id);
+			const trackList = playlist.sort( (a, b) => a.timeAdded > b.timeAdded).map( item => item.id);
 			const result = await spotify.getTracks(trackList);
 			setTracks(result.tracks);
 		};
@@ -24,7 +24,7 @@ export default function ActivePlaylist({ playlist = [] }){
 	return(
 		<>
 			<h2>Spellista<Info>Den nuvarande spellistan</Info></h2>
-			<TrackList tracks={tracks} playlist={playlist} />
+			<TrackList tracks={tracks} playlist={playlist} activePlaylist={true} />
 		</>
 	);
 }

@@ -58,3 +58,42 @@ ul.list{
 	height: 22px;
 	margin: 0 auto;
 }
+
+.list li .column.add .options{
+	position: relative;
+}
+.list li .column.add .options .options__buttonMore{
+	cursor: pointer;
+}
+.list li .column.add .options__more{
+	position: absolute;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+
+	top: -55px;
+	right: -15px;
+	background: var(--secondary);
+	border-radius: 4px;
+
+	padding: .5rem;
+	width: 100px;
+}
+.list li .column.add .options__more--closed{
+	display: none;
+}
+.list li .column.add .options__more--open::before{
+	content: "";
+	position: absolute;
+	background: var(--secondary);
+	width: 20px;
+	height: 20px;
+	border-radius: 4px;
+	bottom: -10px;
+	right: 17px;
+
+	transform: rotate(45deg);
+}
+.list li .column.add .options__action{
+	cursor: pointer;
+}
