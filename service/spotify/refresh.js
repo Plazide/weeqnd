@@ -1,5 +1,6 @@
 const SpotifyWebApi = require("spotify-web-api-node");
-const{ db } = require("../util/functions");
+const{ db, getUsersParty } = require("../util/functions");
+const error = require("../util/error");
 require("dotenv").config();
 
 const clientId = process.env.SPOTIFY_CLIENT_ID;
@@ -17,24 +18,30 @@ async function refresh(event){
 		});
 
 		const result = await spotifyApi.refreshAccessToken();
-		const newAccessToken = result.body.accessToken;
-		const newRefreshToken = result.body.refreshToken;
+		const newAccessToken = result.body["access_token"];
+		const newRefreshToken = result.body["refresh_token"];
 
 		spotifyApi.setAccessToken(newAccessToken);
-		const me = await spotifyApi.getMe();
+		const me = await spotifyApi.getMe().catch( err => {
+			return error(err.status, err.message);
+		});
 		const username = me.body.id;
-		const data = { accessToken: newAccessToken };
+		const data = { accessToken: `"${newAccessToken}"` };
 
 		// Only set the refresh token if it exists. It is not returned with every refresh.
-		if(newRefreshToken) data.refreshToken = newRefreshToken;
+		if(newRefreshToken) data.refreshToken = `"${newRefreshToken}"`;
 
-		const updated = await db({
-			type: "mutation",
-			name: "partialUpdateParty",
-			data,
-			args: { owner: username },
-			returns: ["accessToken"]
-		});
+		const usersParty = await getUsersParty(username);
+		const partyId = usersParty._id;
+
+		if(partyId)
+			await db({
+				type: "mutation",
+				name: "partialUpdateParty",
+				data,
+				args: { id: partyId },
+				returns: ["accessToken"]
+			});
 
 		return{
 			statusCode: result.statusCode,
