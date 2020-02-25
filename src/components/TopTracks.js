@@ -5,12 +5,12 @@ import PropTypes from "prop-types";
 import TrackList from "./TrackList";
 import Info from "./Info";
 
-const TopTracks = ({ tracks, playlist, onClick }) => {
+const TopTracks = ({ tracks, playlist, onClick, adding }) => {
 	return(
 		<section className="top-tracks component">
 			<h2>Favoriter<Info>Dina topplåtar under de senaste veckorna</Info></h2>
 
-			<TrackList tracks={tracks} playlist={playlist} onClick={onClick} />
+			<TrackList tracks={tracks} playlist={playlist} onClick={onClick} adding={adding} />
 		</section>
 	);
 };
@@ -18,7 +18,8 @@ const TopTracks = ({ tracks, playlist, onClick }) => {
 TopTracks.propTypes = {
 	tracks: PropTypes.array.isRequired,
 	playlist: PropTypes.array,
-	onClick: PropTypes.func
+	onClick: PropTypes.func,
+	adding: PropTypes.string
 };
 
 export default TopTracks;
