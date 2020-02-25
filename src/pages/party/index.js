@@ -85,9 +85,9 @@ const PartyPage = () => {
 	};
 
 	socket.onTrackAdded = trackId => {
-		party.playlist.push(splitTrack(trackId));
+		const newPlaylist = [...party.playlist, splitTrack(trackId)];
 		setAddingTrack("");
-		setParty(party);
+		setParty({ ...party, playlist: newPlaylist });
 	};
 
 	const onAddTrack = (trackId) => {
