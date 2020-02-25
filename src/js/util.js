@@ -52,8 +52,9 @@ export function splitTrack(track){
 	const parts = track.split(":");
 	const id = parts[0];
 	const username = parts[1];
+	const timeAdded = parts[2];
 
-	return{ id, username };
+	return{ id, username, timeAdded };
 }
 
 export async function auth(){
