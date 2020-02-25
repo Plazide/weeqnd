@@ -4,6 +4,7 @@ import { navigate } from "gatsby";
 // Util
 import spotify from "../../js/spotify";
 import Socket from "../../js/socket";
+import { splitTrack } from "../../js/util";
 
 // Layout
 import Layout from "../../components/layout";
@@ -61,13 +62,7 @@ const PartyPage = () => {
 				const[party, topTracksResult] = await Promise.all([partyResult, topTracksRequest]);
 
 				// Parse items into objects.
-				party.playlist = party.playlist.map( track => {
-					const parts = track.split(":");
-					const id = parts[0];
-					const username = parts[1];
-
-					return{ id, username };
-				});
+				party.playlist = party.playlist.map(splitTrack);
 
 				setParty(party);
 				setTopTracks(topTracksResult.items);
@@ -90,7 +85,7 @@ const PartyPage = () => {
 	};
 
 	socket.onTrackAdded = trackId => {
-		party.playlist.push(trackId);
+		party.playlist.push(splitTrack(trackId));
 		setAddingTrack("");
 		setParty(party);
 	};
