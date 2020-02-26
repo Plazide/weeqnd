@@ -2,7 +2,7 @@ const{ getParty } = require("../util/functions");
 const SpotifyWebApi = require("spotify-web-api-node");
 const error = require("../util/error");
 
-async function get (event, context){
+async function get(event, context){
 	const code = event.queryStringParameters.code;
 	const accessToken = event.headers["x-access-token"];
 
