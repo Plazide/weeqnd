@@ -141,7 +141,7 @@ async function getParty(code){
 	}
 	`;
 
-	const result = await client.query({ query: partyQuery });
+	const result = await client.query({ query: partyQuery, fetchPolicy: "network-only" });
 	return result.data.findPartyByCode;
 }
 
