@@ -73,8 +73,6 @@ const JoinPage = () => {
 			navigate("/party#" + code);
 		}
 
-		console.log(response.status);
-
 		if(response.status === 401){
 			await spotify.refresh();
 			setError("Det gick inte att hämta din profil från Spotify. Försök igen!");
@@ -104,6 +102,8 @@ const JoinPage = () => {
 								value={formatCode(party)}
 								onChange={onChange}
 								className="join-input"
+								pattern="^[0-9]{2}\s[0-9]{3}$"
+								type="tel"
 							/>
 							<div className={`error ${error ? "show" : ""}`} role="alert">{error}</div>
 							<Loader load={loading} className="button-container">
