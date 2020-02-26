@@ -12,20 +12,24 @@ import spotify from "../js/spotify";
 import { PartyContext } from "../contexts.js";
 
 export default function ActivePlaylist(){
-	const party = useContext(PartyContext);
+	const{ playlist = [] } = useContext(PartyContext);
 	const[tracks, setTracks] = useState([]);
 
-	const playlist = party.playlist;
-
 	useEffect( () => {
-		return async () => {
+		if(playlist.length === 0 && tracks.length !== 0)
+			setTracks([]);
+
+		const fetchTracks = async () => {
 			if(playlist.length === 0) return;
 
 			const trackList = playlist.sort( (a, b) => a.timeAdded > b.timeAdded).map( item => item.id);
 			const result = await spotify.getTracks(trackList);
-			setTracks(result.tracks);
+			if(result.tracks.length !== tracks.length)
+				setTracks(result.tracks);
 		};
-	}, [playlist]);
+
+		fetchTracks();
+	});
 
 	return(
 		<>

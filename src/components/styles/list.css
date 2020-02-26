@@ -97,3 +97,7 @@ ul.list{
 .list li .column.add .options__action{
 	cursor: pointer;
 }
+
+.list li.track.track--removing{
+	opacity: .5;
+}

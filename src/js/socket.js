@@ -5,8 +5,6 @@ class Socket {
 		this.party = party;
 		this.accessToken = accessToken;
 		this.socket = null;
-		this.onError = null;
-		this.onSuccess = null;
 	}
 
 	start(){
@@ -33,13 +31,24 @@ class Socket {
 		});
 
 		this.socket.on("track_added", data => {
-			const{ trackId } = data;
-			this.onTrackAdded(trackId);
+			const{ trackId, playlist } = data;
+			this.onTrackAdded(trackId, playlist);
+		});
+
+		this.socket.on("track_removed", data => {
+			const{ trackId, playlist } = data;
+			this.onTrackRemoved(trackId, playlist);
 		});
 	}
 
 	addTrack(data){
 		this.socket.emit("add-track", data, (res) => {
+			console.log(res);
+		});
+	}
+
+	removeTrack(data){
+		this.socket.emit("remove-track", data, (res) => {
 			console.log(res);
 		});
 	}

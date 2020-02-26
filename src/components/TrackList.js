@@ -18,6 +18,12 @@ import DeleteIcon from "../images/icons/delete.svg";
 import SettingsIcon from "../images/icons/settings.svg";
 
 export default function TrackList({ tracks, playlist, activePlaylist = false }){
+	if(!tracks || tracks.length === 0) return(
+		<div className="empty">
+			<h1>Det finns inga låtar här!</h1>
+		</div>
+	);
+
 	return(
 		<ul className="list">
 			{tracks.map( track =>
@@ -32,8 +38,8 @@ export default function TrackList({ tracks, playlist, activePlaylist = false }){
 }
 
 const Track = ({ track, playlist, activePlaylist }) => {
-	const{ onAddTrack } = useContext(MethodContext);
-	const{ adding } = useContext(LoadingContext);
+	const{ onAddTrack, onRemoveTrack } = useContext(MethodContext);
+	const{ adding, removing } = useContext(LoadingContext);
 	const{ name, artists, album, id } = track;
 	const currentTrack = playlist.find( item => item.id === id);
 	const inPlaylist = currentTrack !== undefined;
@@ -46,7 +52,7 @@ const Track = ({ track, playlist, activePlaylist }) => {
 	});
 
 	return(
-		<li>
+		<li className={`track ${removing === id ? "track--removing" : ""}`}>
 			<div className="column cover">
 				<img src={image.url} alt={`${album.name} cover`} />
 			</div>
@@ -58,7 +64,7 @@ const Track = ({ track, playlist, activePlaylist }) => {
 
 			</div>
 			<div className="column add">
-				{activePlaylist ? <TrackOptions track={currentTrack} />
+				{activePlaylist && inPlaylist ? <TrackOptions track={currentTrack} onRemoveTrack={onRemoveTrack} />
 					: <Loader load={adding === id} className="track-add-load">
 						{!inPlaylist ? <PlaylistAdd onClick={ () => { onAddTrack(id); }} /> : <PlaylistAdded />}
 					</Loader>
@@ -69,14 +75,14 @@ const Track = ({ track, playlist, activePlaylist }) => {
 	);
 };
 
-const TrackOptions = ({ onRemove, track }) => {
+const TrackOptions = ({ onRemoveTrack, track }) => {
 	const[open, setOpen] = useState(false);
 
 	return(
 		<div className="options">
 			<button className="options__buttonMore" onClick={ () => { setOpen(!open); } }><MoreIcon /></button>
 			<div className={`options__more ${open ? "options__more--open" : "options__more--closed"}`}>
-				<button onClick={ () => { onRemove(track); }} className="options__action"><DeleteIcon /></button>
+				<button onClick={ () => { onRemoveTrack(track); }} className="options__action"><DeleteIcon /></button>
 				<button className="options__action"><SettingsIcon /></button>
 			</div>
 		</div>
@@ -101,6 +107,6 @@ Track.propTypes = {
 };
 
 TrackOptions.propTypes = {
-	onRemove: PropTypes.func,
+	onRemoveTrack: PropTypes.func,
 	track: PropTypes.object
 };

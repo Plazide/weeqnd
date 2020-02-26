@@ -5,6 +5,7 @@ import { navigate } from "gatsby";
 import spotify from "../../js/spotify";
 import Socket from "../../js/socket";
 import { splitTrack } from "../../js/util";
+import useMergeState from "../../js/useMergeState";
 
 // Layout
 import Layout from "../../components/layout";
@@ -33,14 +34,13 @@ const socket = new Socket({
 socket.start();
 
 const PartyPage = () => {
-	const[loaded, setLoaded] = useState(false);
-	const[party, setParty] = useState({});
 	const[tab, setTab] = useState("playlist");
-	const[topTracks, setTopTracks] = useState([]);
 	const[code] = useState(typeof window !== "undefined" ? window.location.hash.substring(1) : null);
 	const[error, setError] = useState("");
 	const[success, setSuccess] = useState("");
 	const[addingTrack, setAddingTrack] = useState("");
+	const[removingTrack, setRemovingTrack] = useState("");
+	const[state, setState] = useMergeState({ party: {}, topTracks: [], loaded: false });
 
 	useEffect( () => {
 		const initParty = async () => {
@@ -67,15 +67,13 @@ const PartyPage = () => {
 				// Parse items into objects.
 				party.playlist = party.playlist.map(splitTrack);
 
-				setParty(party);
-				setTopTracks(topTracksResult.items);
-				setLoaded(true);
+				setState({ party, topTracks: topTracksResult.items, loaded: true });
 			}catch(err) {
 				throw new Error(err);
 			}
 		};
 
-		if(!loaded)
+		if(!state.loaded)
 			initParty();
 	});
 
@@ -88,16 +86,27 @@ const PartyPage = () => {
 		setSuccess(type);
 	};
 
-	socket.onTrackAdded = trackId => {
-		const newPlaylist = [...party.playlist, splitTrack(trackId)];
+	socket.onTrackAdded = (trackId, playlist) => {
 		setAddingTrack("");
-		setParty({ ...party, playlist: newPlaylist });
+		const newParty = { ...state.party, playlist: playlist.map(splitTrack) };
+		setState({ party: newParty });
+	};
+
+	socket.onTrackRemoved = (trackId, playlist) => {
+		setRemovingTrack("");
+		const newParty = { ...state.party, playlist: playlist.map(splitTrack) };
+		setState({ party: newParty });
 	};
 
 	// Methods exposed to child components
 	const onAddTrack = (trackId) => {
 		setAddingTrack(trackId);
 		socket.addTrack({ trackId });
+	};
+
+	const onRemoveTrack = (trackObject) => {
+		setRemovingTrack(trackObject.id);
+		socket.removeTrack(trackObject);
 	};
 
 	const expireError = () => {
@@ -110,21 +119,22 @@ const PartyPage = () => {
 
 	const methods = {
 		onAddTrack,
+		onRemoveTrack,
 		expireError,
 		expireSuccess
 	};
 
 	return(
-		<PartyContext.Provider value={party}>
+		<PartyContext.Provider value={state.party}>
 			<MethodContext.Provider value={methods}>
-				<LoadingContext.Provider value={{ adding: addingTrack }}>
+				<LoadingContext.Provider value={{ adding: addingTrack, removing: removingTrack }}>
 					<Layout>
 						<SEO
 							title="Fest"
 							description="En fest"
 						/>
-						<Loader load={!loaded}>
-							{party.isOwner ? (
+						<Loader load={!state.loaded}>
+							{state.party.isOwner ? (
 								<div className="tabs">
 									<button
 										onClick={ () => setTab("playlist")}
@@ -143,7 +153,7 @@ const PartyPage = () => {
 							<div className="content">
 								<div className="views">
 									<Playlist
-										topTracks={topTracks}
+										topTracks={state.topTracks}
 										display={tab}
 										adding={addingTrack}
 										onAddTrack={onAddTrack}
