@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 // models
 import success from "../models/success";
 
-export default function Success ({ type, onSuccessExpire }){
+export default function Success({ type, onSuccessExpire }){
 	const[hidden, setHidden] = useState(true);
 
 	useEffect( () => {
@@ -23,9 +23,6 @@ export default function Success ({ type, onSuccessExpire }){
 	return(
 		<div className={`page-status success ${hidden ? "hidden" : ""}`} role="status">
 			<div className="inner">
-				<div className="header">
-					<span className="heading">Det fungerade!</span>
-				</div>
 				<div className="message">{success[type]}</div>
 			</div>
 		</div>

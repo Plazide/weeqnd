@@ -7,7 +7,7 @@ import errors from "../models/errors";
 // css
 import "./styles/status.css";
 
-export default function Error ({ type, onErrorExpire }){
+export default function Error({ type, onErrorExpire }){
 	const[hidden, setHidden] = useState(true);
 
 	useEffect( () => {
@@ -26,9 +26,6 @@ export default function Error ({ type, onErrorExpire }){
 	return(
 		<div className={`page-status error ${hidden ? "hidden" : ""}`} role="alert">
 			<div className="inner">
-				<div className="header">
-					<span className="heading">Det blev lite fel</span>
-				</div>
 				<div className="message">{errors[type]}</div>
 			</div>
 		</div>
