@@ -101,3 +101,11 @@ ul.list{
 .list li.track.track--removing{
 	opacity: .5;
 }
+
+.empty{
+	font-size: 1.2rem;
+	display: block;
+	width: 100%;
+
+	text-align: center;
+}

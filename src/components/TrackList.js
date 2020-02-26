@@ -20,7 +20,7 @@ import SettingsIcon from "../images/icons/settings.svg";
 export default function TrackList({ tracks, playlist, activePlaylist = false }){
 	if(!tracks || tracks.length === 0) return(
 		<div className="empty">
-			<h1>Det finns inga låtar här!</h1>
+			<span>Det finns inga låtar här!</span>
 		</div>
 	);
 
