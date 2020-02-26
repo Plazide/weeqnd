@@ -3,13 +3,14 @@ import PropTypes from "prop-types";
 
 // components
 import TrackList from "./TrackList";
+import TopTracks from "./TopTracks";
 
 // Util
 import useDebounce from "../js/debounce";
 import spotify from "../js/spotify";
 
 // Contexts
-import { PartyContext } from "../contexts";
+import { PartyContext, MethodContext, LoadingContext } from "../contexts";
 
 // Icons
 import SearchIcon from "../images/icons/search-icon.svg";
@@ -98,7 +99,16 @@ const SearchInput = ({ onSearch }) => {
 	);
 };
 
-const SearchResults = ({ results, playlist, onClick, adding }) => {
+const SearchResults = ({ results, playlist, onClick }) => {
+	const{ topTracks } = useContext(PartyContext);
+	const{ onAddTrack } = useContext(MethodContext);
+	const{ adding } = useContext(LoadingContext);
+
+	if(results.length === 0 || !results)
+		return(
+			<TopTracks tracks={topTracks} playlist={playlist} onClick={onAddTrack} adding={adding} />
+		);
+
 	return(
 		<section className="search-results">
 			<TrackList tracks={results} playlist={playlist} onClick={onClick} adding={adding} />
