@@ -19,6 +19,13 @@ class Socket {
 			console.log("Socket connected:", this.socket.connected);
 		});
 
+		this.socket.on("disconnect", () => {
+			console.log("Socket disconnected", this.socket.connected);
+
+			if(!this.socket.connected)
+				this.socket.connect();
+		});
+
 		this.socket.on("err", data => {
 			const type = data.type;
 			if(this.onError)
