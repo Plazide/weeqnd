@@ -40,7 +40,7 @@ const PartyPage = () => {
 	const[success, setSuccess] = useState("");
 	const[addingTrack, setAddingTrack] = useState("");
 	const[removingTrack, setRemovingTrack] = useState("");
-	const[state, setState] = useMergeState({ party: {}, topTracks: [], loaded: false });
+	const[state, setState] = useMergeState({ party: {}, loaded: false });
 
 	useEffect( () => {
 		const initParty = async () => {
@@ -66,8 +66,9 @@ const PartyPage = () => {
 
 				// Parse items into objects.
 				party.playlist = party.playlist.map(splitTrack);
+				party.topTracks = topTracksResult.items;
 
-				setState({ party, topTracks: topTracksResult.items, loaded: true });
+				setState({ party, loaded: true });
 			}catch(err) {
 				throw new Error(err);
 			}
@@ -80,6 +81,7 @@ const PartyPage = () => {
 	// Socket Events
 	socket.onError = type => {
 		setError(type);
+		setRemovingTrack("");
 	};
 
 	socket.onSuccess = async type => {
@@ -153,7 +155,7 @@ const PartyPage = () => {
 							<div className="content">
 								<div className="views">
 									<Playlist
-										topTracks={state.topTracks}
+										topTracks={state.party.topTracks}
 										display={tab}
 										adding={addingTrack}
 										onAddTrack={onAddTrack}
