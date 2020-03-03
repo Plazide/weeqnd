@@ -20,10 +20,9 @@ class Socket {
 		});
 
 		this.socket.on("disconnect", () => {
-			console.log("Socket disconnected", this.socket.connected);
+			console.log("Socket disconnected", !this.socket.connected);
 
-			if(!this.socket.connected)
-				this.socket.connect();
+			setTimeout( () => { this.socket.connect(); }, 1000 * 5);
 		});
 
 		this.socket.on("err", data => {
