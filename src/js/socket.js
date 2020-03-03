@@ -25,6 +25,15 @@ class Socket {
 			setTimeout( () => { this.socket.connect(); }, 1000 * 5);
 		});
 
+		this.socket.on("token_refreshed", data => {
+			this.socket.disconnect();
+			const{ accessToken } = data;
+
+			this.accessToken = accessToken;
+
+			setTimeout( () => { this.socket.start(); }, 1000 * 10);
+		});
+
 		this.socket.on("err", data => {
 			const type = data.type;
 			if(this.onError)
