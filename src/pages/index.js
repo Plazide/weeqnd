@@ -35,7 +35,7 @@ const IndexPage = ({ data }) => {
 					<div className="buttons">
 						<LinkButton
 							variant="filled"
-							to={spotify.getLoginUrl(process.env.GATSBY_SERVER_HOST + "/party/create/", ["playlist-read-private", "streaming", "user-modify-playback-state", "user-top-read"])}
+							to={spotify.getLoginUrl(process.env.GATSBY_SERVER_HOST + "/party/create/", ["playlist-read-private", "streaming", "user-modify-playback-state", "user-top-read", "user-read-playback-state", "user-read-currently-playing"])}
 							external={true}>
 							Skapa en fest
 						</LinkButton>
