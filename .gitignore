@@ -11,3 +11,6 @@ jspm_packages
 .cache
 public
 .env*
+
+# Local Netlify folder
+.netlify

@@ -2,22 +2,22 @@ import React, { useRef, useEffect, useState } from "react";
 import { navigate } from "gatsby";
 
 // Util
-import { getQueryParams, formatCode, auth, unformatCode } from "../../js/util";
-import spotify from "../../js/spotify";
+import { getQueryParams, formatCode, auth, unformatCode } from "../js/util";
+import spotify from "../js/spotify";
 
 // Layout
-import Layout from "../../components/layout";
-import SEO from "../../components/seo";
+import Layout from "../components/layout";
+import SEO from "../components/seo";
 
 // Components
-import Info from "../../components/Info";
-import Button from "../../components/Button";
-import Loader from "../../components/Loader";
+import Info from "../components/Info";
+import Button from "../components/Button";
+import Loader from "../components/Loader";
 
 // Css
-import "../../styles/join.css";
+import "../styles/join.css";
 
-const JoinPage = () => {
+const Join = () => {
 	const[party, setParty] = useState("");
 	const[error, setError] = useState("");
 	const[loading, setLoading] = useState(false);
@@ -70,7 +70,7 @@ const JoinPage = () => {
 			const result = await response.json();
 			const providedCode = result.data.code;
 			window.localStorage.setItem("partyCode", providedCode);
-			navigate("/party#" + code);
+			navigate("/party/" + code);
 		}
 
 		if(response.status === 401){
@@ -120,4 +120,4 @@ const JoinPage = () => {
 	);
 };
 
-export default JoinPage;
+export default Join;

@@ -6,7 +6,7 @@ const apiServer = process.env.GATSBY_API_SERVER;
 
 module.exports = {
 	siteMetadata: {
-		title: "Spotifest",
+		title: "Weeqnd",
 		description: "Gör festen roligare genom att låta alla gäster köa musik från sin egen telefon. ",
 		author: "@gatsbyjs",
 		siteUrl: "https://spotifest.se"
@@ -36,13 +36,20 @@ module.exports = {
 				}
 			}
 		},
+		"gatsby-plugin-netlify",
 		"gatsby-transformer-sharp",
 		"gatsby-plugin-sharp",
 		{
+			resolve: "gatsby-plugin-create-client-paths",
+			options: {
+				prefixes: ["/party/*"]
+			}
+		},
+		{
 			resolve: "gatsby-plugin-manifest",
 			options: {
-				name: "SpotiFest",
-				short_name: "SpotiFest",
+				name: "Weeqnd Party Playlist",
+				short_name: "Weeqnd",
 				start_url: "/",
 				background_color: "#0B1D2E",
 				theme_color: "#193C5E",
@@ -54,8 +61,10 @@ module.exports = {
 		// To learn more, visit: https://gatsby.dev/offline
 		// `gatsby-plugin-offline`,
 	],
-	proxy: {
-		prefix: "/api",
-		url: apiServer
-	}
+	proxy: [
+		{
+			prefix: "/api",
+			url: apiServer
+		}
+	]
 };

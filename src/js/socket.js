@@ -5,6 +5,7 @@ class Socket {
 		this.party = party;
 		this.accessToken = accessToken;
 		this.socket = null;
+		this.started = false;
 	}
 
 	start(){
@@ -54,6 +55,9 @@ class Socket {
 			const{ trackId, playlist } = data;
 			this.onTrackRemoved(trackId, playlist);
 		});
+
+		// Set socket status
+		this.started = true;
 	}
 
 	addTrack(data){

@@ -3,21 +3,21 @@ import { navigate } from "gatsby";
 import PropTypes from "prop-types";
 
 // Layout
-import Layout from "../../components/layout";
-import SEO from "../../components/seo";
+import Layout from "../components/layout";
+import SEO from "../components/seo";
 
 // Components
-import Button from "../../components/Button";
-import Radio from "../../components/Radio";
-import Info from "../../components/Info";
-import Loader from "../../components/Loader";
+import Button from "../components/Button";
+import Radio from "../components/Radio";
+import Info from "../components/Info";
+import Loader from "../components/Loader";
 
 // Util
-import { auth } from "../../js/util";
-import spotify from "../../js/spotify";
+import { auth } from "../js/util";
+import spotify from "../js/spotify";
 
 // Css
-import "../../styles/create.css";
+import "../styles/create.css";
 
 const Create = () => {
 	const[loaded, setLoaded] = useState(false);
@@ -26,7 +26,7 @@ const Create = () => {
 	const[error, setError] = useState(null);
 	const[loading, setLoading] = useState(false);
 
-	async function authenticate (){
+	async function authenticate(){
 		const authed = await auth();
 
 		if(authed) setLoaded(true);
@@ -36,7 +36,7 @@ const Create = () => {
 		authenticate();
 
 	useEffect( () => {
-		async function getPlaylists (){
+		async function getPlaylists(){
 			setLoadingPlaylists(true);
 			const result = await spotify.getUsersPlaylists();
 			const items = result.items;

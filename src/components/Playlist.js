@@ -1,43 +1,26 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 
 // Components
-import Search from "./Search";
 import FAB from "./FAB";
 import ActivePlaylist from "./ActivePlaylist";
 
-// icons
+// Icons
 import SearchIcon from "../images/icons/search-icon.svg";
 
-const Playlist = ({ display, onAddTrack, adding }) => {
-	if(display !== "playlist") return"";
-	const[showSearch, setShowSearch] = useState(false);
+// Contexts
+import { PartyContext } from "../contexts";
 
-	const onShowSearch = () => {
-		setShowSearch(true);
-	};
-
-	const onHideSearch = () => {
-		setShowSearch(false);
-	};
+const Playlist = () => {
+	const{ code } = useContext(PartyContext);
 
 	return(
 		<section className="playlist view">
 			<div className="content">
-				{ showSearch
-					? <Search
-						onClick={onAddTrack}
-						onHideSearch={onHideSearch}
-						adding={adding}
-					/> : (
-						<>
-							<ActivePlaylist adding={adding} />
-							<FAB icon={<SearchIcon />} onClick={onShowSearch} />
-						</>
-					)}
-
+				<ActivePlaylist />
 			</div>
 
+			<FAB icon={<SearchIcon />} to={`/party/${code}/search`} />
 		</section>
 	);
 };

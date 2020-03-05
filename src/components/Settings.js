@@ -1,8 +1,6 @@
 import React from "react";
 
-const Settings = ({ display }) => {
-	if(display !== "settings") return"";
-
+const Settings = () => {
 	return(
 		<div className="settings view">
 

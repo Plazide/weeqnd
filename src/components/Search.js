@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
+import { Link } from "@reach/router";
 import PropTypes from "prop-types";
 
 // components
@@ -15,11 +16,12 @@ import { PartyContext, MethodContext, LoadingContext } from "../contexts";
 // Icons
 import SearchIcon from "../images/icons/search-icon.svg";
 import BackArrowIcon from "../images/icons/back-arrow.svg";
+import CloseIcon from "../images/icons/close.svg";
 
 // Css
 import "./styles/search.css";
 
-const Search = ({ onClick, onHideSearch, adding }) => {
+const Search = () => {
 	const party = useContext(PartyContext);
 	const[results, setResults] = useState([]);
 	const[prevValue, setPrevValue] = useState(null);
@@ -45,10 +47,15 @@ const Search = ({ onClick, onHideSearch, adding }) => {
 
 	return(
 		<div className="search">
-			<div className="content">
-				<BackArrowIcon onClick={onHideSearch} className="back" />
+
+			<SearchResults playlist={playlist} results={results} />
+			<div className="search__menu">
+				<Link className="search__button" to="../">
+					<BackArrowIcon className="search__buttonIcon" />
+
+				</Link>
 				<SearchInput onSearch={onSearch} />
-				<SearchResults playlist={playlist} results={results} onClick={onClick} adding={adding} />
+
 			</div>
 		</div>
 	);
@@ -57,6 +64,7 @@ const Search = ({ onClick, onHideSearch, adding }) => {
 const SearchInput = ({ onSearch }) => {
 	const[value, setValue] = useState("");
 	const[focus, setFocus] = useState(false);
+	const input = useRef(null);
 
 	const debouncedValue = useDebounce(value, 500);
 
@@ -67,6 +75,14 @@ const SearchInput = ({ onSearch }) => {
 
 	const onFocus = () => {
 		setFocus(true);
+	};
+
+	const focusInput = () => {
+		input.current.focus();
+	};
+
+	const clearInput = () => {
+		setValue("");
 	};
 
 	const onChange = (e) => {
@@ -82,6 +98,8 @@ const SearchInput = ({ onSearch }) => {
 	};
 
 	useEffect( () => {
+		focusInput();
+
 		if(debouncedValue)
 			onSearch(debouncedValue);
 	}, [debouncedValue]);
@@ -91,15 +109,26 @@ const SearchInput = ({ onSearch }) => {
 			<form onSubmit={onSubmit}>
 				<label>
 					<span className="label">{focus ? "" : "Sök på en låt..."}</span>
-					<input type="text" onChange={onChange} value={value} onFocus={onFocus} onBlur={onBlur} />
-					<button><SearchIcon className="icon" /></button>
+					<input
+						type="text"
+						ref={input}
+						onChange={onChange}
+						value={value}
+						onFocus={onFocus}
+						onBlur={onBlur}
+					/>
+					{value.length > 0
+						? (<button><CloseIcon className="icon" onClick={clearInput} /></button>)
+						: (<button><SearchIcon className="icon" onClick={focusInput} /></button>)
+					}
+
 				</label>
 			</form>
 		</div>
 	);
 };
 
-const SearchResults = ({ results, playlist, onClick }) => {
+const SearchResults = ({ results, playlist }) => {
 	const{ topTracks } = useContext(PartyContext);
 	const{ onAddTrack } = useContext(MethodContext);
 	const{ adding } = useContext(LoadingContext);
@@ -111,7 +140,7 @@ const SearchResults = ({ results, playlist, onClick }) => {
 
 	return(
 		<section className="search-results">
-			<TrackList tracks={results} playlist={playlist} onClick={onClick} adding={adding} />
+			<TrackList tracks={results} playlist={playlist} onClick={onAddTrack} adding={adding} />
 		</section>
 	);
 };
@@ -119,7 +148,6 @@ const SearchResults = ({ results, playlist, onClick }) => {
 export default Search;
 
 Search.propTypes = {
-	onClick: PropTypes.func.isRequired,
 	adding: PropTypes.string,
 	onHideSearch: PropTypes.func
 };
@@ -130,7 +158,5 @@ SearchInput.propTypes = {
 
 SearchResults.propTypes = {
 	results: PropTypes.array.isRequired,
-	playlist: PropTypes.array.isRequired,
-	adding: PropTypes.string,
-	onClick: PropTypes.func.isRequired
+	playlist: PropTypes.array.isRequired
 };
