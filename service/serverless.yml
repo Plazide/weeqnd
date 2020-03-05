@@ -27,37 +27,40 @@ functions:
   # party functions
   create:
     description: Create a party 
-    handler: handler.create
+    handler: party/create.create
     events: 
       - http:
           path: party/create
           method: post
+          cors: false
   join:
     description: Join a party
-    handler: handler.join
+    handler: party/join.join
     events: 
       - http:
           path: party/join
           method: post
+          cors: false
   get: 
     description: Get a party
-    handler: handler.get
+    handler: party/get.get
     events: 
       - http: 
           path: party/get
           method: get
+          cors: false
   
   # Spotify functions
   auth:
     description: Authenticate with Spotify
-    handler: handler.auth
+    handler: spotify/auth.auth
     events: 
       - http:
           path: spotify/auth
           method: get
   refresh: 
     description: Refresh spotify access token
-    handler: handler.refresh
+    handler: spotify/refresh.refresh
     events: 
       - http:
           path: spotify/refresh
