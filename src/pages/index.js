@@ -10,7 +10,7 @@ import BackgroundImage from "gatsby-background-image";
 import spotify from "../js/spotify";
 
 // Components
-import LinkButton from "../components/LinkButton";
+import LinkButton from "../components/Button/Link";
 
 // Css
 import "../styles/start.css";

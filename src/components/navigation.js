@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "gatsby";
 
 // Components
-import LinkButton from "./LinkButton";
+import LinkButton from "./Button/Link";
 
 // Icon
 import Hamburger from "../images/icons/hamburger.svg";
@@ -11,7 +11,7 @@ const Navigation = () => {
 	const[ showNav, setShowNav ] = useState(false);
 	const open = showNav ? "open" : "";
 
-	function onShowNav (){
+	function onShowNav(){
 		setShowNav(!showNav);
 	}
 

@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 
 // Components
 import TrackList from "./TrackList";
-import Info from "./Info";
+import Info from "../Info/";
 
 // Util
-import spotify from "../js/spotify";
+import spotify from "../../js/spotify";
 
 // Contexts
-import { PartyContext } from "../contexts.js";
+import { PartyContext } from "../../contexts.js";
 
 export default function ActivePlaylist(){
 	const{ playlist = [] } = useContext(PartyContext);

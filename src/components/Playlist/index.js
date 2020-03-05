@@ -2,14 +2,14 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 
 // Components
-import FAB from "./FAB";
+import FAB from "../FAB";
 import ActivePlaylist from "./ActivePlaylist";
 
 // Icons
-import SearchIcon from "../images/icons/search-icon.svg";
+import SearchIcon from "../../images/icons/search-icon.svg";
 
 // Contexts
-import { PartyContext } from "../contexts";
+import { PartyContext } from "../../contexts";
 
 const Playlist = () => {
 	const{ code } = useContext(PartyContext);

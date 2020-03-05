@@ -12,26 +12,24 @@ import useMergeState from "../js/useMergeState";
 // Layout
 import Layout from "../components/layout";
 import SEO from "../components/seo";
-import Playlist from "../components/Playlist";
+import Playlist from "../components/Playlist/";
 import Settings from "../components/Settings";
-import Error from "../components/Error";
-import Success from "../components/Success";
 import Tabs from "../components/Tabs/";
 
 // Components
-import Search from "../components/Search";
+import Search from "../components/Search/";
+import Loader from "../components/Loader/";
+import Status from "../components/Status/";
 
 // Contexts
 import { PartyContext, MethodContext, LoadingContext } from "../contexts.js";
 
 // Css
-import Loader from "../components/Loader";
 
 const Party = ( props) => {
 	const{ code, "*": tab } = props;
 
-	const[error, setError] = useState("");
-	const[success, setSuccess] = useState("");
+	const[status, setStatus] = useState({ msgCode: "", type: "" });
 	const[addingTrack, setAddingTrack] = useState("");
 	const[removingTrack, setRemovingTrack] = useState("");
 	const[socket, setSocket] = useState(null);
@@ -94,30 +92,24 @@ const Party = ( props) => {
 		socket.removeTrack(trackObject);
 	};
 
-	const expireError = () => {
-		setError("");
-	};
-
-	const expireSuccess = () => {
-		setSuccess("");
+	const expireStatus = () => {
+		setStatus({ msgCode: "", type: "" });
 	};
 
 	const methods = {
 		onAddTrack,
-		onRemoveTrack,
-		expireError,
-		expireSuccess
+		onRemoveTrack
 	};
 
 	if(socket !== null){
 		// Socket Events
-		socket.onError = type => {
-			setError(type);
+		socket.onError = msgCode => {
+			setStatus({ type: "error", msgCode });
 			setRemovingTrack("");
 		};
 
-		socket.onSuccess = async type => {
-			setSuccess(type);
+		socket.onSuccess = msgCode => {
+			setStatus({ type: "success", msgCode });
 		};
 
 		socket.onTrackAdded = (trackId, playlist) => {
@@ -155,8 +147,7 @@ const Party = ( props) => {
 						</Loader>
 					</Layout>
 
-					<Error type={error} onErrorExpire={expireError} />
-					<Success type={success} onSuccessExpire={expireSuccess} />
+					<Status type={status.type} msgCode={status.msgCode} onExpire={expireStatus} />
 				</LoadingContext.Provider>
 			</MethodContext.Provider>
 		</PartyContext.Provider>

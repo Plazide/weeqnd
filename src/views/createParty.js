@@ -7,7 +7,7 @@ import Layout from "../components/layout";
 import SEO from "../components/seo";
 
 // Components
-import Button from "../components/Button";
+import Button from "../components/Button/";
 import Radio from "../components/Radio";
 import Info from "../components/Info";
 import Loader from "../components/Loader";

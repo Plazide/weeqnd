@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "gatsby";
 
 // css
-import "./styles/buttons.css";
+import "./style.css";
 
 const LinkButton = ({ to, variant, children, external }) => (
 	external

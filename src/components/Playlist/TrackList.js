@@ -2,20 +2,20 @@ import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 
 // Components
-import Loader from "./Loader";
+import Loader from "../Loader/";
 
 // Contexts
-import { MethodContext, LoadingContext } from "../contexts";
+import { MethodContext, LoadingContext } from "../../contexts";
 
 // Css
-import "./styles/list.css";
+import "./style.css";
 
 // Icons
-import PlaylistAdd from "../images/icons/playlist-add.svg";
-import PlaylistAdded from "../images/icons/playlist-added.svg";
-import MoreIcon from "../images/icons/more.svg";
-import DeleteIcon from "../images/icons/delete.svg";
-import SettingsIcon from "../images/icons/settings.svg";
+import PlaylistAdd from "../../images/icons/playlist-add.svg";
+import PlaylistAdded from "../../images/icons/playlist-added.svg";
+import MoreIcon from "../../images/icons/more.svg";
+import DeleteIcon from "../../images/icons/delete.svg";
+import SettingsIcon from "../../images/icons/settings.svg";
 
 export default function TrackList({ tracks, playlist, activePlaylist = false }){
 	if(!tracks || tracks.length === 0) return(

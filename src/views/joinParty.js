@@ -11,7 +11,7 @@ import SEO from "../components/seo";
 
 // Components
 import Info from "../components/Info";
-import Button from "../components/Button";
+import Button from "../components/Button/";
 import Loader from "../components/Loader";
 
 // Css

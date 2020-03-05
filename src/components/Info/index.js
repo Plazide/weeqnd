@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 // Css
-import "./styles/info.css";
+import "./style.css";
 
 const Info = ({ children }) => {
 	return(

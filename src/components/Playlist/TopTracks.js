@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 // Components
 import TrackList from "./TrackList";
-import Info from "./Info";
+import Info from "../Info";
 
 const TopTracks = ({ tracks, playlist, onClick, adding }) => {
 	return(

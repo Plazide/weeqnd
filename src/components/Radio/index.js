@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 // Css
-import "./styles/radio.css";
+import "./style.css";
 
 const Radio = ({ name, id, value }) => (
 	<span className="radio">

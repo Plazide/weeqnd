@@ -1,15 +1,14 @@
-import { Link } from "gatsby";
 import PropTypes from "prop-types";
 import React from "react";
 
 // Components
-import Logo from "./logo";
-import Navigation from "./navigation";
+import Logo from "../logo";
+import Navigation from "../navigation";
 
 // Css
-import "./styles/header.css";
+import "./style.css";
 
-const Header = ({ siteTitle }) => {
+const Header = () => {
 	return(
 		<header>
 			<div className="wrapper">

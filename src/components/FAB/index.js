@@ -3,7 +3,7 @@ import { Link } from "@reach/router";
 import PropTypes from "prop-types";
 
 // css
-import "./styles/fab.css";
+import "./style.css";
 
 export default function FAB({ icon, onClick, to }){
 	if(typeof to !== "undefined" && to !== null)
