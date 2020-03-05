@@ -13,6 +13,7 @@
 	font-size: 1rem;
 	padding: .7rem;
 	background: var(--third);
+	text-decoration: none;
 	cursor: pointer;
 }
 .tabs .tab.selected{

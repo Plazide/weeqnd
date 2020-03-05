@@ -16,7 +16,7 @@ import Playlist from "../components/Playlist";
 import Settings from "../components/Settings";
 import Error from "../components/Error";
 import Success from "../components/Success";
-import Tabs from "../components/Tabs";
+import Tabs from "../components/Tabs/";
 
 // Components
 import Search from "../components/Search";
@@ -25,7 +25,6 @@ import Search from "../components/Search";
 import { PartyContext, MethodContext, LoadingContext } from "../contexts.js";
 
 // Css
-import "../styles/party.css";
 import Loader from "../components/Loader";
 
 const Party = ( props) => {

@@ -2,12 +2,13 @@ import React from "react";
 import { Link } from "@reach/router";
 
 // Icons
-import PlaylistIcon from "../images/icons/playlist-tab.svg";
-import SettingsIcon from "../images/icons/settings.svg";
+import PlaylistIcon from "../../images/icons/playlist-tab.svg";
+import SettingsIcon from "../../images/icons/settings.svg";
+
+// Css
+import "./style.css";
 
 const Tabs = ({ isOwner, tab }) => {
-	console.log(tab);
-
 	if(isOwner)
 		return(
 			<div className="tabs">
