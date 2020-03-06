@@ -1,5 +1,6 @@
 .search{
-	padding: 1rem 1rem 4rem 1rem;
+	padding: 1rem 1rem 0 1rem;
+	margin-bottom: 4rem;
 	position: fixed;
 	top: 0;
 	bottom: 0;
@@ -8,6 +9,9 @@
 
 	background: var(--primary);
 	overflow-y: scroll;
+}
+.search-results{
+	padding-bottom: 6rem;
 }
 .search-input{
 	position: relative;
@@ -44,6 +48,9 @@
 
 	color: var(--text);
 	box-shadow: 0 4px 8px var(--shadow);
+}
+.search .load-more-loader{
+	margin-top: 2rem;
 }
 
 .search__menu{
