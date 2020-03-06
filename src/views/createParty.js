@@ -81,7 +81,7 @@ const Create = () => {
 			const code = result.data.code;
 
 			window.localStorage.setItem("partyCode", code);
-			navigate("/party#" + code);
+			navigate("/party/" + code);
 		}
 
 		if(response.status === 401){
