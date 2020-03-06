@@ -3,6 +3,7 @@
 	/* bottom: 10px; */
 	bottom: 0;
 	opacity: 1;
+	cursor: pointer;
 
 	transform: translateY(-10px);
 	width: 100%;

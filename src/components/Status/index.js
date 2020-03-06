@@ -14,21 +14,22 @@ export default function Status({ type, msgCode, onExpire }){
 	const role = type === "error" ? "alert" : "status";
 	const messages = type === "error" ? errors : success;
 
+	const expire = async ms => {
+		setTimeout( () => {
+			onExpire();
+			setHidden(true);
+		}, ms );
+	};
+
 	useEffect( () => {
 		if(msgCode){
 			setHidden(false);
-			const expire = async () => {
-				setTimeout( () => {
-					onExpire();
-					setHidden(true);
-				}, delay );
-			};
-			expire();
+			expire(delay);
 		}
 	});
 
 	return(
-		<div className={`page-status ${type} ${hidden ? "hidden" : ""}`} role={role}>
+		<div className={`page-status ${type} ${hidden ? "hidden" : ""}`} role={role} onClick={expire}>
 			<div className="inner">
 				<div className="message">{messages[msgCode]}</div>
 			</div>
