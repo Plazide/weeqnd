@@ -23,3 +23,49 @@
 	width: 24px;
 	height: 24px;
 }
+
+.statusBar__currentTrack{
+	box-sizing: border-box;
+	display: flex;
+	width: 80%;
+	height: 100%;
+
+	padding: .5rem 0 .5rem 1rem;
+}
+.statusBar__coverImg{
+	height: 100%;
+	width: 100%;
+}
+.statusBar__coverImg{
+	height: 44px;
+	width: 44px;
+}
+.statusBar__trackInfo{
+	align-self: flex-start;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	margin-left: .5rem;
+	width: 84%;
+
+	font-family: "Poppins", Verdana, sans-serif;
+}
+.statusBar__trackTitle{
+	font-size: 1rem;
+	line-height: 1.2rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-weight: normal;
+	font-family: "Poppins", Verdana, sans-serif;
+
+	white-space: nowrap;
+}
+.statusBar__metaInfo{
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	font-size: .75rem;
+	font-weight: lighter;
+	margin-top: .4rem;
+	opacity: .8;
+}
