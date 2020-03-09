@@ -17,6 +17,9 @@ import MoreIcon from "../../images/icons/more.svg";
 import DeleteIcon from "../../images/icons/delete.svg";
 import SettingsIcon from "../../images/icons/settings.svg";
 
+// Util
+import { extractCoverImage } from "../../js/util";
+
 export default function TrackList({ tracks, playlist, activePlaylist = false }){
 	if(!tracks || tracks.length === 0) return(
 		<div className="empty">
@@ -43,9 +46,7 @@ const Track = ({ track, playlist, activePlaylist }) => {
 	const{ name, artists, album, id } = track;
 	const currentTrack = playlist.find( item => item.id === id);
 	const inPlaylist = currentTrack !== undefined;
-	const image = album.images.reduce((prev, curr) => {
-		if(curr.width < prev.width) return curr;
-	});
+	const image = album.images.reduce(extractCoverImage);
 	const artist = artists.map( (artist, i) => {
 		const last = i === artists.length - 1;
 		return(<span key={artist.id} className="artist">{artist.name}{last ? "" : ", "}</span>);
