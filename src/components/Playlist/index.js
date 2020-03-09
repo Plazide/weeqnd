@@ -1,26 +1,17 @@
-import React, { useContext } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
-// Components
-import FAB from "../FAB";
 import ActivePlaylist from "./ActivePlaylist";
-
-// Icons
-import SearchIcon from "../../images/icons/search-icon.svg";
-
-// Contexts
-import { PartyContext } from "../../contexts";
+import StatusBar from "../StatusBar/";
 
 const Playlist = () => {
-	const{ code } = useContext(PartyContext);
-
 	return(
 		<section className="playlist view">
+			<StatusBar />
 			<div className="content">
 				<ActivePlaylist />
 			</div>
 
-			<FAB icon={<SearchIcon />} to={`/party/${code}/search`} />
 		</section>
 	);
 };
