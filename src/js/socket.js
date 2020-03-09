@@ -56,6 +56,10 @@ class Socket {
 			this.onTrackRemoved(trackId, playlist);
 		});
 
+		this.socket.on("current_track", data => {
+			this.onTrackUpdated(data);
+		});
+
 		// Set socket status
 		this.started = true;
 	}

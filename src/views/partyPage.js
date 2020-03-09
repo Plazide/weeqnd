@@ -123,6 +123,11 @@ const Party = ( props) => {
 			const newParty = { ...state.party, playlist: playlist.map(splitTrack) };
 			setState({ party: newParty });
 		};
+
+		socket.onTrackUpdated = newTrack => {
+			const newParty = { ...state.party, currentTrack: newTrack };
+			setState({ party: newParty });
+		};
 	}
 
 	return(
