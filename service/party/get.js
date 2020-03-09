@@ -10,16 +10,30 @@ async function get(event, context){
 
 	try{
 		const spotifyApi = new SpotifyWebApi({ accessToken });
-		const me = await spotifyApi.getMe().catch(err => {
-			return error(err.statusCode, err.message);
-		});
+		const[me, party] = await Promise.all([
+			spotifyApi.getMe(),
+			getParty(code)
+		]);
 
-		if(me.statusCode === 401)
-			return error(401, "Could not spotify user.");
+		const partyAccessToken = party.accessToken;
+		spotifyApi.setAccessToken(partyAccessToken);
+
+		const trackResult = await spotifyApi.getMyCurrentPlayingTrack();
+		const currentTrack = trackResult.statusCode === 200 ? trackResult.body : {};
+
+		if(currentTrack.item){
+			const playlist = party.playlist.map( track => {
+				const parts = track.split(":");
+
+				return{ id: parts[0], username: parts[1], timeAdded: parts[2] };
+			});
+			const trackId = currentTrack.item.id;
+			const addedBy = playlist.find( track => trackId === track.id);
+
+			currentTrack.addedBy = addedBy !== undefined ? addedBy.username : "fallback playlist";
+		}
 
 		const username = me.body.id;
-
-		const party = await getParty(code);
 		const isOwner = party.owner === username;
 
 		const secretInfo = {};
@@ -35,6 +49,7 @@ async function get(event, context){
 				isOwner,
 				owner: party.owner,
 				playlist: party.playlist,
+				currentTrack,
 				...secretInfo
 			})
 		};
