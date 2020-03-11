@@ -15,6 +15,9 @@ async function get(event, context){
 			getParty(code)
 		]);
 
+		if(!party)
+			return error(404, "The provided code does not belong to a party");
+
 		const partyAccessToken = party.accessToken;
 		spotifyApi.setAccessToken(partyAccessToken);
 
@@ -65,4 +68,4 @@ async function get(event, context){
 	}
 }
 
-module.exports = get;
+module.exports.get = get;

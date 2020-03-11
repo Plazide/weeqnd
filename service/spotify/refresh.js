@@ -52,4 +52,4 @@ async function refresh(event){
 	}
 }
 
-module.exports = refresh;
+module.exports.refresh = refresh;

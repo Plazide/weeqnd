@@ -35,4 +35,4 @@ async function auth(event, context){
 	}
 }
 
-module.exports = auth;
+module.exports.auth = auth;

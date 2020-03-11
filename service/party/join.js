@@ -80,4 +80,4 @@ async function connectUser(username, party, create = false){
 	}
 }
 
-module.exports = join;
+module.exports.join = join;

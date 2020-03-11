@@ -4,7 +4,7 @@ const error = require("../util/error");
 
 require("dotenv").config();
 
-async function create (event, context){
+async function create(event, context){
 	try{
 		const body = event.body;
 		const playlist = body.playlist;
@@ -81,4 +81,4 @@ async function create (event, context){
 	}
 }
 
-module.exports = create;
+module.exports.create = create;
