@@ -18,7 +18,7 @@ app.use("/api", async (req, res) => {
 
 	try{
 		const path = req.path.replace(/\/api/, "").split("?")[0];
-		const func = require("../service" + path);
+		const func = require("../service" + path)[path.split("/")[path.split("/").length - 1]];
 
 		if(typeof func !== "function")
 			return res.status(404).json({ message: "Not found" });
