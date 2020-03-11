@@ -11,17 +11,15 @@
 #
 # Happy Coding!
 
-service: spotifest-service
+service: weeqnd-service
+plugins: 
+  - serverless-dotenv-plugin
 
 provider:
   name: aws
   runtime: nodejs12.x
   stage: dev
   region: eu-north-1
-  environment:
-    SPOTIFY_CLIENT_ID: ${env:SPOTIFY_CLIENT_ID}
-    SPOTIFY_CLIENT_SECRET: ${env:SPOTIFY_CLIENT_SECRET}
-    FAUNADB_SECRET: ${env:FAUNADB_SECRET}
 
 functions:
   # party functions
@@ -57,7 +55,7 @@ functions:
     events: 
       - http:
           path: spotify/auth
-          method: get
+          method: post
   refresh: 
     description: Refresh spotify access token
     handler: spotify/refresh.refresh
