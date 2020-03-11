@@ -3,7 +3,7 @@ const{ getParty, getUser, createUser, db } = require("../util/functions");
 const error = require("../util/error");
 require("dotenv").config();
 
-async function join (event, context){
+async function join(event, context){
 	const code = event.body.code;
 	const accessToken = event.headers["x-access-token"];
 
@@ -12,27 +12,52 @@ async function join (event, context){
 	});
 
 	try{
-		// Get spotify username
-		const me = await spotifyApi.getMe().catch(err => {
-			return error(err.statusCode, err.message);
-		});
-
-		if(me.statusCode === 401)
-			return error(401, "Could not find the Spotify user!");
+		const[me, party] = await Promise.all([
+			spotifyApi.getMe(),
+			getParty(code)
+		]);
 
 		const username = me.body.id;
 
-		// Get party by code
-		const party = await getParty(code);
 		if(!party)
 			return error(404, "Could not find a party using the provided code.");
 
-		// Get the stored user or create a new user.
-		let user = await getUser(username);
-		if(!user)
+		// Update the party by connecting the user to it.
+		let updatedParty = await connectUser(username, party, false);
+
+		if(!updatedParty){
+			updatedParty = await connectUser(username, party, true);
+			if(!updatedParty)
+				return error(500, "Could not join party!");
+		}
+
+		const isOwner = party.owner === username;
+		return{
+			statusCode: 200,
+			body: JSON.stringify({
+				data: {
+					isOwner,
+					...party
+				}
+			})
+		};
+	}catch(err){
+		if(err.statusCode === 401)
+			return error(401, "Could not find the Spotify user!");
+
+		throw new Error(err);
+	}
+}
+
+async function connectUser(username, party, create = false){
+	try{
+		let user;
+
+		if(!create)
+			user = await getUser(username);
+		else
 			user = await createUser(username);
 
-		// Update the party by connecting the user to it.
 		const updatedParty = await db({
 			type: "mutation",
 			name: "partialUpdateParty",
@@ -48,21 +73,10 @@ async function join (event, context){
 				"code"
 			]
 		});
-		if(!updatedParty)
-			return error(500, "Could not add user to database");
 
-		const isOwner = party.owner === username;
-		return{
-			statusCode: 200,
-			body: JSON.stringify({
-				data: {
-					isOwner,
-					...party
-				}
-			})
-		};
+		return updatedParty;
 	}catch(err){
-		throw new Error(err);
+		return false;
 	}
 }
 
