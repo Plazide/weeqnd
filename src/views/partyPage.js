@@ -71,7 +71,7 @@ const Party = ( props) => {
 		if(!state.loaded)
 			initParty();
 
-		if(socket === null)
+		if(socket === null && state.loaded)
 			setSocket(new Socket({
 				accessToken: spotify.accessToken,
 				party: code
