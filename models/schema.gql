@@ -4,6 +4,7 @@ type Party {
 	playlist: [String]
 	fallbackPlaylist: String!
 	users: [User] @relation
+	active: Boolean!
 	accessToken: String!
 	refreshToken: String!
 }

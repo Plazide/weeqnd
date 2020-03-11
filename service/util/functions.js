@@ -155,6 +155,7 @@ async function createParty({ username, playlist, accessToken, refreshToken, code
 				accessToken: "${accessToken}"
 				refreshToken: "${refreshToken}"
 				fallbackPlaylist: "${playlist}"
+				active: false
 			}
 		){
 			code
