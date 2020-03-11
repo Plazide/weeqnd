@@ -26,6 +26,7 @@ app.use("/api", async (req, res) => {
 		console.time(req.path);
 		const{ statusCode, body, headers } = await func(event, context);
 		console.timeEnd(req.path);
+		console.count("Lambda");
 
 		if(statusCode === 301 || statusCode === 302){
 			res.redirect(statusCode, headers.Location);
