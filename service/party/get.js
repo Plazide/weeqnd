@@ -50,6 +50,7 @@ async function get(event, context){
 			statusCode: 200,
 			body: JSON.stringify({
 				isOwner,
+				active: party.active,
 				owner: party.owner,
 				playlist: party.playlist,
 				currentTrack,

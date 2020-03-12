@@ -130,6 +130,7 @@ async function getParty(code){
 			playlist
 			fallbackPlaylist
 			accessToken
+			active
 			code
 			_id
 			users {
