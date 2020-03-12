@@ -60,6 +60,11 @@ class Socket {
 			this.onTrackUpdated(data);
 		});
 
+		this.socket.on("party_activated", () => {
+			console.log("Party Activated from server!");
+			this.onPartyActivated();
+		});
+
 		// Set socket status
 		this.started = true;
 	}
@@ -74,6 +79,10 @@ class Socket {
 		this.socket.emit("remove-track", data, (res) => {
 			console.log(res);
 		});
+	}
+
+	activateParty(){
+		this.socket.emit("activate-party");
 	}
 }
 

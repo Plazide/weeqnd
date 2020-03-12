@@ -1,0 +1,24 @@
+.activeStatus{
+	text-align: center;
+	margin-top: 30%;
+}
+.activeStatus__heading{
+	font-size: 2rem;
+	color: var(--error);
+	margin-bottom: 0;
+	font-family: "Poppins", Verdana, sans-serif;
+}
+.activeStatus__paragraph{
+	margin-top: 5px;
+	font-size: 1.1rem;
+	font-weight: 100;
+	line-height: 1.7rem;
+	font-family: "Lato", sans-serif;
+}
+.activeStatus__paragraph--highlight{
+	text-decoration: underline;
+}
+
+.activateButton{
+	margin-top: 50px;
+}
