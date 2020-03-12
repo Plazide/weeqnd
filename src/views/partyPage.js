@@ -100,11 +100,16 @@ const Party = ( props) => {
 		socket.activateParty();
 	};
 
+	const deactivateParty = () => {
+		socket.deactivateParty();
+	};
+
 	const methods = {
 		onAddTrack,
 		onRemoveTrack,
 		expireStatus,
-		activateParty
+		activateParty,
+		deactivateParty
 	};
 
 	if(socket !== null){
@@ -136,7 +141,12 @@ const Party = ( props) => {
 		};
 
 		socket.onPartyActivated = () => {
-			const newParty = { ...state.party, activated: true };
+			const newParty = { ...state.party, active: true };
+			setState({ party: newParty });
+		};
+
+		socket.onPartyDeactivated = () => {
+			const newParty = { ...state.party, active: false };
 			setState({ party: newParty });
 		};
 	}

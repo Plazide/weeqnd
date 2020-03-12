@@ -1,0 +1,13 @@
+
+
+
+
+
+button.outlined.settings__party__button{
+	font-size: 1rem;
+	padding: .6rem 1.4rem;
+}
+button.outlined.settings__party__button--deactivate{
+	color: var(--error);
+	border-color: var(--error);
+}

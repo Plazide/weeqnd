@@ -65,6 +65,11 @@ class Socket {
 			this.onPartyActivated();
 		});
 
+		this.socket.on("party_deactivated", () => {
+			console.log("Party Deactivated from server");
+			this.onPartyDeactivated();
+		});
+
 		// Set socket status
 		this.started = true;
 	}
@@ -83,6 +88,10 @@ class Socket {
 
 	activateParty(){
 		this.socket.emit("activate-party");
+	}
+
+	deactivateParty(){
+		this.socket.emit("deactivate-party");
 	}
 }
 
