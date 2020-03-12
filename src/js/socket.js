@@ -61,12 +61,10 @@ class Socket {
 		});
 
 		this.socket.on("party_activated", () => {
-			console.log("Party Activated from server!");
 			this.onPartyActivated();
 		});
 
 		this.socket.on("party_deactivated", () => {
-			console.log("Party Deactivated from server");
 			this.onPartyDeactivated();
 		});
 
