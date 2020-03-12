@@ -24,6 +24,7 @@
     "react-helmet": "^5.2.1",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.8",
+    "share-api-polyfill": "^1.0.11",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0"
   },
@@ -51,7 +52,7 @@
     "deploy:site": "git push",
     "deploy:lambda": "cd service && serverless deploy",
     "dev": "run-p dev:*",
-    "dev:server": "gatsby develop -H $(my-local-ip)",
+    "dev:server": "gatsby develop -H $(my-local-ip) -S",
     "dev:lambda": "nodemon lambda/index.js",
     "build": "gatsby build",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",

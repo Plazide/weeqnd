@@ -1,5 +1,16 @@
+// Polyfill
+import "share-api-polyfill";
+
 import spotify from "../js/spotify";
 import { navigate } from "gatsby";
+
+export async function share(options){
+	try{
+		navigator.share(options);
+	}catch(err){
+		console.error("Could not share");
+	}
+}
 
 export function getQueryParams(){
 	const search = typeof window !== "undefined" ? window.location.search : null;

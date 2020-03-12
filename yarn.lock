@@ -12645,6 +12645,11 @@ shallowequal@^1.0.1, shallowequal@^1.1.0:
   resolved "https://registry.yarnpkg.com/shallowequal/-/shallowequal-1.1.0.tgz#188d521de95b9087404fd4dcb68b13df0ae4e7f8"
   integrity sha512-y0m1JoUZSlPAjXVtPPW70aZWfIL/dSP7AFkRnniLCrK/8MDKog3TySTBmckD+RObVxH0v4Tox67+F14PdED2oQ==
 
+share-api-polyfill@^1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/share-api-polyfill/-/share-api-polyfill-1.0.11.tgz#feba9a8fc013cbf9501a32d40a18d2c87d5f0ddd"
+  integrity sha512-qMYRDbR6l1vdNGXXS5RteeYMcwUXH3RxneYGOuNDOeOjXeblpRGG6ihOzTFsA+3OlEWmIHPmXZegJKQ/3FBKLA==
+
 sharp@^0.23.4:
   version "0.23.4"
   resolved "https://registry.yarnpkg.com/sharp/-/sharp-0.23.4.tgz#ca36067cb6ff7067fa6c77b01651cb9a890f8eb3"
