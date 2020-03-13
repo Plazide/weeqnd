@@ -1,0 +1,33 @@
+.playlists{
+	background: var(--secondary);
+	box-shadow: 0 3px 6px var(--shadow);
+
+	max-height: 16rem;
+	overflow: auto;
+}
+.playlists .playlist{
+	display: grid;
+	padding: 1rem .6rem;
+	display: grid;
+	font-family: "Lato", Verdana, sans-serif;
+
+	grid-template-areas: 
+		"name radio"
+		"duration radio";
+}
+.playlists .playlist:hover,
+.playlists .playlist:active,
+.playlists .playlist:focus{
+	background: var(--shadow);
+}
+.playlists .playlist .name{
+	font-size: 1.2rem;
+	font-weight: 400;
+	grid-area: name;
+}
+.playlists .playlist .duration{
+	grid-area: duration;
+	font-weight: 200;
+	font-size: .9rem;
+	margin-top: .2rem;
+}

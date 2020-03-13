@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { navigate } from "gatsby";
-import PropTypes from "prop-types";
 
 // Layout
 import Layout from "../components/layout";
@@ -8,9 +7,9 @@ import SEO from "../components/seo";
 
 // Components
 import Button from "../components/Button/";
-import Radio from "../components/Radio";
 import Info from "../components/Info";
 import Loader from "../components/Loader";
+import SelectPlaylist from "../components/SelectPlaylist/";
 
 // Util
 import { auth } from "../js/util";
@@ -102,18 +101,7 @@ const Create = () => {
 						<h2>Nödlista <Info>Listan som kommer att spelas om kön är tom.</Info></h2>
 						<form action="/api/party/create" onSubmit={onSubmit}>
 							<Loader load={loadingPlaylists} className="loading-playlists">
-								<div className="songs">
-									{playlists ? playlists.map( (playlist) => {
-										return(
-											<Playlist
-												name={playlist.name}
-												total={playlist.tracks.total}
-												href={playlist.href}
-												key={playlist.name}
-											/>
-										);
-									}) : "loading...."}
-								</div>
+								<SelectPlaylist playlists={playlists} />
 								<div className={`error ${error ? "show" : ""}`} role="alert">{error}</div>
 							</Loader>
 
@@ -128,26 +116,6 @@ const Create = () => {
 			</section>
 		</Layout>
 	);
-};
-
-const Playlist = ({ name, total, href }) => {
-	return(
-		<label htmlFor={href}>
-			<div className="song">
-				<span className="name">{name}</span>
-				<span className="duration">
-					{`${total} låtar`}
-				</span>
-				<Radio name="playlist" id={href} value={href} />
-			</div>
-		</label>
-	);
-};
-
-Playlist.propTypes = {
-	name: PropTypes.string,
-	total: PropTypes.number,
-	href: PropTypes.string
 };
 
 export default Create;

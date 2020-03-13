@@ -11,38 +11,6 @@ section.hero .content .select-playlist{
 section.hero .content .select-playlist h2{
 	margin-bottom: 5px;
 }
-section.hero .content .select-playlist .songs{
-	background: var(--secondary);
-	box-shadow: 0 3px 6px var(--shadow);
-
-	max-height: 16rem;
-	overflow: auto;
-}
-.songs .song{
-	padding: 1rem .6rem;
-	display: grid;
-	font-family: "Lato", Verdana, sans-serif;
-
-	grid-template-areas: 
-		"name radio"
-		"duration radio";
-}
-.songs .song:hover,
-.songs .song:active,
-.songs .song:focus{
-	background: var(--shadow);
-}
-.songs .song .name{
-	font-size: 1.2rem;
-	font-weight: 400;
-	grid-area: name;
-}
-.songs .song .duration{
-	grid-area: duration;
-	font-weight: 200;
-	font-size: .9rem;
-	margin-top: .2rem;
-}
 
 section.hero .content .select-playlist .button{
 	margin-top: 4rem;
