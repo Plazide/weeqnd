@@ -60,6 +60,14 @@ async function get(event, context){
 	}catch(err){
 		console.error(err);
 
+		if(err.statusCode === 401)
+			return{
+				statusCode: err.statusCode,
+				body: JSON.stringify({
+					message: err.message
+				})
+			};
+
 		return{
 			statusCode: 500,
 			body: JSON.stringify({
