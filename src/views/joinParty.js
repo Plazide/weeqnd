@@ -66,12 +66,8 @@ const Join = () => {
 			}
 		});
 
-		if(response.ok){
-			const result = await response.json();
-			const providedCode = result.data.code;
-			window.localStorage.setItem("partyCode", providedCode);
+		if(response.ok)
 			navigate("/party/" + code);
-		}
 
 		if(response.status === 401){
 			await spotify.refresh();

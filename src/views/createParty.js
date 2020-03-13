@@ -80,7 +80,6 @@ const Create = () => {
 			const result = await response.json();
 			const code = result.data.code;
 
-			window.localStorage.setItem("partyCode", code);
 			navigate("/party/" + code);
 		}
 
