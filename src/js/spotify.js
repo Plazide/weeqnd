@@ -1,3 +1,5 @@
+import { navigate } from "gatsby";
+
 export class Spotify{
 	constructor({ clientId, responseType, scopes, redirectURI }){
 		this.clientId = clientId;
@@ -6,10 +8,11 @@ export class Spotify{
 		this.redirectURI = redirectURI;
 
 		this.authEndpoint = "https://accounts.spotify.com/authorize";
-		this.accessToken = typeof window !== "undefined" ? window.sessionStorage.getItem("access_token") : null;
-		this.refreshToken = typeof window !== "undefined" ? window.sessionStorage.getItem("refresh_token") : null;
+		this.accessToken = this.getAccessToken();
+		this.refreshToken = this.getRefreshToken();
 
 		this.refreshAttempts = 0;
+		this.maxAttempts = 2;
 	}
 
 	setAccessToken(token){
@@ -23,7 +26,15 @@ export class Spotify{
 		this.refreshToken = token;
 
 		if(typeof window !== "undefined")
-			window.sessionStorage.setItem("refresh_token", token);
+			window.localStorage.setItem("refresh_token", token);
+	}
+
+	getAccessToken(){
+		return typeof window !== "undefined" ? window.sessionStorage.getItem("access_token") : null;
+	}
+
+	getRefreshToken(){
+		return typeof window !== "undefined" ? window.localStorage.getItem("refresh_token") : null;
 	}
 
 	async isAuthenticated(){
@@ -57,9 +68,17 @@ export class Spotify{
 		options.headers = {};
 		options.headers["Authorization"] = `Bearer ${this.accessToken}`;
 
+		if(this.refreshAttempts >= this.maxAttempts){
+			this.setError("max_refresh_attempts");
+			setTimeout( () => {
+				navigate("/");
+			}, 5000);
+			return;
+		}
+
 		const response = await fetch(endpoint, options);
 
-		if(response.status === 401 && this.refreshAttempts < 3){
+		if(response.status === 401){
 			await this.refresh();
 			return this._request(endpoint, options);
 		}else{ return response; }
