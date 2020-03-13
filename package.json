@@ -52,7 +52,7 @@
     "deploy:site": "git push",
     "deploy:lambda": "cd service && serverless deploy",
     "dev": "run-p dev:*",
-    "dev:server": "gatsby develop -H $(my-local-ip) -S",
+    "dev:server": "gatsby develop -H $(my-local-ip)",
     "dev:lambda": "nodemon lambda/index.js",
     "build": "gatsby build",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
