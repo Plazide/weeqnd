@@ -8,6 +8,8 @@ export class Spotify{
 		this.authEndpoint = "https://accounts.spotify.com/authorize";
 		this.accessToken = typeof window !== "undefined" ? window.sessionStorage.getItem("access_token") : null;
 		this.refreshToken = typeof window !== "undefined" ? window.sessionStorage.getItem("refresh_token") : null;
+
+		this.refreshAttempts = 0;
 	}
 
 	setAccessToken(token){
@@ -57,7 +59,7 @@ export class Spotify{
 
 		const response = await fetch(endpoint, options);
 
-		if(response.status === 401){
+		if(response.status === 401 && this.refreshAttempts < 3){
 			await this.refresh();
 			return this._request(endpoint, options);
 		}else{ return response; }
@@ -81,6 +83,7 @@ export class Spotify{
 			}
 		});
 
+		this.refreshAttempts += 1;
 		const result = await response.json();
 		if(result.statusCode === 500)
 			return false;
@@ -89,6 +92,8 @@ export class Spotify{
 		if(result.refresh_token)
 			this.setRefreshToken(result.refresh_token);
 
+		// Reset refreshAttempts if successful.
+		this.refreshAttempts = 0;
 		return true;
 	}
 
