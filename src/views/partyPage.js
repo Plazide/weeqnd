@@ -51,6 +51,11 @@ const Party = ( props) => {
 
 					if(!status)
 						navigate("/");
+
+					if(status){
+						initParty();
+						return;
+					}
 				}
 
 				const topTracksRequest = spotify.getTopTracks({ limit: 5, timeRange: "short_term" });
@@ -150,6 +155,11 @@ const Party = ( props) => {
 			setState({ party: newParty });
 		};
 	}
+
+	const setError = msgCode => {
+		setStatus("error", msgCode);
+	};
+	spotify.setError = setError;
 
 	return(
 		<PartyContext.Provider value={state.party}>
