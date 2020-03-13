@@ -73,15 +73,11 @@ class Socket {
 	}
 
 	addTrack(data){
-		this.socket.emit("add-track", data, (res) => {
-			console.log(res);
-		});
+		this.socket.emit("add-track", data);
 	}
 
 	removeTrack(data){
-		this.socket.emit("remove-track", data, (res) => {
-			console.log(res);
-		});
+		this.socket.emit("remove-track", data);
 	}
 
 	activateParty(){
