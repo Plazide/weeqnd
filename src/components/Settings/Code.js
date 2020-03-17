@@ -16,7 +16,7 @@ export default function Code(){
 	const{ code, owner } = useContext(PartyContext);
 
 	return(
-		<div className="settings__code">
+		<div className="settings__code component">
 			<h2>Party code<Info>The code used to access the party</Info></h2>
 			<div className="settings__code__display">
 				<span>{formatCode(code)}</span>

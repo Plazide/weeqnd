@@ -1,16 +1,11 @@
-.radio{
-	grid-area: radio;
-	justify-self: end;
-	align-self: center;
-}
 .radio input{
 	appearance: none;
 	display: none;
 }
 .radio .custom-radio{
 	display: block;
-	width: 32px;
-	height: 32px;
+	width: 100%;
+	height: 100%;
 	border: 3px solid var(--text);
 	border-radius: 50%;
 
@@ -21,8 +16,8 @@
 .radio .custom-radio:before{
 	content: "";
 	display: block;
-	width: calc(32px/2);
-	height: calc(32px/2);
+	width: calc(100%/2);
+	height: calc(100%/2);
 	border-radius: 50%;
 	background: var(--text);
 

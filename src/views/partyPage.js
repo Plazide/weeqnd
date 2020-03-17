@@ -67,6 +67,8 @@ const Party = ( props) => {
 				party.topTracks = topTracksResult.items;
 				party.code = code;
 
+				if(party.isOwner) party.playlists = [];
+
 				setState({ party, loaded: true });
 			}catch(err) {
 				throw new Error(err);
@@ -109,12 +111,24 @@ const Party = ( props) => {
 		socket.deactivateParty();
 	};
 
+	const updateFallbackList = value => {
+		socket.updateFallbackList(value);
+	};
+
+	const setPartyState = value => {
+		if(typeof value !== "object") throw new TypeError(`setGlobalState: value must be of type object. ${typeof value} provided`);
+
+		setState({ party: { ...state.party, ...value } });
+	};
+
 	const methods = {
 		onAddTrack,
 		onRemoveTrack,
 		expireStatus,
 		activateParty,
-		deactivateParty
+		deactivateParty,
+		updateFallbackList,
+		setPartyState
 	};
 
 	if(socket !== null){
@@ -152,6 +166,11 @@ const Party = ( props) => {
 
 		socket.onPartyDeactivated = () => {
 			const newParty = { ...state.party, active: false };
+			setState({ party: newParty });
+		};
+
+		socket.onFallbackUpdated = fallbackPlaylist => {
+			const newParty = { ...state.party, fallbackPlaylist };
 			setState({ party: newParty });
 		};
 	}

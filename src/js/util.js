@@ -100,6 +100,6 @@ export async function auth(){
 	return false;
 }
 
-export function extractCoverImage( prev, curr){
+export function extractCoverImage(prev, curr){
 	if(curr.width < prev.width) return curr;
 }

@@ -68,6 +68,10 @@ class Socket {
 			this.onPartyDeactivated();
 		});
 
+		this.socket.on("fallback_updated", () => {
+			this.onFallbackUpdated();
+		});
+
 		// Set socket status
 		this.started = true;
 	}
@@ -86,6 +90,10 @@ class Socket {
 
 	deactivateParty(){
 		this.socket.emit("deactivate-party");
+	}
+
+	updateFallbackList(data){
+		this.socket.emit("update-fallback", data);
 	}
 }
 

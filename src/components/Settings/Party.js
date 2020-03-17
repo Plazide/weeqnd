@@ -13,7 +13,7 @@ export default function Party(){
 	const{ deactivateParty, activateParty } = useContext(MethodContext);
 
 	return(
-		<div className="settings__party">
+		<div className="settings__party component">
 			<h2>Party<Info>You can deactivate your party to disable playback control and disallow people from adding more songs</Info></h2>
 
 			{active

@@ -4,30 +4,56 @@
 
 	max-height: 16rem;
 	overflow: auto;
+	border-radius: 4px;
 }
 .playlists .playlist{
 	display: grid;
 	padding: 1rem .6rem;
-	display: grid;
 	font-family: "Lato", Verdana, sans-serif;
 
+	justify-content: space-between;
+	align-items: center;
+	grid-template-columns: .2fr 1fr .4fr;
 	grid-template-areas: 
-		"name radio"
-		"duration radio";
+		"cover name radio"
+		"cover duration radio";
 }
 .playlists .playlist:hover,
 .playlists .playlist:active,
 .playlists .playlist:focus{
 	background: var(--shadow);
 }
+.playlists .playlist .cover{
+	display: block;
+	grid-area: cover;
+	height: 40px;
+	width: 40px;
+	margin-right: 15px;
+	justify-self: self-start;
+}
 .playlists .playlist .name{
-	font-size: 1.2rem;
+	font-size: 1.1rem;
 	font-weight: 400;
+	font-family: "Poppins", Verdana, sans-serif;
 	grid-area: name;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .playlists .playlist .duration{
 	grid-area: duration;
+	opacity: .8;
 	font-weight: 200;
-	font-size: .9rem;
+	font-size: .8rem;
 	margin-top: .2rem;
+	justify-self: start;
+}
+.playlists .playlist .radioSelect{
+	display: block;
+	position: static;
+	grid-area: radio;
+	height: 26px;
+	width: 26px;
+	margin-left: auto;
+	margin-right: 0;
 }

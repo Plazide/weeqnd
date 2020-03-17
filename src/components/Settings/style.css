@@ -1,4 +1,6 @@
-
+.settings{
+	padding-bottom: 4rem;
+}
 
 .settings__code__display{
 	display: flex;
@@ -20,8 +22,11 @@
 	margin-left: 30px;
 }
 
-
-button.outlined.settings__party__button{
+button.filled.settings__fallbackPlaylist__button{
+	margin-top: 1rem;
+}
+button.outlined.settings__party__button,
+button.filled.settings__fallbackPlaylist__button{
 	font-size: 1rem;
 	padding: .6rem 1.4rem;
 }
