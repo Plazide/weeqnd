@@ -131,6 +131,20 @@ export class Spotify{
 	}
 
 	/**
+	 * Get the current user's active playback devices.
+	 * @param {bool} full - Whether or not to return the fill response object.
+	 */
+	async getDevices(full){
+		const endpoint = "https://api.spotify.com/v1/me/player/devices";
+		const response = await this._get(endpoint);
+
+		if(full)
+			return response;
+
+		return response.json();
+	}
+
+	/**
 	 * Get the current user's playlists
 	 * @param {bool} full - Whether or not to return the full response object.
 	 */
