@@ -34,6 +34,7 @@ h2, h3, h4, h5, h6{
 	font-family: "Poppins", Verdana, sans-serif;
 	color: var(--text);
 	text-shadow: 0 5px 10px var(--darkShadow);
+	margin-top: 0;
 }
 h1{
 	font-family: "Poppins", Verdana, sans-serif;
