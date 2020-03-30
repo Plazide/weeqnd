@@ -9,7 +9,7 @@ import Info from "../Info/";
 import { MethodContext } from "../../contexts";
 
 export default function PlaybackDevice({ devices = [] }){
-	const[selected, setSelected] = useState(null);
+	const[selected, setSelected] = useState();
 	const{ changePlaybackDevice } = useContext(MethodContext);
 
 	useEffect( () => {
@@ -19,11 +19,9 @@ export default function PlaybackDevice({ devices = [] }){
 			setSelected(device.id);
 	}, [devices]);
 
-	const onClick = id => {
-		if(id !== selected){
-			setSelected(id);
-			changePlaybackDevice(id);
-		}
+	const onChange = id => {
+		setSelected(id);
+		changePlaybackDevice(id);
 	};
 
 	return(
@@ -35,7 +33,7 @@ export default function PlaybackDevice({ devices = [] }){
 						device={device}
 						selected={selected}
 						key={device.id}
-						onClick={onClick}
+						onChange={onChange}
 					/>
 				))}
 			</form>
@@ -43,13 +41,14 @@ export default function PlaybackDevice({ devices = [] }){
 	);
 }
 
-const PlaybackRadio = ({ device, selected, onClick }) => {
-	const checked = selected === device.id;
-
+const PlaybackRadio = ({ device, selected, onChange }) => {
 	return(
 		<label
-			className={`settings__playbackRadio ${checked ? "settings__playbackRadio--checked" : ""}`}
-			onClick={ () => { onClick(device.id); }}
+			className={`settings__playbackRadio ${selected === device.id ? "settings__playbackRadio--checked" : ""}`}
+			/* onClick={ (e) => {
+				e.stopImmediatePropagation();
+				onClick(device.id);
+			}} */
 		>
 			<Radio
 				className="settings__playbackRadioButton"
@@ -57,9 +56,8 @@ const PlaybackRadio = ({ device, selected, onClick }) => {
 				selected={selected}
 				value={device.id}
 				id={device.id}
+				onChange={ () => { onChange(device.id); }}
 			/>
-
-			{/* <div className="radioIcon"></div> */}
 			<span className="settings__playbackRadioName">{device.name}</span>
 		</label>
 	);
@@ -72,5 +70,5 @@ PlaybackDevice.propTypes = {
 PlaybackRadio.propTypes = {
 	device: PropTypes.object,
 	selected: PropTypes.string,
-	onClick: PropTypes.func
+	onChange: PropTypes.func
 };

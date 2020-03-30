@@ -64,11 +64,12 @@ button.outlined.settings__party__button--deactivate{
 
 	transition: border-color 100ms ease;
 }
-.settings__playbackRadio input:checked ~ .custom-radio{
+.settings__playbackRadio.settings__playbackRadio--checked .custom-radio{
 	border-color: var(--primary);
 }
-.settings__playbackRadio input:checked ~ .custom-radio:before{
+.settings__playbackRadio.settings__playbackRadio--checked .custom-radio::before{
 	background: var(--primary);
+	opacity: 1;
 }
 .settings__playbackRadio--checked{
 	background: var(--alt);
