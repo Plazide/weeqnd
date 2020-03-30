@@ -4,6 +4,7 @@ import React, { useEffect, useContext } from "react";
 import Party from "./Party";
 import Code from "./Code";
 import FallbackPlaylist from "./FallbackPlaylist";
+import PlaybackDevice from "./PlaybackDevice";
 
 // util
 import spotify from "../../js/spotify";
@@ -19,10 +20,12 @@ const Settings = () => {
 
 	useEffect( () => {
 		const fetchPlaylists = async () => {
-			const[playlistResult] = await Promise.all([spotify.getUsersPlaylists()]);
-			const playlists = playlistResult.items;
+			const[{ items: playlists }, { devices }] = await Promise.all([
+				spotify.getUsersPlaylists(),
+				spotify.getDevices()
+			]);
 
-			setPartyState({ playlists });
+			setPartyState({ playlists, devices });
 		};
 
 		if(party.playlists.length === 0)
@@ -34,6 +37,7 @@ const Settings = () => {
 			<div className="content">
 				<Code />
 				<FallbackPlaylist playlists={party.playlists} selected={party.fallbackPlaylist} />
+				<PlaybackDevice devices={party.devices} />
 				<Party />
 			</div>
 		</section>

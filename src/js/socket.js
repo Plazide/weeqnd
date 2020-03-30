@@ -95,6 +95,10 @@ class Socket {
 	updateFallbackList(data){
 		this.socket.emit("update-fallback", data);
 	}
+
+	changePlaybackDevice(id){
+		this.socket.emit("change-playback-device", id);
+	}
 }
 
 export default Socket;

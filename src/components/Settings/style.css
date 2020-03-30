@@ -2,6 +2,7 @@
 	padding-bottom: 4rem;
 }
 
+/* Code */
 .settings__code__display{
 	display: flex;
 	justify-content: center;
@@ -22,6 +23,7 @@
 	margin-left: 30px;
 }
 
+/* Fallback playlist */
 button.filled.settings__fallbackPlaylist__button{
 	margin-top: 1rem;
 }
@@ -33,4 +35,48 @@ button.filled.settings__fallbackPlaylist__button{
 button.outlined.settings__party__button--deactivate{
 	color: var(--error);
 	border-color: var(--error);
+}
+
+/* Playback device */
+.settings__playbackForm{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+.settings__playbackRadio{
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+
+	margin: 0 10px 10px;
+	padding: 1rem .8rem;
+	border: 1px solid var(--alt);
+	border-radius: 50px;
+	cursor: pointer;
+
+	font-size: 1.2rem;
+	color: var(--alt);
+
+	transition: background 100ms ease;
+}
+.settings__playbackRadio .custom-radio{
+	border-color: var(--alt);
+
+	transition: border-color 100ms ease;
+}
+.settings__playbackRadio input:checked ~ .custom-radio{
+	border-color: var(--primary);
+}
+.settings__playbackRadio input:checked ~ .custom-radio:before{
+	background: var(--primary);
+}
+.settings__playbackRadio--checked{
+	background: var(--alt);
+	color: var(--primary);
+}
+.settings__playbackRadioButton{
+	width: 26px;
+	height: 26px;
+
+	margin-right: 10px;
 }

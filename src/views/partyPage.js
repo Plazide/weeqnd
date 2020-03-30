@@ -115,6 +115,10 @@ const Party = ( props) => {
 		socket.updateFallbackList(value);
 	};
 
+	const changePlaybackDevice = id => {
+		socket.changePlaybackDevice(id);
+	};
+
 	const setPartyState = value => {
 		if(typeof value !== "object") throw new TypeError(`setGlobalState: value must be of type object. ${typeof value} provided`);
 
@@ -128,7 +132,8 @@ const Party = ( props) => {
 		activateParty,
 		deactivateParty,
 		updateFallbackList,
-		setPartyState
+		setPartyState,
+		changePlaybackDevice
 	};
 
 	if(socket !== null){
