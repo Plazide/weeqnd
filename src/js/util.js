@@ -1,12 +1,15 @@
 // Polyfill
-import "share-api-polyfill";
-
 import spotify from "../js/spotify";
 import { navigate } from "gatsby";
 
+if(typeof navigator !== "undefined")
+	// eslint-disable-next-line no-unused-expressions
+	import("share-api-polyfill");
+
 export async function share(options){
 	try{
-		navigator.share(options);
+		if(typeof navigator !== "undefined")
+			navigator.share(options);
 	}catch(err){
 		console.error("Could not share");
 	}
