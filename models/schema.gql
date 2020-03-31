@@ -8,6 +8,7 @@ type Party {
 	active: Boolean!
 	accessToken: String!
 	refreshToken: String!
+	defaultLimit: Int
 }
 
 type User {
