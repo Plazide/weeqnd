@@ -1,3 +1,7 @@
 {
-	"extends": ["plugin:react/recommended", "plazide"]
+	"extends": ["plugin:react/recommended", "plazide"],
+	"parserOptions": {
+		"ecmaVersion": 11,
+		"sourceType": "module"
+	}
 }
