@@ -6,6 +6,7 @@
   "author": "CHJ Webblösningar",
   "dependencies": {
     "@types/react": "^16.9.19",
+    "fauna-gql-upload": "^1.0.0",
     "gatsby": "^2.19.18",
     "gatsby-background-image": "^0.9.12",
     "gatsby-image": "^2.2.34",
@@ -47,6 +48,7 @@
   ],
   "license": "MIT",
   "scripts": {
+    "fauna": "fauna-gql",
     "local-ip": "my-local-ip",
     "deploy": "npm-run-all deploy:*",
     "deploy:site": "git push",

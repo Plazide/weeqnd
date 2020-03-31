@@ -5622,6 +5622,14 @@ fastq@^1.6.0:
   dependencies:
     reusify "^1.0.0"
 
+fauna-gql-upload@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/fauna-gql-upload/-/fauna-gql-upload-1.0.0.tgz#09fdcdd5f55b3967b701a9cd5218a1175c5d9ed7"
+  integrity sha512-ReYWARz4e8x9nuLugVN1vD+/dYan/KiNkGFNwRZ06cr+EdNDzjZA6azxfbgdD1PFhjKEllT36gPeRN4Ni+QHQA==
+  dependencies:
+    dotenv "^8.2.0"
+    node-fetch "^2.6.0"
+
 faye-websocket@^0.10.0:
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/faye-websocket/-/faye-websocket-0.10.0.tgz#4e492f8d04dfb6f89003507f6edbf2d501e7c6f4"
