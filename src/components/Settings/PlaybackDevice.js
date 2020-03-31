@@ -5,12 +5,15 @@ import PropTypes from "prop-types";
 import Radio from "../Radio/";
 import Info from "../Info/";
 
+// Util
+import spotify from "../../js/spotify";
+
 // Contexts
 import { MethodContext } from "../../contexts";
 
 export default function PlaybackDevice({ devices = [] }){
 	const[selected, setSelected] = useState();
-	const{ changePlaybackDevice } = useContext(MethodContext);
+	const{ changePlaybackDevice, setPartyState } = useContext(MethodContext);
 
 	useEffect( () => {
 		const device = devices.find( device => device["is_active"]);
@@ -24,12 +27,28 @@ export default function PlaybackDevice({ devices = [] }){
 		changePlaybackDevice(id);
 	};
 
+	const onReloadDevices = async e => {
+		e.preventDefault();
+		const{ devices } = await spotify.getDevices();
+
+		setPartyState({ devices });
+	};
+
 	return(
 		<div className="settings__playback component">
 			<h2>Playback device <Info>Select the device that the music will play on</Info></h2>
 			<form className="settings__playbackForm">
 				{devices.length === 0
-					? "You have no active devices. Open spotify on the device you want play from, and then select it here."
+					? (
+						<div className="settings__playbackEmptyMessage">
+							You have no active devices. Open spotify on the device you want play from, and then
+							<button
+								className="settings__playbackReload"
+								onClick={onReloadDevices}
+							>
+								reload this list
+							</button>
+						</div>)
 					: <DeviceList devices={devices} onChange={onChange} selected={selected} />
 				}
 			</form>
