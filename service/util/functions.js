@@ -132,6 +132,7 @@ async function getParty(code){
 			accessToken
 			active
 			code
+			defaultLimit
 			_id
 			users {
 				data {
