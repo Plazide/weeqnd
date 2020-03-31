@@ -28,27 +28,30 @@ export default function PlaybackDevice({ devices = [] }){
 		<div className="settings__playback component">
 			<h2>Playback device <Info>Select the device that the music will play on</Info></h2>
 			<form className="settings__playbackForm">
-				{devices.map( device => (
-					<PlaybackRadio
-						device={device}
-						selected={selected}
-						key={device.id}
-						onChange={onChange}
-					/>
-				))}
+				{devices.length === 0
+					? "You have no active devices. Open spotify on the device you want play from, and then select it here."
+					: <DeviceList devices={devices} onChange={onChange} selected={selected} />
+				}
 			</form>
 		</div>
 	);
 }
 
+const DeviceList = ({ devices, onChange, selected }) => (
+	devices.map( device => (
+		<PlaybackRadio
+			device={device}
+			selected={selected}
+			key={device.id}
+			onChange={onChange}
+		/>
+	))
+);
+
 const PlaybackRadio = ({ device, selected, onChange }) => {
 	return(
 		<label
 			className={`settings__playbackRadio ${selected === device.id ? "settings__playbackRadio--checked" : ""}`}
-			/* onClick={ (e) => {
-				e.stopImmediatePropagation();
-				onClick(device.id);
-			}} */
 		>
 			<Radio
 				className="settings__playbackRadioButton"
