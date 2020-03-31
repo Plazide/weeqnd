@@ -23,7 +23,7 @@ import { extractCoverImage } from "../../js/util";
 export default function TrackList({ tracks, playlist, activePlaylist = false }){
 	if(!tracks || tracks.length === 0) return(
 		<div className="empty">
-			<span>Det finns inga låtar här!</span>
+			<span>The list is empty!</span>
 		</div>
 	);
 

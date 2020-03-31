@@ -8,7 +8,7 @@ import Info from "../Info";
 const TopTracks = ({ tracks, playlist, onClick, adding }) => {
 	return(
 		<section className="top-tracks">
-			<h2>Favoriter<Info>Dina topplåtar under de senaste veckorna</Info></h2>
+			<h2>Your top songs<Info>Your personal most played songs during the past weeks.</Info></h2>
 
 			<TrackList tracks={tracks} playlist={playlist} onClick={onClick} adding={adding} />
 		</section>

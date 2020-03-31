@@ -33,7 +33,7 @@ export default function ActivePlaylist(){
 
 	return(
 		<>
-			<h2>Spellista<Info>Den nuvarande spellistan</Info></h2>
+			<h2>Playlist<Info>The songs that have been added by guests</Info></h2>
 			<TrackList tracks={tracks} playlist={playlist} activePlaylist={true} />
 		</>
 	);
