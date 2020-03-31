@@ -17,14 +17,14 @@ const Tabs = ({ isOwner, tab }) => {
 					to="playlist"
 				>
 					<PlaylistIcon className="icon" />
-					Spellista
+					Playlist
 				</Link>
 				<Link
 					className={`tab ${tab === "settings" ? "selected" : ""}`}
 					to="settings"
 				>
 					<SettingsIcon className="icon" />
-					Inställningar
+					Settings
 				</Link>
 			</div>
 		);
