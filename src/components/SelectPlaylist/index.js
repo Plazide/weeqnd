@@ -10,7 +10,7 @@ import { extractCoverImage } from "../../js/util";
 // Css
 import "./style.css";
 
-export default function SelectPlaylist({ playlists = null, selected }){
+export default function SelectPlaylist({ playlists = null, selected, onChange = null }){
 	return(
 		<div className="playlists">
 			{playlists ? playlists.map( (playlist) => {
@@ -24,6 +24,7 @@ export default function SelectPlaylist({ playlists = null, selected }){
 						href={playlist.href}
 						selected={selected}
 						key={playlist.name}
+						onChange={onChange}
 					/>
 				);
 			}) : "loading...."}
@@ -33,5 +34,6 @@ export default function SelectPlaylist({ playlists = null, selected }){
 
 SelectPlaylist.propTypes = {
 	playlists: PropTypes.array,
-	selected: PropTypes.string
+	selected: PropTypes.string,
+	onChange: PropTypes.func
 };

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import Radio from "../Radio/";
 
-const PlaylistRadio = ({ name, total, href, cover, selected }) => {
+const PlaylistRadio = ({ name, total, href, cover, selected, onChange = null }) => {
 	return(
 		<label htmlFor={href}>
 			<div className="playlist">
@@ -12,7 +12,14 @@ const PlaylistRadio = ({ name, total, href, cover, selected }) => {
 				<span className="duration">
 					{`${total} låtar`}
 				</span>
-				<Radio className="radioSelect" name="playlist" selected={selected} id={href} value={href} />
+				<Radio
+					className="radioSelect"
+					name="playlist"
+					selected={selected}
+					id={href}
+					value={href}
+					onChange={onChange}
+				/>
 			</div>
 		</label>
 	);
@@ -23,7 +30,8 @@ PlaylistRadio.propTypes = {
 	total: PropTypes.number,
 	href: PropTypes.string,
 	cover: PropTypes.string,
-	selected: PropTypes.string
+	selected: PropTypes.string,
+	onChange: PropTypes.func
 };
 
 export default PlaylistRadio;
