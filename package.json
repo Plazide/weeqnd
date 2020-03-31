@@ -52,7 +52,7 @@
     "local-ip": "my-local-ip",
     "deploy": "npm-run-all deploy:*",
     "deploy:site": "git push",
-    "deploy:lambda": "cd service && serverless deploy",
+    "deploy:lambda": "cd service && serverless deploy --env production",
     "dev": "run-p dev:*",
     "dev:server": "gatsby develop -H $(my-local-ip)",
     "dev:lambda": "nodemon lambda/index.js",
