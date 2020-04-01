@@ -9,7 +9,7 @@ async function join(event, context){
 
 	const body = JSON.parse(event.body);
 	const code = body.code;
-	const accessToken = event.headers["x-access-token"];
+	const accessToken = event.headers["X-Access-Token"];
 
 	const spotifyApi = new SpotifyWebApi({
 		accessToken

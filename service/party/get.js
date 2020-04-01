@@ -4,7 +4,7 @@ const error = require("../util/error");
 
 async function get(event, context){
 	const code = event.queryStringParameters.code;
-	const accessToken = event.headers["x-access-token"];
+	const accessToken = event.headers["X-Access-Token"];
 
 	if(!accessToken) return error(400, "No x-access-token header provided");
 
