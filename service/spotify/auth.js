@@ -31,7 +31,12 @@ async function auth(event, context){
 			body: JSON.stringify(result)
 		};
 	}catch(err){
-		console.error(err);
+		return{
+			statusCode: err.statusCode || 500,
+			body: JSON.stringify({
+				message: err.message
+			})
+		};
 	}
 }
 
