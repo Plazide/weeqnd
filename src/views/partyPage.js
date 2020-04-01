@@ -42,7 +42,7 @@ const Party = ( props) => {
 
 				const partyResponse = await fetch("/api/party/get?code=" + code, {
 					headers: {
-						"x-access-token": spotify.accessToken
+						"X-Access-Token": spotify.accessToken
 					}
 				});
 

@@ -62,7 +62,7 @@ const Join = () => {
 			}),
 			headers: {
 				"Content-Type": "application/json",
-				"x-access-token": spotify.accessToken
+				"X-Access-Token": spotify.accessToken
 			}
 		});
 
