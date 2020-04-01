@@ -1,2 +1,2 @@
 /party/* /party 200
-/api/* https://api.weeqnd.party/api/:splat 200
+/api/* https://api.weeqnd.party/:splat 200
