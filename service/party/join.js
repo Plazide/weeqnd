@@ -4,7 +4,11 @@ const error = require("../util/error");
 require("dotenv").config();
 
 async function join(event, context){
-	const code = event.body.code;
+	if(event.headers["Content-Type"] !== "application/json")
+		return error(400, "Incorrect Content-Type header");
+
+	const body = JSON.parse(event.body);
+	const code = body.code;
 	const accessToken = event.headers["x-access-token"];
 
 	const spotifyApi = new SpotifyWebApi({

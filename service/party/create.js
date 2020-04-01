@@ -6,7 +6,10 @@ require("dotenv").config();
 
 async function create(event, context){
 	try{
-		const body = event.body;
+		if(event.headers["Content-Type"] !== "application/json")
+			return error(400, "Incorrect Content-Type header");
+
+		const body = JSON.parse(event.body);
 		const playlist = body.playlist;
 		const accessToken = body.accessToken;
 		const refreshToken = body.refreshToken;

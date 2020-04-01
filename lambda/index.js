@@ -13,6 +13,7 @@ app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(emulate());
 app.use("/api", async (req, res) => {
+	req.body = JSON.stringify(req.body);
 	const event = { ...mockEvent, ...req };
 	const context = mockContext;
 

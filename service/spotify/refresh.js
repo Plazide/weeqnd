@@ -8,7 +8,10 @@ const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 
 async function refresh(event){
 	try{
-		const body = event.body;
+		if(event.headers["Content-Type"] !== "application/json")
+			return error(400, "Incorrect Content-Type header");
+
+		const body = JSON.parse(event.body);
 		const refreshToken = body.refreshToken;
 
 		const spotifyApi = new SpotifyWebApi({
