@@ -1,6 +1,18 @@
 const gql = require("graphql-tag");
 const client = require("../util/ApolloClient");
 
+function objectKeysToLowerCase(obj){
+	const newObj = {};
+	Object.keys(obj).forEach( key => {
+		const value = obj[key];
+		const newKey = key.toLowerCase();
+
+		newObj[newKey] = value;
+	});
+
+	return newObj;
+}
+
 function obj2gql(obj){
 	let result = "";
 
@@ -171,6 +183,7 @@ async function createParty({ username, playlist, accessToken, refreshToken, code
 }
 
 module.exports = {
+	objectKeysToLowerCase,
 	db,
 	getUsersParty,
 	createParty,

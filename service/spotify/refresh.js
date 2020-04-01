@@ -1,6 +1,7 @@
 const SpotifyWebApi = require("spotify-web-api-node");
 const{ db, getUsersParty } = require("../util/functions");
 const error = require("../util/error");
+const{ objectKeysToLowerCase } = require("../util/functions");
 require("dotenv").config();
 
 const clientId = process.env.SPOTIFY_CLIENT_ID;
@@ -8,7 +9,9 @@ const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 
 async function refresh(event){
 	try{
-		if(event.headers["Content-Type"] !== "application/json")
+		event.headers = objectKeysToLowerCase(event.headers);
+
+		if(event.headers["content-type"] !== "application/json")
 			return error(400, "Incorrect Content-Type header");
 
 		const body = JSON.parse(event.body);

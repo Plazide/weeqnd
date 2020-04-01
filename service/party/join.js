@@ -2,20 +2,23 @@ const SpotifyWebApi = require("spotify-web-api-node");
 const{ getParty, getUser, createUser, db } = require("../util/functions");
 const error = require("../util/error");
 require("dotenv").config();
+const{ objectKeysToLowerCase } = require("../util/functions");
 
 async function join(event, context){
-	if(event.headers["Content-Type"] !== "application/json")
-		return error(400, "Incorrect Content-Type header");
-
-	const body = JSON.parse(event.body);
-	const code = body.code;
-	const accessToken = event.headers["X-Access-Token"];
-
-	const spotifyApi = new SpotifyWebApi({
-		accessToken
-	});
-
 	try{
+		event.headers = objectKeysToLowerCase(event.headers);
+
+		if(event.headers["content-type"] !== "application/json")
+			return error(400, "Incorrect Content-Type header");
+
+		const body = JSON.parse(event.body);
+		const code = body.code;
+		const accessToken = event.headers["x-access-token"];
+
+		const spotifyApi = new SpotifyWebApi({
+			accessToken
+		});
+
 		const[me, party] = await Promise.all([
 			spotifyApi.getMe(),
 			getParty(code)

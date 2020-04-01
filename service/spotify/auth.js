@@ -1,12 +1,15 @@
 const request = require("request-promise-native");
 const error = require("../util/error");
+const{ objectKeysToLowerCase } = require("../util/functions");
 
 const clientId = process.env.SPOTIFY_CLIENT_ID;
 const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 
 async function auth(event, context){
 	try{
-		if(event.headers["Content-Type"] !== "application/json")
+		event.headers = objectKeysToLowerCase(event.headers);
+
+		if(event.headers["content-type"] !== "application/json")
 			return error(400, "Incorrect Content-Type header");
 
 		const body = JSON.parse(event.body);

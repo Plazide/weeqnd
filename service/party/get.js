@@ -1,14 +1,17 @@
 const{ getParty } = require("../util/functions");
 const SpotifyWebApi = require("spotify-web-api-node");
 const error = require("../util/error");
+const{ objectKeysToLowerCase } = require("../util/functions");
 
 async function get(event, context){
-	const code = event.queryStringParameters.code;
-	const accessToken = event.headers["X-Access-Token"];
-
-	if(!accessToken) return error(400, "No x-access-token header provided");
-
 	try{
+		event.headers = objectKeysToLowerCase(event.headers);
+
+		const code = event.queryStringParameters.code;
+		const accessToken = event.headers["x-access-token"];
+
+		if(!accessToken) return error(400, "No x-access-token header provided");
+
 		const spotifyApi = new SpotifyWebApi({ accessToken });
 		const[me, party] = await Promise.all([
 			spotifyApi.getMe(),
