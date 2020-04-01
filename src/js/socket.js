@@ -10,7 +10,7 @@ class Socket {
 
 	start(){
 		this.socket = io(process.env.GATSBY_WS_SERVER + this.party, {
-			transports: ["websocket"],
+			transports: ["polling", "websocket"],
 			query: {
 				accessToken: this.accessToken
 			}
